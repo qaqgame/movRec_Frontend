@@ -1,6 +1,11 @@
 <template>
     <div class="LoginPage">
-        <LoginRegister class="CardPos"></LoginRegister>
+        <el-row>
+            <el-col :span="8" :offset="13">
+                <LoginRegister class="CardPos"></LoginRegister>
+            </el-col>
+
+        </el-row>
     </div>
 </template>
 
@@ -14,9 +19,7 @@
 
 <style scoped>
     .CardPos {
-        position: absolute;
-        right: 400px;
-        top: 200px;
+        margin-top:25%;
     }
 
     .LoginPage {

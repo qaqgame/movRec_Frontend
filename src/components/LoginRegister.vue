@@ -59,10 +59,10 @@
             </div>
         </transition>
 
-        <el-row class="BtnGroup">
+        <div class="BtnGroup">
             <el-button v-show="!LoginActive" @click="reverseCard()" type="primary"><i class="el-icon-arrow-left el-icon--left"></i>前往登录</el-button>
             <el-button v-show="!RegisterActive" @click="reverseCard()" type="primary">前往注册<i class="el-icon-arrow-right el-icon--right"></i></el-button>
-        </el-row>
+        </div>
     </div>
 
 </template>
@@ -146,7 +146,8 @@
 
     .BtnGroup {
         position: absolute;
-        margin-top: 470px;
+        top: 470px;
+        left: 0;
     }
 
     .el-button+.el-button{
