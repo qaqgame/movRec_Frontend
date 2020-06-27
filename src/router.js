@@ -23,6 +23,10 @@ export default new Router({
             path: '/test',
             name: 'test',
             component: () => import('./views/test.vue')
+        },{
+            path: '/index',
+            name: 'main',
+            component: () => import('./views/Home.vue')
         }
     ]
 })
