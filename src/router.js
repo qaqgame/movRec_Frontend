@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import LoginPage from './views/LoginPage.vue'
+// import TimeLine from './components/TimeLine.vue'
+// import HistoryRecord from './components/HistoryRecord.vue'
+// import Keep from './components/Keep.vue'
+// import Command from './components/Command.vue'
+// import Users from './views/Users.vue'
 
 Vue.use(Router)
 
@@ -23,10 +28,50 @@ export default new Router({
             path: '/test',
             name: 'test',
             component: () => import('./views/test.vue')
-        },{
+        },
+        {
             path: '/index',
             name: 'main',
             component: () => import('./views/Home.vue')
+        },
+        {
+            path: '/:id',
+            name: 'user',
+            component: () => import('./views/Users.vue'),
+            props: true,
+            // children:[{
+            //     path:'',
+            //     components:[{
+            //         timeline: TimeLine,
+            //         historyrecord: HistoryRecord,
+            //         keep: Keep,
+            //         command: Command
+            //     }]
+            // }, {
+            //     path:'historyrecord',
+            //     components:[{
+            //         timeline: TimeLine,
+            //         historyrecord: HistoryRecord,
+            //         keep: Keep,
+            //         command: Command
+            //     }]
+            // }, {
+            //     path:'keep',
+            //     components:[{
+            //         timeline: TimeLine,
+            //         historyrecord: HistoryRecord,
+            //         keep: Keep,
+            //         command: Command
+            //     }]
+            // }, {
+            //     path:'command',
+            //     components:[{
+            //         timeline: TimeLine,
+            //         historyrecord: HistoryRecord,
+            //         keep: Keep,
+            //         command: Command
+            //     }]
+            // }]
         }
     ]
 })

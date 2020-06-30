@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <div class="PageHeaderBar">
-            <PageHeader v-bind:movie-types="movieTypes"></PageHeader>
+            <PageHeader ref="pageheaderref"></PageHeader>
         </div>
 
         <full-page :options="options" id="fullpage">
@@ -66,7 +66,7 @@
                 bgImg2:'url('+require('../assets/Movie_Background3.png')+')',
                 testInfo: testMovie,
                 movieShow:5,
-                movieTypes: movietypes
+                movieTypes: movietypes,
             }
         },
         components: {
@@ -83,11 +83,15 @@
                 window.console.log('After load')
             },
             alltypes: function () {
-                return movietypes.flat()
+                return movietypes.flat();
             }
         }
     }
 </script>
+
+<style scoped>
+
+</style>
 
 <style>
     @import "../assets/css/fullpage.min.css";
@@ -193,38 +197,12 @@
         -moz-font-smoothing: antialiased;
     }
 
-
     .PageHeaderBar {
         position: fixed;
         width: 100%;
         z-index: 1;
     }
 
-    .el-submenu__title {
-        background: none!important;
-        font-size: medium;
-    }
-
-    .el-icon-arrow-down:before {
-        color:white;
-    }
-
-    .el-menu--popup {
-        background: none;
-    }
-
-    .el-menu--popup .el-menu-item {
-        font-size: medium!important;
-    }
-
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
-    li {
-        display: inline-block;
-        margin: 0 10px;
-    }
     a {
         color: #42b983;
     }

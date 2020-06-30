@@ -16,6 +16,7 @@
 <script>
     import LoginRegister from "../components/LoginRegister";
     import { Notification } from 'element-ui';
+    import router from "../router";
     export default {
         name: "LoginPage",
         components: {LoginRegister},
@@ -46,6 +47,10 @@
                             this.$options.methods.OperationRes('注册成功', res.data.reason, "success");
                             this.$refs.LoginRegisterForm.resetForm('RegisterForm');
                             this.$refs.LoginRegisterForm.reverseCard();
+                        } else if (res.data.formtype === "login") {
+                            const user = res.data.username;
+                            window.console.log(user);
+                            router.push({name: 'user', params: { id : user }})
                         }
                     }
                 })

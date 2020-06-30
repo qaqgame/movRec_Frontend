@@ -36,6 +36,7 @@
 </template>
 
 <script>
+    var movietypes=[['动作类','科幻类','爱情类','动画类'],['恐怖类','魔幻类','喜剧类']];
     export default {
         name: "PageHeader",
         data() {
@@ -45,7 +46,8 @@
                 squareUrl: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
                 selfstyle:{
                     background: "none !important"
-                }
+                },
+                movieTypes:movietypes
             };
         },
         methods: {
@@ -54,15 +56,26 @@
             },
             addEmptyLine: function (f) {
                 f.innerHTML = `<br/>`+f.innerHTML
+            },
+            alltype() {
+                return movietypes.flat()
+            },
+            heightInfo() {
+                return document.getElementsByClassName("PageHeader")[0].style.height.toString()+'px';
             }
-        },
-        props: {
-            movieTypes: Array,
         }
     }
 </script>
 
 <style scoped>
+    .Personal {
+        float: right!important;
+    }
+
+    .MoveTypeTitle {
+        font-size: medium;
+    }
+
     h1 {
         margin: 0;
         float: left;
@@ -70,6 +83,12 @@
         font-weight: 400;
         padding: 10px;
     }
+
+
+</style>
+
+<style>
+
     a {
         color: #409eff;
         text-decoration: none;
@@ -98,11 +117,31 @@
     .el-menu.el-menu--horizontal {
         border-bottom: none;
     }
-    .Personal {
-        float: right;
+
+
+
+    .el-submenu__title {
+        background: none!important;
+        font-size: medium;
     }
 
-    .MoveTypeTitle {
-        font-size: medium;
+    .el-icon-arrow-down:before {
+        color:white;
+    }
+
+    .el-menu--popup {
+        background: none;
+    }
+
+    .el-menu--popup .el-menu-item {
+        font-size: medium!important;
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    li {
+        display: inline-block;
+        margin: 0 10px;
     }
 </style>
