@@ -1,33 +1,31 @@
 <template>
     <div class="Command">
         <div class="block" style="height: 500px; overflow: auto; overflow-scrolling: auto">
-            <el-timeline>
-                <el-timeline-item timestamp="2018/4/12" placement="top">
-                    <el-card>
-                        <h4>更新 Github 模板</h4>
-                        <p>王小虎 提交于 2018/4/12 20:46</p>
-                    </el-card>
-                </el-timeline-item>
-                <el-timeline-item timestamp="2018/4/3" placement="top">
-                    <el-card>
-                        <h4>更新 Github 模板</h4>
-                        <p>王小虎 提交于 2018/4/3 20:46</p>
-                    </el-card>
-                </el-timeline-item>
-                <el-timeline-item timestamp="2018/4/2" placement="top">
-                    <el-card>
-                        <h4>更新 Github 模板</h4>
-                        <p>王小虎 提交于 2018/4/2 20:46</p>
-                    </el-card>
-                </el-timeline-item>
-            </el-timeline>
+            <div style="width: 90%; margin: 20px auto">
+                <el-timeline>
+                    <el-timeline-item v-for="item in timeLines"
+                                      v-bind:timestamp="item.actiontime" v-bind:key="item.actiontime" placement="top">
+                        <el-card>
+                            <h4>{{item.title}}</h4>
+                            <p>{{item.detail}}</p>
+                        </el-card>
+                    </el-timeline-item>
+                </el-timeline>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "Command"
+        name: "Command",
+        data() {
+            return {
+                timeLines:[
+                    {actiontime:"0000/00/00", title:"加入错影时光", detail:"XXXXXXXXX"},
+                ]
+            }
+        }
     }
 </script>
 

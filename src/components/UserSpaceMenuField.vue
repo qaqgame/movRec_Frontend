@@ -2,7 +2,8 @@
     <div class="UserSpaceMenuField">
         <el-row class="UserHeader">
             <el-col v-bind:span="18" v-bind:offset="3" v-bind:style="{height:hei}">
-                <el-row class="myheader" type="flex" align="bottom" style="height: 100%" v-bind:style="{backgroundImage:bg1,backgroundSize:size1}">
+                <el-row class="myheader" style="height: 100%;display: flex;flex-direction: column;justify-content: flex-end" v-bind:style="{backgroundImage:bg1,backgroundSize:size1}">
+                    <el-row style="padding-bottom: 100px"><h2 style="text-align: right;padding-right: 50px">欢迎来到{{userId}}的个人空间</h2></el-row>
                     <el-row v-bind:gutter="10" style="width: 100%;padding-bottom: 15px">
                         <el-col :span="2" :offset="0">
                             <el-avatar :size="50" :src="circleUrl"></el-avatar>
