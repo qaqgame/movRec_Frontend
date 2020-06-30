@@ -104,6 +104,7 @@
     .el-menu-item {
         background: none !important;
         font-size: larger;
+        display: inline-block;
     }
 
     .el-menu-item:hover {
@@ -140,8 +141,8 @@
         list-style-type: none;
         padding: 0;
     }
-    li {
-        display: inline-block;
-        margin: 0 10px;
-    }
+    /*li {*/
+        /*display: inline-block;*/
+        /*margin: 0 10px;*/
+    /*}*/
 </style>

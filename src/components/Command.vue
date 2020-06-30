@@ -1,6 +1,6 @@
 <template>
     <div class="Command">
-        <div class="block">
+        <div class="block" style="height: 500px; overflow: auto; overflow-scrolling: auto">
             <el-timeline>
                 <el-timeline-item timestamp="2018/4/12" placement="top">
                     <el-card>

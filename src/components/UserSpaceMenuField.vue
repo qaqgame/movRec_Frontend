@@ -1,7 +1,7 @@
 <template>
     <div class="UserSpaceMenuField">
         <el-row class="UserHeader">
-            <el-col v-bind:span="18" v-bind:offset="3" v-bind:style="{height:hei,paddingTop:pdtop}">
+            <el-col v-bind:span="18" v-bind:offset="3" v-bind:style="{height:hei}">
                 <el-row class="myheader" type="flex" align="bottom" style="height: 100%" v-bind:style="{backgroundImage:bg1,backgroundSize:size1}">
                     <el-row v-bind:gutter="10" style="width: 100%">
                         <el-col :span="2" :offset="0">
@@ -21,28 +21,35 @@
                 </el-row>
             </el-col>
         </el-row>
-        <!--<el-row>-->
-            <!--<el-col v-bind:span="18" v-bind:offset="3">-->
-                <!--<el-row type="flex" justify="start">-->
-                    <!--<el-tabs class="tabs" v-model="activeName" @tab-click="handleClick" style="width: 100%">-->
-                        <!--<el-tab-pane v-for="operation in operations" :label="operation.label" :name="operation.name" v-bind:key="operation.label">-->
-                            <!--&lt;!&ndash;<router-view v-bind:name="operation.url"/>&ndash;&gt;-->
-                        <!--</el-tab-pane>-->
-                    <!--</el-tabs>-->
-                <!--</el-row>-->
-            <!--</el-col>-->
-        <!--</el-row>-->
+        <el-row>
+            <el-col v-bind:span="18" v-bind:offset="3">
+                <el-row type="flex" justify="start">
+                    <el-tabs class="tabs" v-model="activeName" style="width: 100%" @tab-click="handleClick">
+                        <el-tab-pane v-bind:label="operations[0].label" v-bind:name="operations[0].name"><TimeLine></TimeLine></el-tab-pane>
+                        <el-tab-pane v-bind:label="operations[1].label" v-bind:name="operations[1].name"><HistoryRecord></HistoryRecord></el-tab-pane>
+                        <el-tab-pane v-bind:label="operations[2].label" v-bind:name="operations[2].name"><Keep></Keep></el-tab-pane>
+                        <el-tab-pane v-bind:label="operations[3].label" v-bind:name="operations[3].name"><Command></Command></el-tab-pane>
+                    </el-tabs>
+                </el-row>
+            </el-col>
+        </el-row>
     </div>
 </template>
 
 <script>
+    import TimeLine from "./TimeLine";
+    import HistoryRecord from "./HistoryRecord";
+    import Keep from "./Keep";
+    import Command from "./Command";
+
     export default {
         name: "UserSpaceMenuField",
+        components: {Command, Keep, HistoryRecord, TimeLine},
         data() {
             return {
                 circleUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
-                hei:'300px',
-                bg1:'url('+require('../assets/Movie_Background4.png')+')',
+                hei:'240px',
+                bg1:'url('+require('../assets/Movie_Background1.png')+')',
                 size1:'cover',
                 itemlabel:'LV1',
                 itemtype:'',
@@ -55,7 +62,7 @@
                 activeName: 'first'
             }
         },
-        props:['pdtop','userId'],
+        props:['userId'],
         methods: {
             format(percentage) {
                 return percentage === 100 ? '满' : `${percentage}%`;
@@ -75,17 +82,26 @@
         color: white;
     }
 
-    /*.tabs >>> .el-tabs__header {*/
-        /*background-color: white;*/
-        /*box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)*/
-    /*}*/
+    li {
+        display: block!important;
+    }
+    .tabs >>> .el-tabs__header {
+        height: 50px;
+        line-height: 50px;
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+    }
 
-    /*.tabs >>> .el-tabs__content {*/
-        /*background-color: white;*/
-        /*box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)*/
-    /*}*/
+    .tabs >>> .el-tabs__item {
+        font-size: 16px;
+    }
 
-    /*.myheader {*/
-        /*box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)*/
-    /*}*/
+    .tabs >>> .el-tabs__content {
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+    }
+
+    .myheader {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+    }
 </style>

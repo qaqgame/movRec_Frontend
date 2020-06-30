@@ -1,33 +1,32 @@
 <template>
     <div class="HistoryRecord">
-        <div class="block">
-            <el-timeline>
-                <el-timeline-item timestamp="2018/4/12" placement="top">
-                    <el-card>
-                        <h4>更新 Github 模板</h4>
-                        <p>王小虎 提交于 2018/4/12 20:46</p>
-                    </el-card>
-                </el-timeline-item>
-                <el-timeline-item timestamp="2018/4/3" placement="top">
-                    <el-card>
-                        <h4>更新 Github 模板</h4>
-                        <p>王小虎 提交于 2018/4/3 20:46</p>
-                    </el-card>
-                </el-timeline-item>
-                <el-timeline-item timestamp="2018/4/2" placement="top">
-                    <el-card>
-                        <h4>更新 Github 模板</h4>
-                        <p>王小虎 提交于 2018/4/2 20:46</p>
-                    </el-card>
-                </el-timeline-item>
-            </el-timeline>
+        <div style="display: flex; flex-wrap: wrap; height: 500px; overflow: auto; overflow-scrolling: auto">
+            <SingleMovieCard style="margin-left: 20px;width: 165px;margin-top: 20px" v-for="item in histories" v-bind:movie-name="item.movieName"
+                             v-bind:movie-source="item.movieSource"
+                             v-bind:movie-time="item.movieTime" v-bind:key="item.movieName"></SingleMovieCard>
         </div>
     </div>
 </template>
 
 <script>
+    import SingleMovieCard from "./SingleMovieCard";
     export default {
-        name: "HistoryRecord"
+        name: "HistoryRecord",
+        components: {SingleMovieCard},
+        data() {
+            return {
+                histories:[
+                    {movieName:'test1', movieSource:'', movieTime:'test time'},
+                    {movieName:'test2', movieSource:'', movieTime:'test time'},
+                    {movieName:'test3', movieSource:'', movieTime:'test time'},
+                    {movieName:'test4', movieSource:'', movieTime:'test time'},
+                    {movieName:'test5', movieSource:'', movieTime:'test time'},
+                    {movieName:'test6', movieSource:'', movieTime:'test time'},
+                    {movieName:'test7', movieSource:'', movieTime:'test time'},
+                    {movieName:'test8', movieSource:'', movieTime:'test time'},
+                ]
+            }
+        }
     }
 </script>
 
