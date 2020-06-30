@@ -5,29 +5,29 @@
                 <el-col :span="18" :offset="3">
                     <h2>注册</h2>
                     <h4>创建一个免费账户</h4>
-                    <el-form :label-position="labelPosition" label-width="80px" :model="LoginForm" ref="LoginForm">
+                    <el-form :label-position="labelPosition" label-width="80px" :model="RegisterForm" ref="RegisterForm">
                         <el-form-item prop="name" label="用户名" size="small" align="left" :rules="[
                 {required: true, message:'请输入用户名', trigger: 'blur'},
                 ]">
-                            <el-input v-model="LoginForm.name"></el-input>
+                            <el-input v-model="RegisterForm.name"></el-input>
                         </el-form-item>
 
                         <el-form-item prop="pwd" label="密码" size="small" align="left" :rules="[
                 {required: true, message:'请输入密码', trigger: 'blur'},
                 ]">
-                            <el-input v-model="LoginForm.pwd"></el-input>
+                            <el-input v-model="RegisterForm.pwd"></el-input>
                         </el-form-item>
 
                         <el-form-item prop="email" label="邮箱" size="small" align="left" :rules="[
                   { required: true, message: '请输入邮箱地址', trigger: 'blur' },
                   { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
                 ]">
-                            <el-input v-model="LoginForm.email"></el-input>
+                            <el-input v-model="RegisterForm.email"></el-input>
                         </el-form-item>
 
                         <el-form-item>
-                            <el-button type="primary" @click="submitForm('LoginForm')">立即创建</el-button>
-                            <el-button @click="resetForm('LoginForm')">重置</el-button>
+                            <el-button type="primary" @click="submitForm('RegisterForm')">立即创建</el-button>
+                            <el-button @click="resetForm('RegisterForm')">重置</el-button>
                         </el-form-item>
                     </el-form>
                 </el-col>
@@ -76,9 +76,15 @@
                 RegisterActive: false,
                 labelPosition: 'top',
                 LoginForm: {
+                    formType:'login',
                     name: '',
                     pwd: '',
-                    email: ''
+                },
+                RegisterForm: {
+                    formType:'register',
+                    name:'',
+                    pwd:'',
+                    email:''
                 }
             }
         },
@@ -86,9 +92,12 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        alert('submit!');
+                        this.$emit("SubmitForm", this[formName].formType)
                     } else {
-                        alert('submit failed!');
+                        this.$notify.error({
+                            title: '登录失败',
+                            message: '请检查表单填写是否正确'
+                        });
                         return false;
                     }
                 });
@@ -99,6 +108,19 @@
             reverseCard() {
                 this.LoginActive = !this.LoginActive;
                 this.RegisterActive = !this.RegisterActive;
+            },
+            LoginFormValue: function () {
+                return {
+                    name: this.LoginForm.name,
+                    pwd: this.LoginForm.pwd
+                }
+            },
+            RegisterFormValue: function () {
+                return {
+                    name: this.RegisterForm.name,
+                    pwd: this.RegisterForm.pwd,
+                    email: this.RegisterForm.email
+                }
             }
         }
     }

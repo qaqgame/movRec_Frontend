@@ -9,10 +9,12 @@
   },
   "dependencies": {
     "animate.css": "^4.1.0",
+    "axios": "^0.19.2",
     "core-js": "^2.6.5",
     "element-ui": "^2.13.2",
     "vue": "^2.6.10",
     "vue-fullpage.js": "^0.1.5",
+    "vue-resource": "^1.5.1",
     "vue-router": "^3.0.3"
   },
   "devDependencies": {

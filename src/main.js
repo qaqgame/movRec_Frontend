@@ -6,9 +6,12 @@ import './plugins/element.js'
 import 'fullpage.js/vendors/scrolloverflow' // Optional. When using scrollOverflow:true
 import VueFullPage from 'vue-fullpage.js'
 import animated from 'animate.css'
+import axios from 'axios'
 
 Vue.use(VueFullPage);
 Vue.use(animated);
+//Vue.use(axios);
+Vue.prototype.$axios = axios;
 
 Vue.config.productionTip = false
 

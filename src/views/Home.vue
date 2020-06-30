@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <div class="PageHeaderBar">
-            <PageHeader></PageHeader>
+            <PageHeader v-bind:movie-types="movieTypes"></PageHeader>
         </div>
 
         <full-page :options="options" id="fullpage">
@@ -15,18 +15,9 @@
 
             </div>
             <div class="section" v-bind:style="{backgroundImage:bgImg2}">
-                <div class="slide">
-                    <h3>Slide 2.1</h3>
+                <div class="slide" v-for="(item, index) in alltypes()" v-bind:key="index">
+                    <h3>{{item}}</h3>
                 </div>
-                <div class="slide">
-                    <h3>Slide 2.2</h3>
-                </div>
-                <div class="slide">
-                    <h3>Slide 2.3</h3>
-                </div>
-            </div>
-            <div class="section" v-bind:style="{backgroundImage:bgImg3}">
-                <h3>Section 3</h3>
             </div>
         </full-page>
     </div>
@@ -55,6 +46,8 @@
         time:"测试日期"
     }];
 
+    var movietypes=[['动作类','科幻类','爱情类','动画类'],['恐怖类','魔幻类','喜剧类']];
+
     export default {
         name: 'home',
         data() {
@@ -67,13 +60,13 @@
                     menu: '#menu',
                     controlArrows: true,
                     navigation: true,
-                    anchors: ['index#page1', 'index#page2', 'index#page3'],
+                    anchors: ['index', 'index#page2', 'index#page3'],
                 },
                 bgImg1:'url('+require('../assets/Movie_Background1.png')+')',
-                bgImg2:'url('+require('../assets/Movie_Background2.png')+')',
-                bgImg3:'url('+require('../assets/Movie_Background3.png')+')',
+                bgImg2:'url('+require('../assets/Movie_Background3.png')+')',
                 testInfo: testMovie,
                 movieShow:5,
+                movieTypes: movietypes
             }
         },
         components: {
@@ -89,6 +82,9 @@
             afterLoad () {
                 window.console.log('After load')
             },
+            alltypes: function () {
+                return movietypes.flat()
+            }
         }
     }
 </script>
