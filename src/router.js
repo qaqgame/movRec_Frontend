@@ -38,40 +38,7 @@ export default new Router({
             path: '/:id',
             name: 'user',
             component: () => import('./views/Users.vue'),
-            props: true,
-            // children:[{
-            //     path:'',
-            //     components:[{
-            //         timeline: TimeLine,
-            //         historyrecord: HistoryRecord,
-            //         keep: Keep,
-            //         command: Command
-            //     }]
-            // }, {
-            //     path:'historyrecord',
-            //     components:[{
-            //         timeline: TimeLine,
-            //         historyrecord: HistoryRecord,
-            //         keep: Keep,
-            //         command: Command
-            //     }]
-            // }, {
-            //     path:'keep',
-            //     components:[{
-            //         timeline: TimeLine,
-            //         historyrecord: HistoryRecord,
-            //         keep: Keep,
-            //         command: Command
-            //     }]
-            // }, {
-            //     path:'command',
-            //     components:[{
-            //         timeline: TimeLine,
-            //         historyrecord: HistoryRecord,
-            //         keep: Keep,
-            //         command: Command
-            //     }]
-            // }]
+            props: true
         }
     ]
 })

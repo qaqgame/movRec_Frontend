@@ -1,7 +1,9 @@
 <template>
     <div class="Users">
-        <PageHeader></PageHeader>
-        <UserSpaceMenuField pdtop="60px" v-bind:user-id="id"></UserSpaceMenuField>
+        <img style="position: absolute;height: 300px;z-index: 0;width: 100%;left: 0" :src="src1"/>
+        <PageHeader style="z-index: 10;" class="myHeader"></PageHeader>
+        <UserSpaceMenuField style="z-index: 11;" pdtop="60px" v-bind:user-id="id"></UserSpaceMenuField>
+        <el-row style="background-color: #f4f5f7;height: 80px"></el-row>
     </div>
 </template>
 
@@ -15,7 +17,7 @@
         components:{UserSpaceMenuField,PageHeader},
         data() {
             return {
-
+                src1:require("../assets/Movie_Background1.png")
             }
         },
     }
@@ -23,8 +25,7 @@
 
 <style scoped>
     .Users {
-        background-image: url("../assets/UserSpace_Background1.png");
-        height: 100vh;
-        background-size: cover;
+        background-color: #f4f5f7;
+        z-index: -10;
     }
 </style>

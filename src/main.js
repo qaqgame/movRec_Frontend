@@ -7,6 +7,8 @@ import 'fullpage.js/vendors/scrolloverflow' // Optional. When using scrollOverfl
 import VueFullPage from 'vue-fullpage.js'
 import animated from 'animate.css'
 import axios from 'axios'
+import './assets/icon/iconfont.css'
+
 
 Vue.use(VueFullPage);
 Vue.use(animated);
