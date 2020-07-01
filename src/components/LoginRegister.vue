@@ -126,6 +126,12 @@
     }
 </script>
 
+<style scoped>
+    .el-button+.el-button{
+        margin-left: 0!important;
+    }
+</style>
+
 <style>
     * {
         margin: 0;
@@ -172,7 +178,4 @@
         left: 0;
     }
 
-    .el-button+.el-button{
-        margin-left: 0!important;
-    }
 </style>
