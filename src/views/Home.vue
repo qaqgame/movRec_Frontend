@@ -3,7 +3,7 @@
         <div class="PageHeaderBar">
             <PageHeader ref="pageheaderref"></PageHeader>
         </div>
-
+        <search-bar></search-bar>
         <full-page :options="options" id="fullpage">
             <div class="section" v-bind:style="{backgroundImage:bgImg1}">
                 <DivideBar part-title="全部电影推荐"></DivideBar>
@@ -28,25 +28,26 @@
     import PageHeader from '../components/PageHeader.vue'
     import DivideBar from '../components/DivideBar'
     import MovieCard from '../components/MovieCard'
+    import SearchBar from "../components/SearchBar"
 
-    var testMovie= [{
-        name:"测试电影名1",
-        time:"测试日期"
-    },{
-        name:"测试电影名2",
-        time:"测试日期"
-    },{
-        name:"测试电影名3",
-        time:"测试日期"
-    },{
-        name:"测试电影名4",
-        time:"测试日期"
-    },{
-        name:"测试电影名5",
-        time:"测试日期"
+    var testMovie = [{
+        name: "测试电影名1",
+        time: "测试日期"
+    }, {
+        name: "测试电影名2",
+        time: "测试日期"
+    }, {
+        name: "测试电影名3",
+        time: "测试日期"
+    }, {
+        name: "测试电影名4",
+        time: "测试日期"
+    }, {
+        name: "测试电影名5",
+        time: "测试日期"
     }];
 
-    var movietypes=[['动作类','科幻类','爱情类','动画类'],['恐怖类','魔幻类','喜剧类']];
+    var movietypes = [['动作类', '科幻类', '爱情类', '动画类'], ['恐怖类', '魔幻类', '喜剧类']];
 
     export default {
         name: 'home',
@@ -62,14 +63,15 @@
                     navigation: true,
                     anchors: ['index', 'index#page2', 'index#page3'],
                 },
-                bgImg1:'url('+require('../assets/Movie_Background1.png')+')',
-                bgImg2:'url('+require('../assets/Movie_Background3.png')+')',
+                bgImg1: 'url(' + require('../assets/Movie_Background1.png') + ')',
+                bgImg2: 'url(' + require('../assets/Movie_Background3.png') + ')',
                 testInfo: testMovie,
-                movieShow:5,
+                movieShow: 5,
                 movieTypes: movietypes,
             }
         },
         components: {
+            SearchBar,
             DivideBar,
             PageHeader,
             MovieCard
@@ -79,7 +81,7 @@
             // actions here
         },
         methods: {
-            afterLoad () {
+            afterLoad() {
                 window.console.log('After load')
             },
             alltypes: function () {
@@ -90,55 +92,66 @@
 </script>
 
 <style scoped>
-    h1,h2,h3,h4,h5,h6 {
+    h1, h2, h3, h4, h5, h6 {
         font-weight: normal;
         font-size: 100%;
-        margin:0;
-        padding:0;
+        margin: 0;
+        padding: 0;
     }
 </style>
 
 <style>
     @import "../assets/css/fullpage.min.css";
+
     /* Reset CSS
      * --------------------------------------- */
-    body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,
-    form,fieldset,input,textarea,p,blockquote,th,td {
+    body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre,
+    form, fieldset, input, textarea, p, blockquote, th, td {
         padding: 0;
         margin: 0;
     }
-    a{
-        text-decoration:none;
+
+    a {
+        text-decoration: none;
     }
+
     table {
         border-spacing: 0;
     }
-    fieldset,img {
+
+    fieldset, img {
         border: 0;
     }
-    address,caption,cite,code,dfn,em,strong,th,var {
+
+    address, caption, cite, code, dfn, em, strong, th, var {
         font-weight: normal;
         font-style: normal;
     }
-    strong{
+
+    strong {
         font-weight: bold;
     }
-    ol,ul {
+
+    ol, ul {
         list-style: none;
-        margin:0;
-        padding:0;
+        margin: 0;
+        padding: 0;
     }
-    caption,th {
+
+    caption, th {
         text-align: left;
 
     }
 
-    q:before,q:after {
-        content:'';
+    q:before, q:after {
+        content: '';
     }
-    abbr,acronym { border: 0;
+
+    abbr, acronym {
+        border: 0;
     }
-    *{
+
+    * {
         -webkit-box-sizing: border-box; /* Safari<=5 Android<=3 */
         -moz-box-sizing: border-box; /* <=28 */
         box-sizing: border-box;
@@ -149,16 +162,19 @@
     body {
         font-family: arial, helvetica;
     }
-    .section{
+
+    .section {
         position: relative;
         text-align: center;
     }
-    #section-1 h2{
+
+    #section-1 h2 {
         color: #fff;
         font-size: 10em;
         font-weight: 900;
     }
-    #section-1 h1{
+
+    #section-1 h1 {
         font-size: 2em;
         font-weight: 100;
         -webkit-font-smoothing: antialiased;
@@ -168,24 +184,28 @@
         padding-right: 30px;
         padding-left: 30px;
     }
+
     #section-1 li {
         display: inline-block;
         margin: 1.25em 0.3em;
     }
-    .section-1-button{
+
+    .section-1-button {
         padding: 0.93em 1.87em;
         background: #35495e;
         border-radius: 5px;
         display: block;
         color: #fff;
     }
-    h3{
+
+    h3 {
         font-size: 5em;
         text-align: center;
         color: #fff;
         font-weight: bold;
     }
-    #logo{
+
+    #logo {
         position: fixed;
         top: 20px;
         left: 20px;
