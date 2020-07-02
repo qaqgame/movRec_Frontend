@@ -35,10 +35,21 @@ export default new Router({
             component: () => import('./views/Home.vue')
         },
         {
+            path: '/movie/:name',
+            name: 'moviedetail',
+            component: () => import('./views/DetailInfo.vue'),
+            props: true
+        },
+        {
+            path: '/showmovie',
+            name: 'showmovie',
+            component: () => import('./views/SearchRes.vue')
+        },
+        {
             path: '/:id',
             name: 'user',
             component: () => import('./views/Users.vue'),
             props: true
-        }
+        },
     ]
 })

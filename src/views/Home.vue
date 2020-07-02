@@ -98,6 +98,13 @@
         margin: 0;
         padding: 0;
     }
+
+    h3{
+        font-size: 5em;
+        text-align: center;
+        color: #fff;
+        font-weight: bold;
+    }
 </style>
 
 <style>
@@ -205,7 +212,7 @@
         font-weight: bold;
     }
 
-    #logo {
+    #logo{
         position: fixed;
         top: 20px;
         left: 20px;

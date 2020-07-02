@@ -1,13 +1,13 @@
 <template>
     <div class="DivideBar">
         <el-row :gutter="5">
-            <el-col :span="4" :offset="2">
+            <el-col class="mywhite" :span="4" :offset="2">
                 <h3>{{PartTitle}}</h3>
             </el-col>
             <el-col :span="12">
                 <div class="grid-content bg-purple"></div>
             </el-col>
-            <el-col :span="4">
+            <el-col class="mywhite" :span="4">
                 <div>
                     <h3><i class="el-icon-refresh"></i>换一批</h3>
                 </div>
@@ -53,4 +53,7 @@
         background-color: #f9fafc;
     }
 
+    .mywhite >>> h3 {
+        color: white;
+    }
 </style>
