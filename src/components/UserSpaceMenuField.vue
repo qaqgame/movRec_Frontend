@@ -30,19 +30,19 @@
                             <span slot="label">
                                 <i class="icon iconfont" v-bind:class="operations[0].iconclass"></i>
                                 {{operations[0].label}}</span>
-                            <TimeLine></TimeLine>
+                            <Keep></Keep>
                         </el-tab-pane>
                         <el-tab-pane v-bind:name="operations[1].name">
                             <span slot="label">
                                 <i class="icon iconfont" v-bind:class="operations[1].iconclass"></i>
                                 {{operations[1].label}}</span>
-                            <HistoryRecord></HistoryRecord>
+                            <TimeLine></TimeLine>
                         </el-tab-pane>
                         <el-tab-pane v-bind:name="operations[2].name">
                             <span slot="label">
                                 <i class="icon iconfont" v-bind:class="operations[2].iconclass"></i>
                                 {{operations[2].label}}</span>
-                            <Keep></Keep>
+                            <HistoryRecord></HistoryRecord>
                         </el-tab-pane>
                         <el-tab-pane v-bind:name="operations[3].name">
                             <span slot="label">
@@ -75,9 +75,9 @@
                 itemlabel:'LV1',
                 itemtype:'',
                 operations:[
-                    {icon:'&#xe6c0;',label:'时间线',name:'first',url:'timeline', iconclass:'icon-timeline'},
-                    {icon:'&#xe693;',label:'浏览记录',name:'second', iconclass:'icon-liulanjilu'},
-                    {icon:'&#xe60d;',label:'收藏',name:'third',url:'keep',iconclass:'icon-collection-b'},
+                    {icon:'&#xe60d;',label:'收藏',name:'first',url:'keep',iconclass:'icon-collection-b'},
+                    {icon:'&#xe6c0;',label:'时间线',name:'second',url:'timeline', iconclass:'icon-timeline'},
+                    {icon:'&#xe693;',label:'浏览记录',name:'third', iconclass:'icon-liulanjilu'},
                     {icon:'&#xe65b;',label:'评价记录',name:'fourth',url:'command',iconclass:'icon-ico_home_appraise'},
                 ],
                 activeName: 'first'

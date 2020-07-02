@@ -20,7 +20,31 @@
                 src1:require("../assets/Movie_Background1.png")
             }
         },
+
+        created() {
+            // 获取用户数据
+            window.console.log("create")
+            this.fetchData(this.id)
+        },
+
+        watch: {
+            // 监听路由变化
+            // $route(to,from) {
+            //
+            // }
+        },
+
+        methods: {
+            fetchData(un) {
+                window.console.log("get");
+                let url = "http://127.0.0.1:8000/"+un
+                this.$axios.get(url,{}).then(res => {
+                    window.console.log(res)
+                })
+            }
+        }
     }
+
 </script>
 
 <style scoped>
