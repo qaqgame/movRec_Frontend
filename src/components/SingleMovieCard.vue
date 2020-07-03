@@ -6,7 +6,7 @@
                 <span>{{movieName}}</span>
                 <div class="bottom clearfix">
                     <time class="time">{{ movieTime }}</time>
-                    <el-button type="text" class="button">操作按钮</el-button>
+                    <el-button type="text" class="button">详细信息>>></el-button>
                 </div>
             </div>
         </el-card>
