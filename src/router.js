@@ -46,10 +46,10 @@ export default new Router({
             component: () => import('./views/SearchRes.vue')
         },
         {
-            path: '/:id',
+            path: '/user/:id',
             name: 'user',
             component: () => import('./views/Users.vue'),
-            props: true
+            props: true,
         },
     ]
 })

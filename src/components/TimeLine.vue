@@ -26,7 +26,15 @@
                     {actiontime:"0000/00/00", title:"加入错影时光", detail:"XXXXXXXXX"},
                 ]
             }
-        }
+        },
+        props:['username'],
+        // created(){
+        //     window.console.log("create timeline",this.$route.params.id);
+        //     let url = "http://127.0.0.1:8000/user/"+this.$route.params.id+"/timeline";
+        //     this.$axios.get(url,{}).then(res => {
+        //         window.console.log(res)
+        //     })
+        // }
     }
 </script>
 

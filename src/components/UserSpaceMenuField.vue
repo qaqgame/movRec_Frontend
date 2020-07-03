@@ -16,7 +16,7 @@
                                     effect="dark">
                                 {{ itemlabel }}
                             </el-tag></h2>
-                            <el-progress class="alignLeft" :percentage="0"></el-progress>
+                            <el-progress class="alignLeft" v-bind:class="{myExp:isActive}" :percentage="percentage" :format="format"></el-progress>
                         </el-col>
                     </el-row>
                 </el-row>
@@ -30,13 +30,13 @@
                             <span slot="label">
                                 <i class="icon iconfont" v-bind:class="operations[0].iconclass"></i>
                                 {{operations[0].label}}</span>
-                            <Keep></Keep>
+                            <Keep v-bind:keep-data="data.keeprelated"></Keep>
                         </el-tab-pane>
                         <el-tab-pane v-bind:name="operations[1].name">
                             <span slot="label">
                                 <i class="icon iconfont" v-bind:class="operations[1].iconclass"></i>
                                 {{operations[1].label}}</span>
-                            <TimeLine></TimeLine>
+                            <TimeLine v-bind:username="userId"></TimeLine>
                         </el-tab-pane>
                         <el-tab-pane v-bind:name="operations[2].name">
                             <span slot="label">
@@ -68,28 +68,51 @@
         components: {Command, Keep, HistoryRecord, TimeLine},
         data() {
             return {
-                circleUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
-                hei:'240px',
+                circleUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",    //头像的默认url
+                hei:'240px',                                                                         //高度css
                 bg1:'url('+require('../assets/UserSpace_Background2.png')+')',
                 size1:'cover',
-                itemlabel:'LV1',
+                itemlabel:'',                                                                        // LV，默认为空
                 itemtype:'',
                 operations:[
-                    {icon:'&#xe60d;',label:'收藏',name:'first',url:'keep',iconclass:'icon-collection-b'},
-                    {icon:'&#xe6c0;',label:'时间线',name:'second',url:'timeline', iconclass:'icon-timeline'},
-                    {icon:'&#xe693;',label:'浏览记录',name:'third', iconclass:'icon-liulanjilu'},
-                    {icon:'&#xe65b;',label:'评价记录',name:'fourth',url:'command',iconclass:'icon-ico_home_appraise'},
-                ],
-                activeName: 'first'
+                    {icon:'&#xe60d;',label:'收藏',name:'/keep',url:'keep',iconclass:'icon-collection-b'},
+                    {icon:'&#xe6c0;',label:'时间线',name:'/timeline',url:'timeline', iconclass:'icon-timeline'},
+                    {icon:'&#xe693;',label:'浏览记录',name:'/histroyrecord', iconclass:'icon-liulanjilu'},
+                    {icon:'&#xe65b;',label:'评价记录',name:'/comment',url:'command',iconclass:'icon-ico_home_appraise'},
+                ],                   // 四个菜单项
+                activeName: '/keep', // 活跃菜单项
+                userinfo: '',        // 存储用户信息
+                percentage:0,        // 等级百分比
+                currexp:0,           // 当前经验值
+                isActive:true,
             }
         },
-        props:['userId'],
+        props:['userId','data'],
         methods: {
             format(percentage) {
-                return percentage === 100 ? '满' : `${percentage}%`;
+                return percentage === 100 ? '满' : `${this.currexp}`;
             },
             handleClick(tab, event) {
-                window.console.log(tab, event);
+                window.console.log(tab, event, event.target);
+                this.getTargetData(this.activeName)
+            },
+            getTargetData(target) {
+                let url = 'http://127.0.0.1:8000/user/'+this.userId+target;
+                this.$axios.get(url,{}).then(res => {
+                    window.console.log(res)
+                })
+            },
+        },
+        computed: {
+
+        },
+        watch: {
+            data: function () {
+                this.userinfo = this.data.userrelated;
+                this.itemlabel = 'LV'+this.userinfo.currlevel;
+                this.percentage = this.userinfo.currexp/this.userinfo.maxexp * 100;
+                this.currexp = this.userinfo.currexp;
+                window.console.log(this.percentage);
             }
         }
     }
@@ -130,5 +153,9 @@
     .icon {
         font-size: 16px;
         padding-left: 5px;
+    }
+
+    .myExp >>> .el-progress__text {
+        color:white;
     }
 </style>
