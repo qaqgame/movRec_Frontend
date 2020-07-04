@@ -16,15 +16,15 @@
                 </el-row>
             </el-col>
         </el-row>
-        <el-row>
-            <el-col :span="18" :offset="3">
-                <el-row type="flex" justify="start">
-                    <!--todo:已收藏的显示已收藏，根据数据来动态改变-->
-                    <el-button class="button-ops" type="primary" icon="el-icon-star-off">收藏</el-button>
-                    <el-button class="button-ops" @click="dialogFormVisible = true" type="primary" icon="el-icon-edit">评论</el-button>
-                </el-row>
-            </el-col>
-        </el-row>
+<!--        <el-row>-->
+<!--            <el-col :span="18" :offset="3">-->
+<!--                <el-row type="flex" justify="start">-->
+<!--                    &lt;!&ndash;todo:已收藏的显示已收藏，根据数据来动态改变&ndash;&gt;-->
+<!--                    <el-button class="button-ops" type="primary" icon="el-icon-star-off">收藏</el-button>-->
+<!--                    <el-button class="button-ops" @click="dialogFormVisible = true" type="primary" icon="el-icon-edit">评论</el-button>-->
+<!--                </el-row>-->
+<!--            </el-col>-->
+<!--        </el-row>-->
         <el-row>
             <el-col :span="24"><div class="grid-content bg-purple"></div></el-col>
         </el-row>
