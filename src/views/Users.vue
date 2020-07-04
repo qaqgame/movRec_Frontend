@@ -28,7 +28,7 @@
             this.fetchData(this.id)
         },
         watch: {
-            // 监听路由变化
+            // todo:监听路由变化
             // $route(to,from) {
             //
             // }

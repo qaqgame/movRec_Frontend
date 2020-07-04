@@ -2,7 +2,7 @@
     <div class="HistoryRecord">
         <div style="">
             <div style="display: flex; flex-wrap: wrap; width: 90%;margin: 10px auto;height: 480px;overflow: auto; overflow-scrolling: auto">
-                <SingleMovieCard style="margin-left: 20px;width: 165px;margin-top: 20px" v-for="item in histories" v-bind:movie-name="item.movieName"
+                <SingleMovieCard style="margin-left: 20px;width: 165px;margin-top: 20px" v-for="item in historyRecord" v-bind:movie-name="item.movieName"
                                  v-bind:movie-source="item.movieSource"
                                  v-bind:movie-time="item.movieTime" v-bind:key="item.movieName"></SingleMovieCard>
             </div>
@@ -28,7 +28,8 @@
                     {movieName:'test8', movieSource:'', movieTime:'test time'},
                 ]
             }
-        }
+        },
+        props:['historyRecord']
     }
 </script>
 

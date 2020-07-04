@@ -2,7 +2,7 @@
     <div class="DetailInfo">
         <img style="position: absolute;height: 360px;z-index: 0;width: 100%;left: 0" :src="src1"/>
         <PageHeader style="z-index: 10;" class="myHeader"></PageHeader>
-        <MovieDetailHeader v-bind:movie-name="name"></MovieDetailHeader>
+        <MovieDetailHeader v-bind:movie-name="name" v-bind:movie-data="movieDetailInfo"></MovieDetailHeader>
         <el-row>
             <el-col :span="24"><div class="grid-content bg-purple"></div></el-col>
         </el-row>
@@ -12,7 +12,7 @@
                     <h2>简介：</h2>
                 </el-row>
                 <el-row type="flex" justify="start" align="top">
-                    <p>这是简介内容</p>
+                    <p style="text-align: left">{{movieDetailInfo === null ? "暂无" : movieDetailInfo.description}}</p>
                 </el-row>
             </el-col>
         </el-row>
@@ -71,6 +71,7 @@
 <script>
     import PageHeader from "../components/PageHeader";
     import MovieDetailHeader from "../components/MovieDetailHeader";
+
     export default {
         name: "DetailInfo",
         components: {MovieDetailHeader, PageHeader},
@@ -92,9 +93,27 @@
                 },
                 formLabelWidth: '120px',
                 value2: null,
-                colors: ['#99A9BF', '#F7BA2A', '#FF9900']
+                colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
+                movieDetailInfo:null,
             }
         },
+        created() {
+            //获取数据
+            this.fetchData(this.name)
+        },
+        methods:{
+            fetchData(mn) {
+                window.console.log("get");
+                let url = "http://127.0.0.1:8000/movie/"+mn;
+                this.$axios.get(url,{}).then(res => {
+                    window.console.log(res);
+                    this.setData(res.data.data);
+                })
+            },
+            setData(data) {
+                this.movieDetailInfo = data.movieinfo;
+            }
+        }
     }
 </script>
 

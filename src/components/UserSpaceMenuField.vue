@@ -30,19 +30,19 @@
                             <span slot="label">
                                 <i class="icon iconfont" v-bind:class="operations[0].iconclass"></i>
                                 {{operations[0].label}}</span>
-                            <Keep v-bind:keep-data="data.keeprelated"></Keep>
+                            <Keep v-bind:keep-data="keepMovieRes"></Keep>
                         </el-tab-pane>
                         <el-tab-pane v-bind:name="operations[1].name">
                             <span slot="label">
                                 <i class="icon iconfont" v-bind:class="operations[1].iconclass"></i>
                                 {{operations[1].label}}</span>
-                            <TimeLine v-bind:username="userId"></TimeLine>
+                            <TimeLine v-bind:username="userId" v-bind:timeline="timeLineRes"></TimeLine>
                         </el-tab-pane>
                         <el-tab-pane v-bind:name="operations[2].name">
                             <span slot="label">
                                 <i class="icon iconfont" v-bind:class="operations[2].iconclass"></i>
                                 {{operations[2].label}}</span>
-                            <HistoryRecord></HistoryRecord>
+                            <HistoryRecord v-bind:history-record="historyRes"></HistoryRecord>
                         </el-tab-pane>
                         <el-tab-pane v-bind:name="operations[3].name">
                             <span slot="label">
@@ -77,7 +77,7 @@
                 operations:[
                     {icon:'&#xe60d;',label:'收藏',name:'/keep',url:'keep',iconclass:'icon-collection-b'},
                     {icon:'&#xe6c0;',label:'时间线',name:'/timeline',url:'timeline', iconclass:'icon-timeline'},
-                    {icon:'&#xe693;',label:'浏览记录',name:'/histroyrecord', iconclass:'icon-liulanjilu'},
+                    {icon:'&#xe693;',label:'浏览记录',name:'/historyrecord', iconclass:'icon-liulanjilu'},
                     {icon:'&#xe65b;',label:'评价记录',name:'/comment',url:'command',iconclass:'icon-ico_home_appraise'},
                 ],                   // 四个菜单项
                 activeName: '/keep', // 活跃菜单项
@@ -85,6 +85,9 @@
                 percentage:0,        // 等级百分比
                 currexp:0,           // 当前经验值
                 isActive:true,
+                timeLineRes: null,
+                historyRes:null,
+                keepMovieRes:null,
             }
         },
         props:['userId','data'],
@@ -99,7 +102,23 @@
             getTargetData(target) {
                 let url = 'http://127.0.0.1:8000/user/'+this.userId+target;
                 this.$axios.get(url,{}).then(res => {
-                    window.console.log(res)
+                    window.console.log(res);
+                    if (target === "/keep") {
+                        if (res.data.data.result === "success") {
+                            this.keepMovieRes = res.data.data.keepmovies;
+                        }
+                    } else if (target === "/timeline") {
+                        if (res.data.data.result === "success") {
+                            this.timeLineRes = res.data.data.timeline
+                        }
+                    } else if (target === "/historyrecord") {
+                        if (res.data.data.result === "success")  {
+                            this.historyRes = res.data.data
+                        }
+                    } else if (target === "/comment") {
+                        //TODO:
+                        return
+                    }
                 })
             },
         },
@@ -109,6 +128,7 @@
         watch: {
             data: function () {
                 this.userinfo = this.data.userrelated;
+                this.keepMovieRes = this.data.keeprelated;
                 this.itemlabel = 'LV'+this.userinfo.currlevel;
                 this.percentage = this.userinfo.currexp/this.userinfo.maxexp * 100;
                 this.currexp = this.userinfo.currexp;
