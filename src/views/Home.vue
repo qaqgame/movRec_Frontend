@@ -105,6 +105,7 @@
         color: #fff;
         font-weight: bold;
     }
+
 </style>
 
 <style>
@@ -203,13 +204,6 @@
         border-radius: 5px;
         display: block;
         color: #fff;
-    }
-
-    h3 {
-        font-size: 5em;
-        text-align: center;
-        color: #fff;
-        font-weight: bold;
     }
 
     #logo{
