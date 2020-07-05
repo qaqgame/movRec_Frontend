@@ -32,12 +32,17 @@ export default new Router({
         {
             path: '/test',
             name: 'test',
-            component: () => import('./components/PreferSelect.vue')
+            component: () => import('./views/test.vue')
         },
         {
             path: '/index',
             name: 'main',
-            component: () => import('./views/Home.vue')
+            component: () => import('./views/Home.vue'),
+            alias: '/index2'
+        },
+        {
+            path: '/index2/:v',
+            redirect: '/index'
         },
         {
             path: '/movie/:name',

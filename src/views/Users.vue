@@ -1,7 +1,7 @@
 <template>
     <div class="Users">
         <img style="position: absolute;height: 300px;z-index: 0;width: 100%;left: 0" :src="src1"/>
-        <PageHeader style="z-index: 10;" class="myHeader"></PageHeader>
+        <PageHeader style="z-index: 10;" class="myHeader" v-bind:visible="false"></PageHeader>
         <UserSpaceMenuField style="z-index: 11;" pdtop="60px" v-bind:data="data" v-bind:user-id="uid"></UserSpaceMenuField>
         <el-row style="background-color: #f4f5f7;height: 80px"></el-row>
     </div>

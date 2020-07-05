@@ -1,7 +1,7 @@
 <template>
     <div class="SearchRes" v-infinite-scroll="load" infinite-scroll-disabled="disabled">
         <div class="PageHeaderBar1">
-            <PageHeader style="z-index: 10;position: fixed"></PageHeader>
+            <PageHeader style="z-index: 10;position: fixed" v-bind:visible="false"></PageHeader>
         </div>
         <img style="height: 200px;z-index: 0;width: 100%;left: 0" :src="src1"/>
         <div style="position: relative;bottom: 100px">

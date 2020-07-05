@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <div class="PageHeaderBar">
-            <PageHeader ref="pageheaderref"></PageHeader>
+            <PageHeader ref="pageheaderref" v-on:getpos="toPos" v-bind:visible="true"></PageHeader>
         </div>
         <el-row style="position: fixed!important;top: 15%;z-index: 10;width: 100%">
             <el-col :span="24">
@@ -10,7 +10,7 @@
 
         </el-row>
 
-        <full-page :options="options" id="fullpage">
+        <full-page ref="fullpage" :options="options" id="fullpage">
             <div class="section" v-bind:style="{backgroundImage:bgImg1}">
                 <DivideBar part-title="全部电影推荐"></DivideBar>
                 <el-row>
@@ -18,7 +18,6 @@
                         <MovieCard v-bind:show-num="movieShow" v-bind:movie="testInfo"></MovieCard>
                     </el-col>
                 </el-row>
-
             </div>
             <div class="section" v-bind:style="{backgroundImage:bgImg2}">
                 <div class="slide" v-for="(item, index) in alltypes()" v-bind:key="index">
@@ -26,6 +25,12 @@
                 </div>
             </div>
         </full-page>
+
+        <!--<ul class="actions">-->
+            <!--<li @click="$refs.fullpage.api.moveSectionDown()" class="actions-button">Down</li>-->
+            <!--<li @click="$refs.fullpage.api.moveSectionUp()" class="actions-button">Up</li>-->
+            <!--<li @click="$refs.fullpage.api.moveTo(2,1)" class="actions-button">MoveTo</li>-->
+        <!--</ul>-->
     </div>
 </template>
 
@@ -65,9 +70,10 @@
                     scrollOverflow: true,
                     scrollBar: false,
                     menu: '#menu',
-                    controlArrows: true,
+                    controlArrows: false,
                     navigation: true,
-                    anchors: ['index', 'index#page2', 'index#page3'],
+                    anchors: ['index', 'index2'],
+                    slidesNavigation:true,
                 },
                 bgImg1: 'url(' + require('../assets/Movie_Background1.png') + ')',
                 bgImg2: 'url(' + require('../assets/Movie_Background3.png') + ')',
@@ -83,18 +89,18 @@
             MovieCard
         },
         created: function () {
-            window.console.log("!1")
-            // actions here
-            // this.$axios.get("http://127.0.0.1:8000/index/").then(res=> {
-            //     window.console.log(res)
-            // })
+            window.console.log("!1");
         },
         methods: {
             afterLoad() {
                 window.console.log('After load')
+                //this.$refs.fullpage.api.moveTo(2,2);
             },
             alltypes: function () {
                 return movietypes.flat();
+            },
+            toPos: function (pos) {
+                this.$refs.fullpage.api.moveTo(pos.param1, pos.param2);
             }
         }
     }
@@ -114,6 +120,31 @@
         color: #fff;
         font-weight: bold;
     }
+
+    /* Actions buttons
+ * --------------------------------------- */
+    .actions{
+        position: fixed;
+        bottom: 2%;
+        margin: 0 auto;
+        z-index: 99;
+        left: 0;
+        right: 0;
+        text-align: center;
+    }
+    .actions li{
+        display: inline-block;
+        margin: 0.3em 0.3em;
+    }
+    .actions-button{
+        padding: 0.73em 1.47em;
+        background: rgba(53, 73, 94, 0.47);
+        border-radius: 5px;
+        display: block;
+        color: #fff;
+        cursor: pointer;
+    }
+
 
 </style>
 

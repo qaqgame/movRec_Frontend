@@ -13,11 +13,11 @@
                         <el-menu-item index="1">Logo</el-menu-item>
                         <el-menu-item index="2"><a>片库</a></el-menu-item>
                         <el-menu-item index="3"></el-menu-item>
-                        <el-menu-item class="MoveTypeTitle" index="4"><a href="/#/index">全部电影推荐</a></el-menu-item>
-                        <el-submenu class="MoveTypeTitle" index="5">
+                        <el-menu-item  data-menuanchor="index" class="MoveTypeTitle" index="4"><a href="#/index" @click="toIndex(1,0)">全部电影推荐</a></el-menu-item>
+                        <el-submenu data-menuanchor="index2" class="MoveTypeTitle" index="5" v-show="visible">
                             <template slot="title">各类型电影推荐</template>
                             <div v-for="(items,index) in movieTypes" v-bind:key="2-index">
-                                <el-menu-item v-for="(item,index1) in items"  v-bind:key="2-index-index1" :index="item">{{item}}</el-menu-item>
+                                <el-menu-item v-for="(item,index1) in items"  v-bind:key="2-index-index1" :index="item" @click="toIndex(2,index*4+index1)">{{item}}</el-menu-item>
                             </div>
                         </el-submenu>
                         <el-submenu class="Personal" index="7">
@@ -62,8 +62,17 @@
             },
             heightInfo() {
                 return document.getElementsByClassName("PageHeader")[0].style.height.toString()+'px';
+            },
+            toIndex(index1,index2) {
+                window.console.log(index1,index2);
+                let pos = {
+                    "param1":index1,
+                    "param2":index2
+                };
+                this.$emit('getpos',pos);
             }
-        }
+        },
+        props:['visible']
     }
 </script>
 

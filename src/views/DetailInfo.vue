@@ -1,7 +1,7 @@
 <template>
     <div class="DetailInfo">
         <img style="position: absolute;height: 360px;z-index: 0;width: 100%;left: 0" :src="src1"/>
-        <PageHeader style="z-index: 10;" class="myHeader"></PageHeader>
+        <PageHeader style="z-index: 10;" class="myHeader" v-bind:visible="false"></PageHeader>
         <MovieDetailHeader v-bind:movie-name="name" v-bind:movie-data="movieDetailInfo"></MovieDetailHeader>
         <el-row>
             <el-col :span="24"><div class="grid-content bg-purple"></div></el-col>
