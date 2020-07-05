@@ -1,18 +1,22 @@
 <template>
     <div>
-        <h1>请选择你的偏好</h1>
+        <h1 style="font-size: 60px">请选择你的偏好</h1>
         <el-col :span="12">
+            <p style="font-size: 40px;font-weight: bolder">电影类型</p>
+            <el-row><br/></el-row>
             <el-row>
                 <el-button v-for="(tps,index) in fTypes" :key="index" @click="changeStatus(index)"
-                           style="font-size: 60px;margin: 1% 1%" round>
+                           type="primary" style="font-size: 60px;margin: 1% 1%" round>
                     {{tps}}
                 </el-button>
             </el-row>
         </el-col>
         <el-col :span="12">
+            <p style="font-size: 40px;font-weight: bolder">已选择的偏好</p>
+            <el-row><br/></el-row>
             <el-row>
                 <el-button v-for="tps in selectedList" :key="tps" @click="cancelSelected(tps)"
-                           style="font-size: 60px;margin: 1% 1%" round>
+                           type="success" style="font-size: 60px;margin: 1% 1%" round>
                     {{tps}}
                 </el-button>
             </el-row>
@@ -40,18 +44,15 @@
                 if (num === -1) {
                     this.selectedList.push(this.fTypes[index])
                 }
-                // this.changeBtnStatus(index)
-                console.log(this.selectedList)
+                this.fTypes.splice(index, 1)
+                // console.log(this.selectedList)
             },
             cancelSelected: function (tps) {
                 let num = this.selectedList.indexOf(tps)
                 this.selectedList.splice(num, 1)
-                console.log('Remove' + tps)
+                this.fTypes.push(tps)
+                // console.log('Remove' + tps)
             }
-            // changeBtnStatus: function (index) {
-            //     this.btnStatus[index] = true;
-            //     return this.btnStatus[index]
-            // }
         }
     }
 </script>

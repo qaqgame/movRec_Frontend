@@ -27,7 +27,7 @@ export default new Router({
         {
             path: '/test',
             name: 'test',
-            component: () => import('./views/test.vue')
+            component: () => import('./components/PreferSelect.vue')
         },
         {
             path: '/index',
