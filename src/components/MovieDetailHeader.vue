@@ -201,7 +201,7 @@
                 <el-row><br></el-row>
                 <el-row><br></el-row>
                 <el-row type="flex" align="bottom" style="height: 100%; width: 100%;">
-                    <el-button class="button-ops" type="primary" icon="el-icon-star-off">收藏</el-button>
+                    <el-button class="button-ops" type="primary" icon="el-icon-star-off" v-bind:disabled="dis" @click="keepMovie()">{{dis === true ? "已收藏":"收藏"}}</el-button>
                     <el-button class="button-ops" @click="dialogFormVisible = true" type="primary"
                                icon="el-icon-edit">评论
                     </el-button>
@@ -283,7 +283,8 @@
                 },
                 formLabelWidth: '120px',
                 value2: null,
-                colors: ['#99A9BF', '#F7BA2A', '#FF9900']
+                colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
+                dis:false
             }
         },
         props:['movieName','movieData'],
@@ -317,6 +318,36 @@
         watch: {
             movieData: function () {
                 this.initialMovieData = this.movieData;
+            }
+        },
+        methods: {
+            keepMovie() {
+                let url = "http://127.0.0.1:8000/keepMovie?moviename="+this.movieName;
+                window.console.log(url);
+                this.$axios.get(url,{}).then(res => {
+                    window.console.log(res);
+                    // todo:验证该接口的正确性
+                    if (res.data.result === "success") {
+                        this.dis = true;
+                    }
+                    this.notifyKeepSuccess(res.data.result);
+                })
+            },
+            notifyKeepSuccess(res) {
+                if (res === "success") {
+                    this.$notify({
+                        title: '收藏成功',
+                        message: '已成功收藏电影：'+this.movieName,
+                        type: 'success'
+                    });
+                } else if (res === "failed") {
+                    this.$notify({
+                        title: '收藏失败',
+                        message: '电影收藏失败：'+this.movieName,
+                        type: 'error'
+                    });
+                }
+
             }
         }
     }
