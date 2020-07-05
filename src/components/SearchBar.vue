@@ -8,7 +8,7 @@
                 <div class="bar">
                     <el-input type="text" v-model="val" class="input" suffix-icon="el-icon-search"
                               placeholder="请输入你想要查找的内容">
-                        <el-button slot="append">搜索</el-button>
+                        <el-button slot="append" @click="SearchMovie()">搜索</el-button>
                     </el-input>
                 </div>
             </el-col>
@@ -21,7 +21,19 @@
         name: "SearchBar",
         data: function () {
             return {
-                val: '', // 绑定输入框的值val
+                val: this.movie, // 绑定输入框的值val
+            }
+        },
+        methods: {
+            SearchMovie() {
+                this.$router.push({name:'showmovie', query:{search:1,moviename:this.val,start:0}})
+            }
+        },
+        props:['movie'],
+        watch:{
+            movie:function () {
+                window.console.log("new input")
+                this.val = this.movie;
             }
         }
     }
@@ -41,8 +53,6 @@
     .SearchBar {
         margin: auto;
         width: 100%;
-        position: fixed;
-        top: 12%;
         z-index: 1; /*Z-index 显示优先级，确保组件能够显示出来*/
     }
     /*.input >>> .el-input__inner{*/

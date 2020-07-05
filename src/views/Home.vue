@@ -3,7 +3,13 @@
         <div class="PageHeaderBar">
             <PageHeader ref="pageheaderref"></PageHeader>
         </div>
-        <search-bar></search-bar>
+        <el-row style="position: fixed!important;top: 15%;z-index: 10;width: 100%">
+            <el-col :span="24">
+                <search-bar></search-bar>
+            </el-col>
+
+        </el-row>
+
         <full-page :options="options" id="fullpage">
             <div class="section" v-bind:style="{backgroundImage:bgImg1}">
                 <DivideBar part-title="全部电影推荐"></DivideBar>
