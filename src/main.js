@@ -9,6 +9,7 @@ import animated from 'animate.css'
 import axios from 'axios'
 import './assets/icon/iconfont.css'
 
+axios.defaults.withCredentials=true;
 
 Vue.use(VueFullPage);
 Vue.use(animated);

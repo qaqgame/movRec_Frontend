@@ -79,6 +79,9 @@
         created: function () {
             window.console.log("!1")
             // actions here
+            // this.$axios.get("http://127.0.0.1:8000/index/").then(res=> {
+            //     window.console.log(res)
+            // })
         },
         methods: {
             afterLoad() {

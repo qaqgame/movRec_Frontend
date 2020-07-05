@@ -105,6 +105,7 @@
             fetchData(mn) {
                 window.console.log("get");
                 let url = "http://127.0.0.1:8000/movie/"+mn;
+                window.console.log(url);
                 this.$axios.get(url,{}).then(res => {
                     window.console.log(res);
                     this.setData(res.data.data);
