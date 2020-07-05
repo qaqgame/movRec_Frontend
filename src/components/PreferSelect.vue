@@ -1,33 +1,36 @@
 <template>
     <div>
-        <h1 style="font-size: 60px">请选择你的偏好</h1>
-        <el-row>
-            <el-col :span="12">
-                <p style="font-size: 40px;font-weight: bolder">电影类型</p>
-                <el-row><br/></el-row>
-                <el-row>
-                    <el-button v-for="(tps,index) in fTypes" :key="index" @click="changeStatus(index)"
-                               type="primary" style="font-size: 60px;margin: 1% 1%" round>
-                        {{tps}}
-                    </el-button>
-                </el-row>
-            </el-col>
-            <el-col :span="12">
-                <p style="font-size: 40px;font-weight: bolder">已选择的偏好</p>
-                <el-row><br/></el-row>
-                <el-row>
-                    <el-button v-for="tps in selectedList" :key="tps" @click="cancelSelected(tps)"
-                               type="success" style="font-size: 60px;margin: 1% 1%" round>
-                        {{tps}}
-                    </el-button>
-                </el-row>
-            </el-col>
-        </el-row>
-        <el-button type="warning" style="font-size: 60px;position:fixed;right: 60px;bottom: 60px" round>下一步
-            <i class="el-icon-right el-icon--right"></i>
-        </el-button>
-
-
+        <el-dialog :visible="dialogVisible" center>
+            <span slot="title" class="dialog-title"
+                  style="font-size: 22px;font-weight: bolder">请选择你的偏好</span>
+            <el-row>
+                <el-col :span="12">
+                    <p style="font-size: 20px;font-weight: bolder">电影类型</p>
+                    <el-row><br/></el-row>
+                    <el-row>
+                        <el-button v-for="(tps,index) in fTypes" :key="index" @click="changeStatus(index)"
+                                   type="primary" style="margin: 1% 1%" round>
+                            {{tps}}
+                        </el-button>
+                    </el-row>
+                </el-col>
+                <el-col :span="12">
+                    <p style="font-size: 20px;font-weight: bolder">已选择的偏好</p>
+                    <el-row><br/></el-row>
+                    <el-row>
+                        <el-button v-for="tps in selectedList" :key="tps" @click="cancelSelected(tps)"
+                                   type="success" style="margin: 1% 1%" round>
+                            {{tps}}
+                        </el-button>
+                    </el-row>
+                </el-col>
+            </el-row>
+            <span slot="footer" class="dialog-footer">
+                <el-button type="warning" round @click="dialogVisible=false">下一步
+                <i class="el-icon-right el-icon--right"></i>
+            </el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -39,7 +42,8 @@
             return {
                 fTypes: filmTypes,
                 selectedList: [],
-                btnStatus: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+                btnStatus: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+                dialogVisible: true
             }
         },
         computed: {},
