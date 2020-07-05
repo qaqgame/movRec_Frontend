@@ -5,9 +5,9 @@
                 <el-card :body-style="{ padding: '0px' }">
                     <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
                     <div style="padding: 14px;">
-                        <span>{{Movie[index].name}}</span>
+                        <span>{{movie[index].name}}</span>
                         <div class="bottom clearfix">
-                            <time class="time">{{ Movie[index].time }}</time>
+                            <time class="time">{{ movie[index].time }}</time>
                             <el-button type="text" class="button">详细信息>>></el-button>
                         </div>
                     </div>
@@ -25,10 +25,7 @@
                 currentDate: new Date()
             };
         },
-        props:{
-            Movie:Array,
-            showNum: Number,
-        }
+        props:['movie','showNum']
     }
 </script>
 

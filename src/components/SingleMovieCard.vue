@@ -6,7 +6,7 @@
                 <span>{{movieName}}</span>
                 <div class="bottom clearfix">
                     <time class="time">{{ movieTime }}</time>
-                    <el-button type="text" class="button">详细信息>>></el-button>
+                    <el-button type="text" class="button" @click="toDetailInfo(movieName)">详细信息>>></el-button>
                 </div>
             </div>
         </el-card>
@@ -22,7 +22,13 @@
                 src1:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
             };
         },
-        props:['movieSource','movieName','movieTime']
+        props:['movieSource','movieName','movieTime'],
+        methods: {
+            toDetailInfo(name) {
+                // let url = "http://127.0.0.1:8000/movie/"+name;
+                this.$router.push({name:'moviedetail', params:{name}})
+            }
+        }
     }
 </script>
 

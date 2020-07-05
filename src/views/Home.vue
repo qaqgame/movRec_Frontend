@@ -12,17 +12,25 @@
 
         <full-page ref="fullpage" :options="options" id="fullpage">
             <div class="section" v-bind:style="{backgroundImage:bgImg1}">
-                <DivideBar part-title="全部电影推荐"></DivideBar>
+                <DivideBar v-bind:part-title="'全部电影推荐'" v-bind:index-of-part="0" v-on:partindex="getindex"></DivideBar>
                 <el-row>
                     <el-col :span="16" :offset="4">
-                        <MovieCard v-bind:show-num="movieShow" v-bind:movie="testInfo"></MovieCard>
+                        <MovieCard v-bind:show-num="movieShow" v-bind:movie="getMovies(0)"></MovieCard>
                     </el-col>
                 </el-row>
             </div>
             <div class="section" v-bind:style="{backgroundImage:bgImg2}">
-                <div class="slide" v-for="(item, index) in alltypes()" v-bind:key="index">
-                    <h3>{{item}}</h3>
+                <div class="slide"  v-for="(item, index) in alltypes()" v-bind:key="index">
+                    <DivideBar v-bind:part-title="item+'电影推荐'" v-bind:index-of-part="index+1"  v-on:partindex="getindex"></DivideBar>
+                    <el-row>
+                        <el-col :span="16" :offset="4">
+                            <MovieCard v-bind:show-num="movieShow" v-bind:movie="getMovies(index+1)"></MovieCard>
+                        </el-col>
+                    </el-row>
                 </div>
+                <!--<div class="slide" v-for="(item, index) in alltypes()" v-bind:key="index">-->
+                    <!--<h3>{{item}}</h3>-->
+                <!--</div>-->
             </div>
         </full-page>
 
@@ -56,10 +64,56 @@
     }, {
         name: "测试电影名5",
         time: "测试日期"
+    },{
+        name: "测试电影名6",
+        time: "测试日期"
+    }, {
+        name: "测试电影名7",
+        time: "测试日期"
+    }, {
+        name: "测试电影名8",
+        time: "测试日期"
+    }, {
+        name: "测试电影名9",
+        time: "测试日期"
+    }, {
+        name: "测试电影名10",
+        time: "测试日期"
+    },{
+        name: "测试电影名11",
+        time: "测试日期"
+    }, {
+        name: "测试电影名12",
+        time: "测试日期"
+    }, {
+        name: "测试电影名13",
+        time: "测试日期"
+    }, {
+        name: "测试电影名14",
+        time: "测试日期"
+    }, {
+        name: "测试电影名15",
+        time: "测试日期"
+    },{
+        name: "测试电影名16",
+        time: "测试日期"
+    }, {
+        name: "测试电影名17",
+        time: "测试日期"
+    }, {
+        name: "测试电影名18",
+        time: "测试日期"
+    }, {
+        name: "测试电影名19",
+        time: "测试日期"
+    }, {
+        name: "测试电影名20",
+        time: "测试日期"
     }];
 
-    var movietypes = [['动作类', '科幻类', '爱情类', '动画类'], ['恐怖类', '魔幻类', '喜剧类']];
-
+    var movietypes = [['动画类','犯罪类','恐怖类','科幻类'],['惊悚类','爱情类','动作类','西部类'],['音乐类','灾难类','喜剧类','剧情类']];
+    var allMovieKey = ['alltypemovie','动画','犯罪','恐怖','科幻','惊悚','爱情','动作','西部','音乐','灾难','喜剧','剧情'];
+    //var allIndex = [0,0,0,0,0,0,0,0,0,0,0,0,0];
     export default {
         name: 'home',
         data() {
@@ -80,6 +134,8 @@
                 testInfo: testMovie,
                 movieShow: 5,
                 movieTypes: movietypes,
+                allMovieData:[testMovie,testMovie,testMovie,testMovie,testMovie,testMovie,testMovie,testMovie,testMovie,testMovie,testMovie,testMovie,testMovie],
+                allIndex : [0,0,0,0,0,0,0,0,0,0,0,0,0],
             }
         },
         components: {
@@ -90,6 +146,19 @@
         },
         created: function () {
             window.console.log("!1");
+            //todo: 向后台发请求
+            this.getRecomData();
+        },
+        computed: {
+            getMovies () {
+                window.console.log("recal")
+                // window.console.log(partindex,this.allMovieData[partindex]);
+                return function(data) {
+                    let tmp = this.allIndex[data];
+                    window.console.log(this.allMovieData[data].slice(tmp, tmp+5));
+                    return this.allMovieData[data].slice(tmp, tmp+5)
+                };
+            }
         },
         methods: {
             afterLoad() {
@@ -101,7 +170,30 @@
             },
             toPos: function (pos) {
                 this.$refs.fullpage.api.moveTo(pos.param1, pos.param2);
-            }
+            },
+            getRecomData: function () {
+                let url = "http://127.0.0.1:8000/recom/"
+                this.$axios.get(url,{}).then(res => {
+                    window.console.log(res);
+                    if (res.data.result === "success") {
+                        for (let i = 1; i < res.data.data.length ; i++) {
+                            this.allMovieData.push(res.data.data[allMovieKey[i-1]])
+                        }
+                    }
+                })
+            },
+            changeBat: function (index) {
+                let tmp = this.allIndex[index];
+                this.$set(this.allIndex, index, (tmp+5)%20);
+                // this.allIndex[index] += 5;
+                // this.allIndex[index] %= 20;
+            },
+            getindex: function (index) {
+                window.console.log("outter",index);
+                this.changeBat(index);
+                window.console.log(this.allIndex)
+            },
+
         }
     }
 </script>

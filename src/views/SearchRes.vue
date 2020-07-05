@@ -251,9 +251,7 @@
 </script>
 
 <style>
-    .el-row {
-        margin-bottom: 20px;
-    }
+
 
     .el-col {
         border-radius: 4px;
@@ -283,6 +281,10 @@
 </style>
 
 <style scoped>
+    .el-row {
+        margin-bottom: 20px;
+    }
+
     .SearchRes {
         width: 100%;
         height: 100vh;

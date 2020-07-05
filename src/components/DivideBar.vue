@@ -9,7 +9,7 @@
             </el-col>
             <el-col class="mywhite" :span="4">
                 <div>
-                    <h3><i class="el-icon-refresh"></i>换一批</h3>
+                    <h3 @click="changeMov()" style="cursor: pointer"><i class="el-icon-refresh"></i>换一批</h3>
                 </div>
             </el-col>
         </el-row>
@@ -19,7 +19,18 @@
 <script>
     export default {
         name: "DivideBar",
-        props:["PartTitle"]
+        props:["PartTitle","indexOfPart"],
+        data() {
+            return {
+                indexAt:this.indexOfPart,
+            }
+        },
+        methods: {
+            changeMov() {
+                window.console.log("change movie", this.indexAt);
+                this.$emit("partindex", this.indexAt)
+            }
+        }
     }
 </script>
 

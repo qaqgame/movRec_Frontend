@@ -3,10 +3,10 @@
         <img style="position: absolute;height: 360px;z-index: 0;width: 100%;left: 0" :src="src1"/>
         <PageHeader style="z-index: 10;" class="myHeader" v-bind:visible="false"></PageHeader>
         <MovieDetailHeader v-bind:movie-name="name" v-bind:movie-data="movieDetailInfo"></MovieDetailHeader>
-        <el-row>
+        <el-row class="devider">
             <el-col :span="24"><div class="grid-content bg-purple"></div></el-col>
         </el-row>
-        <el-row>
+        <el-row  class="devider">
             <el-col :span="18" :offset="3">
                 <el-row type="flex" justify="start" align="top">
                     <h2>简介：</h2>
@@ -25,7 +25,7 @@
 <!--                </el-row>-->
 <!--            </el-col>-->
 <!--        </el-row>-->
-        <el-row>
+        <el-row  class="devider">
             <el-col :span="24"><div class="grid-content bg-purple"></div></el-col>
         </el-row>
         <!--todo:评论？？？-->
@@ -124,9 +124,10 @@
         width: 100%;
         z-index: 1;
     }
-    .el-row {
+    .devider {
         margin-bottom: 20px;
     }
+
     .el-col {
         border-radius: 4px;
     }

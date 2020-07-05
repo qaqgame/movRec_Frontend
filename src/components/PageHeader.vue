@@ -36,7 +36,7 @@
 </template>
 
 <script>
-    var movietypes=[['动作类','科幻类','爱情类','动画类'],['恐怖类','魔幻类','喜剧类']];
+    var movietypes=[['动画类','犯罪类','恐怖类','科幻类'],['惊悚类','爱情类','动作类','西部类'],['音乐类','灾难类','喜剧类','剧情类']];
     export default {
         name: "PageHeader",
         data() {
