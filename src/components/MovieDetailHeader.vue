@@ -223,9 +223,9 @@
                             <h2>评分：</h2>
                             <el-rate
                                     v-model="value2"
+                                    show-score
                                     :colors="colors">
                             </el-rate>
-                            <h2>{{value2}}</h2>
                         </el-row>
                     </div>
                 </el-col>
