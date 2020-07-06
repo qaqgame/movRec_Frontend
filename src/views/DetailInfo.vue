@@ -16,55 +16,9 @@
                 </el-row>
             </el-col>
         </el-row>
-<!--        <el-row>-->
-<!--            <el-col :span="18" :offset="3">-->
-<!--                <el-row type="flex" justify="start">-->
-<!--                    &lt;!&ndash;todo:已收藏的显示已收藏，根据数据来动态改变&ndash;&gt;-->
-<!--                    <el-button class="button-ops" type="primary" icon="el-icon-star-off">收藏</el-button>-->
-<!--                    <el-button class="button-ops" @click="dialogFormVisible = true" type="primary" icon="el-icon-edit">评论</el-button>-->
-<!--                </el-row>-->
-<!--            </el-col>-->
-<!--        </el-row>-->
         <el-row  class="devider">
             <el-col :span="24"><div class="grid-content bg-purple"></div></el-col>
         </el-row>
-        <!--todo:评论？？？-->
-        <el-dialog title="我来评论" :visible.sync="dialogFormVisible">
-            <el-row style="display: flex; flex-direction: row;flex-wrap: nowrap; height: 150px">
-                <el-row style="height: 150px">
-                    <el-image class="movieImg1" :src="src"></el-image>
-                </el-row>
-                <el-row style="display: flex; flex-direction: column; justify-content: space-around; height: 150px;margin-left: 30px">
-                    <div>
-                        <h2 class="comment-title" style="text-align: left">11111111</h2>
-                    </div>
-                    <div>
-                        <el-row type="flex" justify="start" align="middle">
-                            <h2>评分：</h2>
-                            <el-rate
-                                    v-model="value2"
-                                    :colors="colors">
-                            </el-rate>
-                        </el-row>
-                    </div>
-                </el-row>
-            </el-row>
-            <el-form :model="form">
-                <el-form-item label="活动名称" :label-width="formLabelWidth">
-                    <el-input v-model="form.name" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item label="活动区域" :label-width="formLabelWidth">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
-                    </el-select>
-                </el-form-item>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-            </div>
-        </el-dialog>
     </div>
 </template>
 

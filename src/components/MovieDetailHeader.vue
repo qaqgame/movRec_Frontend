@@ -210,13 +210,13 @@
         </el-row>
         <!--todo:评论？？？-->
         <el-dialog title="我来评论" :visible.sync="dialogFormVisible">
-            <el-row style="display: flex; flex-direction: row;flex-wrap: nowrap; height: 150px">
-                <el-col style="height: 150px">
-                    <el-image style="height: 150px; width: 225px" class="movieImg1" :src="src"></el-image>
+            <el-row style="display: flex; flex-direction: row;flex-wrap: nowrap">
+                <el-col >
+                    <el-image  class="movieImg" :src="initialMovieData.coverurl === '' ? defaultInfo.coverurl : 'http://127.0.0.1:8000'+initialMovieData.coverurl"></el-image>
                 </el-col>
                 <el-col style="display: flex; flex-direction: column; justify-content: space-around; height: 150px;margin-left: 30px">
                     <div>
-                        <h2 class="comment-title" style="text-align: left">11111111</h2>
+                        <h2 class="comment-title" style="text-align: left">{{movieName}}</h2>
                     </div>
                     <div>
                         <el-row type="flex" justify="start" align="middle">
@@ -225,25 +225,28 @@
                                     v-model="value2"
                                     :colors="colors">
                             </el-rate>
+                            <h2>{{value2}}</h2>
                         </el-row>
                     </div>
                 </el-col>
             </el-row>
             <el-row><br/></el-row>
-            <el-form :model="form">
-                <el-form-item label="活动名称" :label-width="formLabelWidth">
-                    <el-input v-model="form.name" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item label="活动区域" :label-width="formLabelWidth">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
-                    </el-select>
-                </el-form-item>
+            <el-form>
+                <el-row>
+                    <el-col :span="20" :offset="2">
+                        <el-input
+                                type="textarea"
+                                :autosize="{ minRows: 2, maxRows: 6}"
+                                placeholder="请输入内容"
+                                v-model="textarea1">
+                        </el-input>
+                    </el-col>
+                </el-row>
+
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+                <el-button type="primary" @click="sendMovieCom()">确 定</el-button>
             </div>
         </el-dialog>
     </div>
@@ -272,18 +275,9 @@
                 defaultInfo: defaultInfo,
                 initialMovieData: defaultInfo,
                 dialogFormVisible: false,
-                form: {
-                    name: '',
-                    region: '',
-                    date1: '',
-                    date2: '',
-                    delivery: false,
-                    type: [],
-                    resource: '',
-                    desc: ''
-                },
+                textarea1:'',
                 formLabelWidth: '120px',
-                value2: null,
+                value2: 0,
                 colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
             }
         },
@@ -348,7 +342,22 @@
                         type: 'error'
                     });
                 }
-
+            },
+            sendMovieCom() {
+                let url = "http://127.0.0.1:8000/createreply/";
+                let params = {
+                    "type":"movie",
+                    "content": this.textarea1,
+                    "grade": Number(this.value2),
+                    "moviename": this.movieName
+                };
+                window.console.log(url,params);
+                this.$axios.post(url,params).then(res => {
+                    window.console.log(res);
+                    if (res.data.result === "success") {
+                        this.dialogFormVisible = false;
+                    }
+                });
             }
         }
     }
