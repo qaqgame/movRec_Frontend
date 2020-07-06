@@ -1,14 +1,14 @@
 <template>
     <div class="MovieCard">
         <el-row>
-            <el-col :span="4" v-for="(o,index) in showNum" :key="o" :offset="index > 0 ? 1 : 0">
+            <el-col :span="4" v-for="(o,index) in showNum" :key="movieItems[index].movieId" :offset="index > 0 ? 1 : 0">
                 <el-card :body-style="{ padding: '0px' }">
-                    <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
+                    <img v-bind:src="'http://127.0.0.1:8000'+movieItems[index].movieimgurl" class="image">
                     <div style="padding: 14px;">
-                        <span>{{movie[index].name}}</span>
+                        <span>{{movieItems[index].moviename}}</span>
                         <div class="bottom clearfix">
-                            <time class="time">{{ movie[index].time }}</time>
-                            <el-button type="text" class="button">详细信息>>></el-button>
+                            <time class="time">{{ movieItems[index].extrainfo }}</time>
+                            <el-button type="text" class="button" @click="toDetailInfo(movieItems[index].moviename)">详细信息>>></el-button>
                         </div>
                     </div>
                 </el-card>
@@ -25,7 +25,13 @@
                 currentDate: new Date()
             };
         },
-        props:['movie','showNum']
+        props:['movieItems','showNum'],
+        methods: {
+            toDetailInfo(name) {
+                // let url = "http://127.0.0.1:8000/movie/"+name;
+                this.$router.push({name:'moviedetail', params:{name}})
+            }
+        }
     }
 </script>
 

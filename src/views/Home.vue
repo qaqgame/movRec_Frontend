@@ -15,7 +15,7 @@
                 <DivideBar v-bind:part-title="'全部电影推荐'" v-bind:index-of-part="0" v-on:partindex="getindex"></DivideBar>
                 <el-row>
                     <el-col :span="16" :offset="4">
-                        <MovieCard v-bind:show-num="movieShow" v-bind:movie="getMovies(0)"></MovieCard>
+                        <MovieCard v-bind:show-num="movieShow" v-bind:movie-items="getMovies(0)"></MovieCard>
                     </el-col>
                 </el-row>
             </div>
@@ -24,21 +24,12 @@
                     <DivideBar v-bind:part-title="item+'电影推荐'" v-bind:index-of-part="index+1"  v-on:partindex="getindex"></DivideBar>
                     <el-row>
                         <el-col :span="16" :offset="4">
-                            <MovieCard v-bind:show-num="movieShow" v-bind:movie="getMovies(index+1)"></MovieCard>
+                            <MovieCard v-bind:show-num="movieShow" v-bind:movie-items="getMovies(index+1)"></MovieCard>
                         </el-col>
                     </el-row>
                 </div>
-                <!--<div class="slide" v-for="(item, index) in alltypes()" v-bind:key="index">-->
-                    <!--<h3>{{item}}</h3>-->
-                <!--</div>-->
             </div>
         </full-page>
-
-        <!--<ul class="actions">-->
-            <!--<li @click="$refs.fullpage.api.moveSectionDown()" class="actions-button">Down</li>-->
-            <!--<li @click="$refs.fullpage.api.moveSectionUp()" class="actions-button">Up</li>-->
-            <!--<li @click="$refs.fullpage.api.moveTo(2,1)" class="actions-button">MoveTo</li>-->
-        <!--</ul>-->
     </div>
 </template>
 
@@ -50,65 +41,105 @@
     import SearchBar from "../components/SearchBar"
 
     var testMovie = [{
-        name: "测试电影名1",
-        time: "测试日期"
+        moviename: "测试电影名1",
+        extrainfo: "测试日期",
+        movieId: "test1",
+        movieimgurl: "/static/cover/default_cover.png"
     }, {
-        name: "测试电影名2",
-        time: "测试日期"
+        moviename: "测试电影名2",
+        extrainfo: "测试日期",
+        movieId: "test2",
+        movieimgurl: "/static/cover/default_cover.png"
     }, {
-        name: "测试电影名3",
-        time: "测试日期"
+        moviename: "测试电影名3",
+        extrainfo: "测试日期",
+        movieId: "test3",
+        movieimgurl: "/static/cover/default_cover.png"
     }, {
-        name: "测试电影名4",
-        time: "测试日期"
+        moviename: "测试电影名4",
+        extrainfo: "测试日期",
+        movieId: "test4",
+        movieimgurl: "/static/cover/default_cover.png"
     }, {
-        name: "测试电影名5",
-        time: "测试日期"
+        moviename: "测试电影名5",
+        extrainfo: "测试日期",
+        movieId: "test5",
+        movieimgurl: "/static/cover/default_cover.png"
     },{
-        name: "测试电影名6",
-        time: "测试日期"
+        moviename: "测试电影名6",
+        extrainfo: "测试日期",
+        movieId: "test6",
+        movieimgurl: "/static/cover/default_cover.png"
     }, {
-        name: "测试电影名7",
-        time: "测试日期"
+        moviename: "测试电影名7",
+        extrainfo: "测试日期",
+        movieId: "test7",
+        movieimgurl: "/static/cover/default_cover.png"
     }, {
-        name: "测试电影名8",
-        time: "测试日期"
+        moviename: "测试电影名8",
+        extrainfo: "测试日期",
+        movieId: "test8",
+        movieimgurl: "/static/cover/default_cover.png"
     }, {
-        name: "测试电影名9",
-        time: "测试日期"
+        moviename: "测试电影名9",
+        extrainfo: "测试日期",
+        movieId: "test9",
+        movieimgurl: "/static/cover/default_cover.png"
     }, {
-        name: "测试电影名10",
-        time: "测试日期"
+        moviename: "测试电影名10",
+        extrainfo: "测试日期",
+        movieId: "test10",
+        movieimgurl: "/static/cover/default_cover.png"
     },{
-        name: "测试电影名11",
-        time: "测试日期"
+        moviename: "测试电影名11",
+        extrainfo: "测试日期",
+        movieId: "test11",
+        movieimgurl: "/static/cover/default_cover.png"
     }, {
-        name: "测试电影名12",
-        time: "测试日期"
+        moviename: "测试电影名12",
+        extrainfo: "测试日期",
+        movieId: "test12",
+        movieimgurl: "/static/cover/default_cover.png"
     }, {
-        name: "测试电影名13",
-        time: "测试日期"
+        moviename: "测试电影名13",
+        extrainfo: "测试日期",
+        movieId: "test13",
+        movieimgurl: "/static/cover/default_cover.png"
     }, {
-        name: "测试电影名14",
-        time: "测试日期"
+        moviename: "测试电影名14",
+        extrainfo: "测试日期",
+        movieId: "test14",
+        movieimgurl: "/static/cover/default_cover.png"
     }, {
-        name: "测试电影名15",
-        time: "测试日期"
+        moviename: "测试电影名15",
+        extrainfo: "测试日期",
+        movieId: "test15",
+        movieimgurl: "/static/cover/default_cover.png"
     },{
-        name: "测试电影名16",
-        time: "测试日期"
+        moviename: "测试电影名16",
+        extrainfo: "测试日期",
+        movieId: "test16",
+        movieimgurl: "/static/cover/default_cover.png"
     }, {
-        name: "测试电影名17",
-        time: "测试日期"
+        moviename: "测试电影名17",
+        extrainfo: "测试日期",
+        movieId: "test17",
+        movieimgurl: "/static/cover/default_cover.png"
     }, {
-        name: "测试电影名18",
-        time: "测试日期"
+        moviename: "测试电影名18",
+        extrainfo: "测试日期",
+        movieId: "test18",
+        movieimgurl: "/static/cover/default_cover.png"
     }, {
-        name: "测试电影名19",
-        time: "测试日期"
+        moviename: "测试电影名19",
+        extrainfo: "测试日期",
+        movieId: "test19",
+        movieimgurl: "/static/cover/default_cover.png"
     }, {
-        name: "测试电影名20",
-        time: "测试日期"
+        moviename: "测试电影名20",
+        extrainfo: "测试日期",
+        movieId: "test20",
+        movieimgurl: "/static/cover/default_cover.png"
     }];
 
     var movietypes = [['动画类','犯罪类','恐怖类','科幻类'],['惊悚类','爱情类','动作类','西部类'],['音乐类','灾难类','喜剧类','剧情类']];
@@ -151,11 +182,11 @@
         },
         computed: {
             getMovies () {
-                window.console.log("recal")
+                window.console.log("recal");
                 // window.console.log(partindex,this.allMovieData[partindex]);
                 return function(data) {
                     let tmp = this.allIndex[data];
-                    window.console.log(this.allMovieData[data].slice(tmp, tmp+5));
+                    // window.console.log(this.allMovieData[data].slice(tmp, tmp+5));
                     return this.allMovieData[data].slice(tmp, tmp+5)
                 };
             }
@@ -163,7 +194,6 @@
         methods: {
             afterLoad() {
                 window.console.log('After load')
-                //this.$refs.fullpage.api.moveTo(2,2);
             },
             alltypes: function () {
                 return movietypes.flat();
@@ -172,12 +202,18 @@
                 this.$refs.fullpage.api.moveTo(pos.param1, pos.param2);
             },
             getRecomData: function () {
-                let url = "http://127.0.0.1:8000/recom/"
+                let url = "http://127.0.0.1:8000/recom/";
                 this.$axios.get(url,{}).then(res => {
-                    window.console.log(res);
+                    // window.console.log(res);
                     if (res.data.result === "success") {
-                        for (let i = 1; i < res.data.data.length ; i++) {
-                            this.allMovieData.push(res.data.data[allMovieKey[i-1]])
+                        for (let i = 0; i < allMovieKey.length ; i++) {
+                            //this.allMovieData[i-1] = res.data.data[allMovieKey[i-1]];
+                            if (res.data.data[allMovieKey[i]].length !== 0) {
+                                this.$set(this.allMovieData, i, res.data.data[allMovieKey[i]])
+                            } else {
+                                window.console.log(i,"null")
+                            }
+                            //this.allMovieData.push(res.data.data[allMovieKey[i-1]])
                         }
                     }
                 })

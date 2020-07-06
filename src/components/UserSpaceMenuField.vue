@@ -102,18 +102,18 @@
             getTargetData(target) {
                 let url = 'http://127.0.0.1:8000/user/'+this.userId+target;
                 this.$axios.get(url,{}).then(res => {
-                    window.console.log(res);
+                    window.console.log(res,target);
                     if (target === "/keep") {
-                        if (res.data.data.result === "success") {
+                        if (res.data.result === "success") {
                             this.keepMovieRes = res.data.data.keepmovies;
                         }
                     } else if (target === "/timeline") {
-                        if (res.data.data.result === "success") {
+                        if (res.data.result === "success") {
                             this.timeLineRes = res.data.data.timeline
                         }
                     } else if (target === "/historyrecord") {
-                        if (res.data.data.result === "success")  {
-                            this.historyRes = res.data.data
+                        if (res.data.result === "success")  {
+                            this.historyRes = res.data.data.histories
                         }
                     } else if (target === "/comment") {
                         //TODO:

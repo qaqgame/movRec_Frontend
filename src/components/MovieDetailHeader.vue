@@ -201,7 +201,7 @@
                 <el-row><br></el-row>
                 <el-row><br></el-row>
                 <el-row type="flex" align="bottom" style="height: 100%; width: 100%;">
-                    <el-button class="button-ops" type="primary" icon="el-icon-star-off" v-bind:disabled="dis" @click="keepMovie()">{{dis === true ? "已收藏":"收藏"}}</el-button>
+                    <el-button class="button-ops" type="primary" icon="el-icon-star-off" v-bind:disabled="this.initialMovieData.ifKeeped" @click="keepMovie()">{{this.initialMovieData.ifKeeped === true ? "已收藏":"收藏"}}</el-button>
                     <el-button class="button-ops" @click="dialogFormVisible = true" type="primary"
                                icon="el-icon-edit">评论
                     </el-button>
@@ -258,7 +258,8 @@
         "lang":"暂无",
         "type":[],
         "actors":[],
-        "coverurl":'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg'
+        "coverurl":'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+        "ifKeeped":false,
     }
 
     export default {
@@ -284,7 +285,6 @@
                 formLabelWidth: '120px',
                 value2: null,
                 colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
-                dis:false
             }
         },
         props:['movieName','movieData'],
@@ -318,6 +318,7 @@
         watch: {
             movieData: function () {
                 this.initialMovieData = this.movieData;
+                window.console.log("moviedetail: ",this.initialMovieData)
             }
         },
         methods: {

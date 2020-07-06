@@ -1,5 +1,5 @@
 <template>
-    <div class="SearchRes" v-infinite-scroll="load" infinite-scroll-disabled="disabled">
+    <div class="SearchRes" v-infinite-scroll="load" infinite-scroll-disabled="disabled" infinite-scroll-distance="100" >
         <div class="PageHeaderBar1">
             <PageHeader style="z-index: 10;position: fixed" v-bind:visible="false"></PageHeader>
         </div>
@@ -80,10 +80,28 @@
         beforeRouteEnter (to, from, next) {
             next(vm => {
                 // 通过 `vm` 访问组件实例
-                window.console.log(to,from);
-                vm.search = Number(vm.$route.query.search);
-                vm.searchMovieName = vm.$route.query.moviename;
-                vm.searchStart = vm.$route.query.start;
+                //window.console.log(to,from);
+                window.console.log("res",vm.$route.query.search,vm.$route.query.moviename,vm.$route.query.start)
+                if (vm.$route.query.search === undefined) {
+                    vm.search = 0;
+                } else {
+                    vm.search = Number(vm.$route.query.search);
+                }
+                if (vm.$route.query.moviename === undefined) {
+                    vm.searchMovieName = '';
+                } else {
+                    vm.searchMovieName = vm.$route.query.moviename;
+                }
+                if (vm.$route.query.start === undefined) {
+                    vm.searchStart = 0;
+                } else {
+                    vm.searchStart = Number(vm.$route.query.start);
+                }
+
+                // vm.search = Number(vm.$route.query.search);
+                //
+                // vm.searchMovieName = vm.$route.query.moviename;
+                // vm.searchStart = vm.$route.query.start;
                 window.console.log(vm.search, vm.searchMovieName, vm.searchStart)
             })
         },
@@ -115,13 +133,18 @@
             next();
         },
         created() {
-            if (this.$route.query.search === '') {
+            window.console.log("res1",this.$route.query.search,this.$route.query.moviename,this.$route.query.start)
+            if (this.$route.query.search === undefined) {
                 this.search = 0;
             } else {
                 this.search = Number(this.$route.query.search);
             }
-            this.searchMovieName = this.$route.query.moviename;
-            if (this.$route.query.start === '') {
+            if (this.$route.query.moviename === undefined) {
+                this.searchMovieName = '';
+            } else {
+                this.searchMovieName = this.$route.query.moviename;
+            }
+            if (this.$route.query.start === undefined) {
                 this.searchStart = 0;
             } else {
                 this.searchStart = Number(this.$route.query.start);
@@ -145,16 +168,17 @@
         methods: {
             // 无限滚动load函数.
             load() {
-                window.console.log("loading?:",this.loading, this.search === '1', this.search === 1);
+                window.console.log("loading?:",this.loading, this.search === '1', this.search === 1, this.modelv.start);
                 if (!this.loading) {
-                    if (this.search === 1) {
-                        this.loading = true;
-                        this.searchMovie();
-                    } else {
-                        this.loading = true;
-                        this.immediateReq();
-                    }
-
+                    // if (this.search === 1) {
+                    //     this.loading = true;
+                    //     this.searchMovie();
+                    // } else {
+                    //     this.loading = true;
+                    //     this.immediateReq();
+                    // }
+                    this.loading = true;
+                    this.searchMov()
                 }
                 //this.loading = false
             },
@@ -180,7 +204,7 @@
                 this.search=0;
                 this.resetCntField();
                 //立即发请求
-                this.immediateReq();
+                this.searchMov();
             },
             // 获取电影的立即请求
             immediateReq() {
@@ -213,9 +237,9 @@
                         window.console.log("no res");
                         this.nomore = true;
                     }
-                    if (this.loading) {
-                        this.loading = false;
-                    }
+                    window.console.log("loading: ",this.loading);
+                    window.console.log("nomore",this.nomore);
+                    this.loading = false;
                 })
             },
             // 搜索电影的请求
@@ -245,6 +269,35 @@
                 this.num = 0;
                 this.nomore = false;
                 this.showingMovies = [];
+                this.searchStart = 0;
+            },
+            searchMov() {
+                //this.resetCntField();
+                let params = [];
+                let url0 = "http://127.0.0.1:8000/showmovie/search?";
+                params.push("type="+this.modelv.type);
+                params.push("field="+this.modelv.field);
+                if (this.searchMovieName !== '') {
+                    params.push("moviename="+this.searchMovieName);
+                }
+                params.push("start="+this.searchStart);
+                let param = params.join("&");
+                let url = url0+param;
+                window.console.log(url);
+                this.$axios.get(url,{}).then(res => {
+                    window.console.log(res);
+                    if (res.data.data.allmovies.length < 20) {
+                        this.nomore = true;
+                    }
+                    for (let t = 0; t < res.data.data.allmovies.length; t++) {
+                        this.showingMovies.push(res.data.data.allmovies[t]);
+                        this.num += 1;
+                        this.searchStart += 1;
+                    }
+                    if (this.loading) {
+                        this.loading = false;
+                    }
+                })
             }
         }
     }
