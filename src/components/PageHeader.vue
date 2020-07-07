@@ -1,6 +1,6 @@
 <template>
     <div class="PageHeader">
-        <el-row>
+        <el-row v-bind:class="{scroll_bg:bgVisible}">
             <div>
                 <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
                     <el-menu
@@ -13,19 +13,25 @@
                         <el-menu-item index="1">Logo</el-menu-item>
                         <el-menu-item index="2"><a>片库</a></el-menu-item>
                         <el-menu-item index="3"></el-menu-item>
-                        <el-menu-item  data-menuanchor="index" class="MoveTypeTitle" index="4"><a href="#/index" @click="toIndex(1,0)">全部电影推荐</a></el-menu-item>
+                        <el-menu-item data-menuanchor="index" class="MoveTypeTitle" index="4"><a href="#/index"
+                                                                                                 @click="toIndex(1,0)">全部电影推荐</a>
+                        </el-menu-item>
                         <el-submenu data-menuanchor="index2" class="MoveTypeTitle" index="5" v-show="visible">
                             <template slot="title">各类型电影推荐</template>
                             <div v-for="(items,index) in movieTypes" v-bind:key="2-index">
-                                <el-menu-item v-for="(item,index1) in items"  v-bind:key="2-index-index1" :index="item" @click="toIndex(2,index*4+index1)">{{item}}</el-menu-item>
+                                <el-menu-item v-for="(item,index1) in items" v-bind:key="2-index-index1" :index="item"
+                                              @click="toIndex(2,index*4+index1)">{{item}}
+                                </el-menu-item>
                             </div>
                         </el-submenu>
-                        <el-submenu class="Personal" index="7">
-                            <template slot="title"><el-avatar shape="square" :size="30" :src="squareUrl"></el-avatar></template>
-                            <el-menu-item index="2-1">等级</el-menu-item>
-                            <el-menu-item index="2-2">消息</el-menu-item>
-                            <el-menu-item index="2-3">收藏</el-menu-item>
-                            <el-menu-item index="2-4">时间线</el-menu-item>
+                        <el-submenu class="Personal" v-bind:class="{scroll_bg:bgVisible}"  index="7">
+                            <template slot="title">
+                                <el-avatar shape="square" :size="30" :src="squareUrl"></el-avatar>
+                            </template>
+                            <el-menu-item v-bind:class="{scroll_bg:bgVisible}" index="2-1">等级</el-menu-item>
+                            <el-menu-item v-bind:class="{scroll_bg:bgVisible}" index="2-2">消息</el-menu-item>
+                            <el-menu-item v-bind:class="{scroll_bg:bgVisible}" index="2-3">收藏</el-menu-item>
+                            <el-menu-item v-bind:class="{scroll_bg:bgVisible}" index="2-4">时间线</el-menu-item>
                         </el-submenu>
                         <div style="clear: both"></div>
                     </el-menu>
@@ -36,7 +42,7 @@
 </template>
 
 <script>
-    var movietypes=[['动画类','犯罪类','恐怖类','科幻类'],['惊悚类','爱情类','动作类','西部类'],['音乐类','灾难类','喜剧类','剧情类']];
+    var movietypes = [['动画类', '犯罪类', '恐怖类', '科幻类'], ['惊悚类', '爱情类', '动作类', '西部类'], ['音乐类', '灾难类', '喜剧类', '剧情类']];
     export default {
         name: "PageHeader",
         data() {
@@ -44,10 +50,11 @@
                 activeIndex: '1',
                 activeIndex2: '1',
                 squareUrl: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
-                selfstyle:{
+                selfstyle: {
                     background: "none !important"
                 },
-                movieTypes:movietypes
+                movieTypes: movietypes,
+                // bgVisible: false //顶栏背景设置（透明或特定颜色）
             };
         },
         methods: {
@@ -55,30 +62,34 @@
                 window.console.log(key, keyPath);
             },
             addEmptyLine: function (f) {
-                f.innerHTML = `<br/>`+f.innerHTML
+                f.innerHTML = `<br/>` + f.innerHTML
             },
             alltype() {
                 return movietypes.flat()
             },
             heightInfo() {
-                return document.getElementsByClassName("PageHeader")[0].style.height.toString()+'px';
+                return document.getElementsByClassName("PageHeader")[0].style.height.toString() + 'px';
             },
-            toIndex(index1,index2) {
-                window.console.log(index1,index2);
+            toIndex(index1, index2) {
+                window.console.log(index1, index2);
                 let pos = {
-                    "param1":index1,
-                    "param2":index2
+                    "param1": index1,
+                    "param2": index2
                 };
-                this.$emit('getpos',pos);
+                this.$emit('getpos', pos);
             }
         },
-        props:['visible']
+        props: ['visible','bgVisible']
     }
 </script>
 
 <style scoped>
+    .scroll_bg {
+        background-color: #35495e !important;
+    }
+
     .Personal {
-        float: right!important;
+        float: right !important;
     }
 
     .MoveTypeTitle {
@@ -102,12 +113,13 @@
         color: #409eff;
         text-decoration: none;
     }
+
     .el-menu {
         background: none;
     }
 
     .el-menu:hover {
-        background: none!important;
+        background: none !important;
     }
 
     .el-menu-item {
@@ -117,7 +129,7 @@
     }
 
     .el-menu-item:hover {
-        background: none!important;
+        background: none !important;
     }
 
     .el-menu-item:focus {
@@ -129,14 +141,13 @@
     }
 
 
-
     .el-submenu__title {
-        background: none!important;
+        background: none !important;
         font-size: medium;
     }
 
     .el-icon-arrow-down:before {
-        color:white;
+        color: white;
     }
 
     .el-menu--popup {
@@ -144,14 +155,16 @@
     }
 
     .el-menu--popup .el-menu-item {
-        font-size: medium!important;
+        font-size: medium !important;
     }
+
     ul {
         list-style-type: none;
         padding: 0;
     }
+
     /*li {*/
-        /*display: inline-block;*/
-        /*margin: 0 10px;*/
+    /*display: inline-block;*/
+    /*margin: 0 10px;*/
     /*}*/
 </style>
