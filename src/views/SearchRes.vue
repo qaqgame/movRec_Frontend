@@ -1,7 +1,9 @@
 <template>
-    <div class="SearchRes" v-infinite-scroll="load" infinite-scroll-disabled="disabled" infinite-scroll-distance="100" >
+    <div ref="Box" class="SearchRes" v-infinite-scroll="load" infinite-scroll-disabled="disabled"
+         infinite-scroll-distance="100">
         <div class="PageHeaderBar1">
-            <PageHeader style="z-index: 10;position: fixed" v-bind:visible="false"></PageHeader>
+            <PageHeader style="z-index: 10;position: fixed" v-bind:visible="false"
+                        v-bind:bg-visible="bgV" isible=""></PageHeader>
         </div>
         <img style="height: 200px;z-index: 0;width: 100%;left: 0" :src="src1"/>
         <div style="position: relative;bottom: 100px">
@@ -21,7 +23,8 @@
                     </el-col>
                     <el-col>
                         <el-row type="flex" justify="start" style="flex-wrap: wrap">
-                            <h3 v-for="(item,index1) in FilterContent[index]" v-bind:key="vle+(index1-1)" class="targetitem"
+                            <h3 v-for="(item,index1) in FilterContent[index]" v-bind:key="vle+(index1-1)"
+                                class="targetitem"
                                 v-bind:class="{targetitem: isActive}" @click="chooseType(vle,index1-1)">{{item}}</h3>
                         </el-row>
                     </el-col>
@@ -56,7 +59,7 @@
     import SearchBar from "../components/SearchBar";
 
     var types = ['类型', '地区'];
-    var args = {"type":-1,"field":-1,"start":0};
+    var args = {"type": -1, "field": -1, "start": 0};
     export default {
         name: "SearchRes",
         components: {SearchBar, PageHeader, SingleMovieCard},
@@ -67,21 +70,25 @@
                 isActive: true,
                 showingMovies: [],      // 渲染电影
                 loading: false,         // 判断是否正在请求中
-                num:0,                  // 已经渲染电影个数
-                filterType:[],          // 类型可选项
-                filterArea:[],          // 地区可选项
-                modelv:args,            // 类型地区等选择结果
+                num: 0,                  // 已经渲染电影个数
+                filterType: [],          // 类型可选项
+                filterArea: [],          // 地区可选项
+                modelv: args,            // 类型地区等选择结果
                 nomore: false,          // 判断是否结束加载
-                search:0,               // 判断是否是搜索电影的要求
-                searchMovieName:'',     // 搜索电影名
-                searchStart:0,          // 搜索结果起始
+                search: 0,               // 判断是否是搜索电影的要求
+                searchMovieName: '',     // 搜索电影名
+                searchStart: 0,          // 搜索结果起始
+                bgV: false               //顶栏背景
             }
         },
-        beforeRouteEnter (to, from, next) {
+        mounted() {
+            window.addEventListener("scroll", this.handleScroll, true)
+        },
+        beforeRouteEnter(to, from, next) {
             next(vm => {
                 // 通过 `vm` 访问组件实例
                 //window.console.log(to,from);
-                window.console.log("res",vm.$route.query.search,vm.$route.query.moviename,vm.$route.query.start)
+                window.console.log("res", vm.$route.query.search, vm.$route.query.moviename, vm.$route.query.start)
                 if (vm.$route.query.search === undefined) {
                     vm.search = 0;
                 } else {
@@ -100,35 +107,37 @@
                 window.console.log(vm.search, vm.searchMovieName, vm.searchStart)
             })
         },
-        // beforeRouteUpdate (to, from, next) {
-        //     window.console.log("route update", to, from);
-        //     window.console.log(to.query.moviename);
-        //     // 刷新参数内容
-        //     if (to.query.search === undefined) {
-        //         this.search = 0;
-        //     } else {
-        //         this.search = Number(to.query.search);
-        //     }
-        //     if (to.query.moviename === undefined) {
-        //         this.searchMovieName = '';
-        //     } else {
-        //         this.searchMovieName = to.query.moviename;
-        //     }
-        //     if (to.query.start === undefined) {
-        //         this.searchStart = 0;
-        //     } else {
-        //         this.searchStart = Number(to.query.start);
-        //     }
-        //     window.console.log(this.search,this.searchMovieName);
-        //     // 重新加载
-        //     if (this.search === 1) {
-        //         this.resetCntField();
-        //         this.load();
-        //     }
-        //     next();
-        // },
+
+        beforeRouteUpdate (to, from, next) {
+            window.console.log("route update", to, from);
+            window.console.log(to.query.moviename);
+            // 刷新参数内容
+            if (to.query.search === undefined) {
+                this.search = 0;
+            } else {
+                this.search = Number(to.query.search);
+            }
+            if (to.query.moviename === undefined) {
+                this.searchMovieName = '';
+            } else {
+                this.searchMovieName = to.query.moviename;
+            }
+            if (to.query.start === undefined) {
+                this.searchStart = 0;
+            } else {
+                this.searchStart = Number(to.query.start);
+            }
+            window.console.log(this.search,this.searchMovieName);
+            // 重新加载
+            if (this.search === 1) {
+                this.resetCntField();
+                this.load();
+            }
+            next();
+        },
+
         created() {
-            window.console.log("res1",this.$route.query.search,this.$route.query.moviename,this.$route.query.start)
+            window.console.log("res1", this.$route.query.search, this.$route.query.moviename, this.$route.query.start)
             if (this.$route.query.search === undefined) {
                 this.search = 0;
             } else {
@@ -147,10 +156,10 @@
             this.getFilters();
         },
         computed: {
-            noMore () {
+            noMore() {
                 return this.nomore;
             },
-            disabled () {
+            disabled() {
                 return this.loading || this.noMore
             },
             FilterContent() {
@@ -163,7 +172,7 @@
         methods: {
             // 无限滚动load函数.
             load() {
-                window.console.log("loading?:",this.loading, this.search === '1', this.search === 1, this.modelv.start);
+                window.console.log("loading?:", this.loading, this.search === '1', this.search === 1, this.modelv.start);
                 if (!this.loading) {
                     // if (this.search === 1) {
                     //     this.loading = true;
@@ -180,7 +189,7 @@
             // 获取筛选的类型
             getFilters() {
                 let url = "http://127.0.0.1:8000/showmovie/";
-                this.$axios.get(url,{}).then(res => {
+                this.$axios.get(url, {}).then(res => {
                     window.console.log(res);
                     if (res.data.result === "success") {
                         this.filterType = res.data.data.typeList;
@@ -196,7 +205,7 @@
                 } else if (filter === "地区") {
                     this.modelv.field = index
                 }
-                this.search=0;
+                this.search = 0;
                 this.resetCntField();
                 //立即发请求
                 this.searchMov();
@@ -209,41 +218,44 @@
                 let url0 = "http://127.0.0.1:8000/showmovie/search?";
                 let tmp = [];
                 if (this.modelv.type !== -1) {
-                    tmp.push("type="+this.modelv.type);
+                    tmp.push("type=" + this.modelv.type);
                 }
                 if (this.modelv.field !== -1) {
-                    tmp.push("field="+this.modelv.field);
+                    tmp.push("field=" + this.modelv.field);
                 }
-                tmp.push("start="+this.modelv.start);
+                tmp.push("start=" + this.modelv.start);
                 let param = tmp.join("&");
-                let url = url0+param;
-                window.console.log("immediateReq url:",url);
-                this.$axios.get(url,{}).then(res => {
+                let url = url0 + param;
+                window.console.log("immediateReq url:", url);
+                this.$axios.get(url, {}).then(res => {
                     window.console.log(res);
                     if (res.data.result === "success") {
-                        this.$router.push({name:'showmovie',query:{type:this.modelv.type, field:this.modelv.field}});
+                        this.$router.push({
+                            name: 'showmovie',
+                            query: {type: this.modelv.type, field: this.modelv.field}
+                        });
                         for (let t = 0; t < res.data.data.allmovies.length; t++) {
                             this.showingMovies.push(res.data.data.allmovies[t]);
                             this.num += 1;
                         }
-                        window.console.log("num: ",this.num);
+                        window.console.log("num: ", this.num);
                         this.modelv.start = this.num;
-                    }  else {
+                    } else {
                         window.console.log("no res");
                         this.nomore = true;
                     }
-                    window.console.log("loading: ",this.loading);
-                    window.console.log("nomore",this.nomore);
+                    window.console.log("loading: ", this.loading);
+                    window.console.log("nomore", this.nomore);
                     this.loading = false;
                 })
             },
             // 搜索电影的请求
             searchMovie() {
                 this.resetCntField();
-                let url = "http://127.0.0.1:8000/showmovie/search?moviename="+this.searchMovieName+"&start="+this.searchStart;
-                window.console.log("serach url:",url);
-                this.$axios.get(url,{}).then(res => {
-                    window.console.log("search movie: ",res);
+                let url = "http://127.0.0.1:8000/showmovie/search?moviename=" + this.searchMovieName + "&start=" + this.searchStart;
+                window.console.log("serach url:", url);
+                this.$axios.get(url, {}).then(res => {
+                    window.console.log("search movie: ", res);
                     if (res.data.data.allmovies.length < 20) {
                         this.nomore = true;
                     }
@@ -260,7 +272,7 @@
             },
             // 重置内容
             resetCntField() {
-                this.modelv.start=0;
+                this.modelv.start = 0;
                 this.num = 0;
                 this.nomore = false;
                 this.showingMovies = [];
@@ -270,16 +282,16 @@
                 //this.resetCntField();
                 let params = [];
                 let url0 = "http://127.0.0.1:8000/showmovie/search?";
-                params.push("type="+this.modelv.type);
-                params.push("field="+this.modelv.field);
+                params.push("type=" + this.modelv.type);
+                params.push("field=" + this.modelv.field);
                 if (this.searchMovieName !== '') {
-                    params.push("moviename="+this.searchMovieName);
+                    params.push("moviename=" + this.searchMovieName);
                 }
-                params.push("start="+this.searchStart);
+                params.push("start=" + this.searchStart);
                 let param = params.join("&");
-                let url = url0+param;
+                let url = url0 + param;
                 window.console.log(url);
-                this.$axios.get(url,{}).then(res => {
+                this.$axios.get(url, {}).then(res => {
                     window.console.log(res);
                     if (res.data.data.allmovies.length < 20) {
                         this.nomore = true;
@@ -293,7 +305,20 @@
                         this.loading = false;
                     }
                 })
+            },
+            handleScroll() {
+                // this.$mount();
+                let scrollTop = this.$refs.Box.scrollTop
+                // window.console.log(scrollTop)
+                if (scrollTop >= 200) {
+                    this.bgV = true
+                } else {
+                    this.bgV = false
+                }
             }
+        },
+        destroyed() {
+            window.removeEventListener('scroll', this.handleScroll)
         }
     }
 </script>
@@ -337,7 +362,7 @@
         width: 100%;
         height: 100vh;
         position: absolute;
-        top:0;
+        top: 0;
         overflow-y: auto;
     }
 
