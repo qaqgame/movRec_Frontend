@@ -2,7 +2,9 @@
     <div class="DetailInfo">
         <img style="position: absolute;height: 360px;z-index: 0;width: 100%;left: 0" :src="src1"/>
         <PageHeader style="z-index: 10;" class="myHeader" v-bind:visible="false"></PageHeader>
-        <MovieDetailHeader v-bind:movie-name="name" v-bind:movie-data="movieDetailInfo"></MovieDetailHeader>
+        <MovieDetailHeader v-bind:movie-name="name"
+                           v-bind:movie-data="movieDetailInfo"
+                           v-on:commovie="listenCom"></MovieDetailHeader>
         <el-row class="devider">
             <el-col :span="24"><div class="grid-content bg-purple"></div></el-col>
         </el-row>
@@ -19,22 +21,42 @@
         <el-row  class="devider">
             <el-col :span="24"><div class="grid-content bg-purple"></div></el-col>
         </el-row>
+        <el-row>
+            <el-col :span="18" :offset="3">
+                <el-row type="flex" justify="start" align="top">
+                    <h2>评论：</h2>
+                </el-row>
+                <SingleComment v-for="reply in replies" v-bind:reply-data="reply"
+                               v-bind:key="reply.replyid" v-bind:head-size="'medium'" v-bind:moviename="name"></SingleComment>
+            </el-col>
+        </el-row>
+        <el-row style="margin: 20px">
+            <el-pagination
+                    background
+                    layout="prev, pager, next"
+                    @current-change="handleCurrentChange"
+                    :current-page.sync="currentPage1"
+                    :total="total">
+            </el-pagination>
+        </el-row>
     </div>
 </template>
 
 <script>
     import PageHeader from "../components/PageHeader";
     import MovieDetailHeader from "../components/MovieDetailHeader";
+    import SingleComment from "../components/SingleComment";
 
     export default {
         name: "DetailInfo",
-        components: {MovieDetailHeader, PageHeader},
+        components: {SingleComment, MovieDetailHeader, PageHeader},
         props:['name'],
         data() {
             return {
                 src:'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
                 src1:require("../assets/UserSpace_Background2.png"),
                 dialogFormVisible: false,
+                isActive:true,
                 form: {
                     name: '',
                     region: '',
@@ -49,11 +71,17 @@
                 value2: null,
                 colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
                 movieDetailInfo:null,
+                replies:[],
+                currentPage1:1,
+                starter:10,
+                counter:10,
+                total:0
             }
         },
         created() {
             //获取数据
-            this.fetchData(this.name)
+            this.fetchData(this.name);
+            this.getAllComment(this.name,this.currentPage1-1,this.counter);
         },
         methods:{
             fetchData(mn) {
@@ -67,6 +95,29 @@
             },
             setData(data) {
                 this.movieDetailInfo = data.movieinfo;
+            },
+            getAllComment(data, start, count) {
+                start = start * this.starter;
+                let url = "http://127.0.0.1:8000/getreply?movname="+data+"&start="+start+"&count="+count;
+                window.console.log(url);
+                this.$axios.get(url,{}).then(res => {
+                    window.console.log(res);
+                    window.console.log(res.data.data.replylist[0].time)
+                    if (res.data.result === "success") {
+                        this.replies = res.data.data.replylist;
+                        this.total = Math.ceil(res.data.data.count/this.counter)*10;
+                        window.console.log(this.total)
+                    }
+                })
+            },
+            listenCom:function (data) {
+                this.total = Math.ceil(data.count/this.counter)*10;
+                window.console.log("sendmovcom: ",data.count, this.total)
+                this.replies.push(data);
+            },
+            handleCurrentChange() {
+                window.console.log("current page: ",this.currentPage1);
+                this.getAllComment(this.name, this.currentPage1-1,this.counter);
             }
         }
     }
@@ -130,4 +181,5 @@
         flex-direction: column;
         justify-content: space-around;
     }
+
 </style>

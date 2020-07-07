@@ -1,44 +1,173 @@
 <template>
     <div class="SingleComment">
         <el-row type="flex" justify="start">
-            <el-col :span="4">
+            <el-col :span="2">
                 <el-avatar :size="size" :src="circleUrl"></el-avatar>
             </el-col>
-            <el-col :span="20">
-                <el-divider></el-divider>
-                <el-row><h2>{{replydata.name}}</h2></el-row>
-                <el-row><el-rate
+            <el-col :span="16">
+                <el-divider class="slimLine"></el-divider>
+                <el-row class="comUser"><h3 class="lefttxt">{{replydata.name}}</h3></el-row>
+                <el-row class="comRate"><el-rate class="lefttxt"
                         v-model="value"
                         disabled
                         show-score
                         text-color="#ff9900"
                         score-template="{value}">
                 </el-rate></el-row>
-                <el-row><p>{{replydata.content}}</p></el-row>
-                <el-row type="flex" justify="start">
-                    <el-col :span="4">时间:{{replydata.time}}</el-col>
-                    <el-col :span="4" :offset="2">点赞:{{replydata.agree}}</el-col>
+                <el-row class="comCnt"><p class="lefttxt">{{replydata.content}}</p></el-row>
+                <el-row class="comExtra" type="flex" justify="start" align="middle">
+                    <el-col class="autowidth extraColor"><p class="lefttxt smallsize">{{getTime}}</p></el-col>
+                    <el-col class="autowidth palleft extraColor"><p class="smallsize"><i class="iconfont icon-dianzan1"></i>:{{replydata.agree}}</p></el-col>
+                    <el-col  class="autowidth palleft extraColor"><p class="smallsize pointer" @click="openReplyTab()">回复</p></el-col>
                 </el-row>
-                <SingleComment v-for="(item,index) in replydata.reply" v-bind:key="index" v-bind:reply-data="item"></SingleComment>
+                <SingleChildrenComment v-for="item in getChildrenComs" v-bind:key="item.replyid"
+                                       v-bind:child-reply="item" v-on:tagglere="openReTabFC"></SingleChildrenComment>
+                <el-row type="flex" justify="start" v-if="replytoreply">
+                    <el-col :span="3">
+                        <el-avatar :size="size" :src="circleUrl"></el-avatar>
+                    </el-col>
+                    <el-col :span="16">
+                        <el-input
+                                type="textarea"
+                                :autosize="{ minRows: 2, maxRows: 2}"
+                                placeholder="请输入内容"
+                                v-model="textarea" class="txtarea">
+                        </el-input>
+                    </el-col>
+                    <el-col :span="5">
+                        <el-button type="" @click="replyReply()">回复评论</el-button>
+                    </el-col>
+                </el-row>
             </el-col>
         </el-row>
     </div>
 </template>
 
 <script>
+    import SingleChildrenComment from "./SingleChildrenComment";
     export default {
         name: "SingleComment",
+        components: {SingleChildrenComment},
         data() {
             return {
                 circleUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+                size:this.headSize,
                 replydata: this.replyData,
                 value: this.replyData.score,
+                isActive:true,
+                textarea: '',
+                replytoreply:false,
+                targetReplyId: this.replyData.replyid,
             }
         },
-        props:['replyData']
+        props:['replyData','headSize','moviename'],
+        computed: {
+            getTime() {
+                let tmp = this.replydata.time;
+                let ts = tmp.split("T");
+                let res = "";
+                res += ts[0];
+                res += " ";
+                res += ts[1].split(".")[0];
+                return res;
+            },
+            //获取一条评论下的子评论
+            getChildrenComs() {
+                //window.console.log("this reply: ",this.replydata);
+                return this.getItemReplys(this.replydata);
+                //window.console.log("child: ",res);
+            }
+        },
+        methods: {
+            openReplyTab() {
+                this.targetReplyId = this.replydata.replyid;
+                window.console.log("target: ",this.targetReplyId);
+                this.replytoreply = !this.replytoreply;
+            },
+            getItemReplys(item) {
+                let res = [];
+                for (let i = 0; i < item.reply.length; i++) {
+                    res.push(item.reply[i]);
+                    this.getItemReplys(item.reply[i]).forEach(item => {
+                        res.push(item);
+                    });
+                }
+                return res;
+            },
+            replyReply() {
+                let url = "http://127.0.0.1:8000/createreply/";
+                let params = {
+                    "type":"reply",
+                    "content": this.textarea,
+                    "replyid": this.targetReplyId,
+                    "moviename":this.moviename
+                };
+                window.console.log(url,params);
+                this.$axios.post(url,params).then(res => {
+                    window.console.log(res);
+                    if (res.data.result === "success") {
+                        this.replydata.reply.push(res.data.data);
+                        this.replytoreply = false;
+                        this.textarea = '';
+                    }
+                })
+            },
+            openReTabFC: function (data) {
+                this.targetReplyId = data.rid;
+                this.replytoreply = data.status;
+                window.console.log("target: ",this.targetReplyId)
+            }
+        }
     }
 </script>
 
 <style scoped>
+    .slimLine{
+        margin: 2px;
+    }
 
+    .lefttxt {
+        text-align: left;
+    }
+
+    .smallsize {
+        font-size: 14px;
+    }
+
+    .pointer {
+        cursor: pointer;
+    }
+
+    .txtarea >>> textarea {
+        min-height: 60px!important;
+    }
+
+    .autowidth {
+        width: auto;
+    }
+
+    .extraColor {
+        color: #99A2AA
+    }
+
+    .palleft{
+        margin-left: 20px;
+    }
+
+    .comUser{
+        margin: 10px;
+    }
+
+    .comRate {
+        margin: 5px 10px 5px 10px;
+    }
+
+    .comCnt {
+        margin: 10px;
+        line-height: 30px;
+    }
+
+    .comExtra {
+        margin: 5px 10px 5px 10px;
+    }
 </style>

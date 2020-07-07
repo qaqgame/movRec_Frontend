@@ -356,6 +356,8 @@
                     window.console.log(res);
                     if (res.data.result === "success") {
                         this.dialogFormVisible = false;
+                        this.textarea1='';
+                        this.$emit("commovie",res.data.data);
                     }
                 });
             }
