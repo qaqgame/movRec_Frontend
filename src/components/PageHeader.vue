@@ -129,7 +129,7 @@
     }
 
     .el-menu-item:hover {
-        background: none !important;
+        /*background: none !important;*/
     }
 
     .el-menu-item:focus {
