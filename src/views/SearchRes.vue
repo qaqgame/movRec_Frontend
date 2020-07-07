@@ -97,41 +97,36 @@
                 } else {
                     vm.searchStart = Number(vm.$route.query.start);
                 }
-
-                // vm.search = Number(vm.$route.query.search);
-                //
-                // vm.searchMovieName = vm.$route.query.moviename;
-                // vm.searchStart = vm.$route.query.start;
                 window.console.log(vm.search, vm.searchMovieName, vm.searchStart)
             })
         },
-        beforeRouteUpdate (to, from, next) {
-            window.console.log("route update", to, from);
-            window.console.log(to.query.moviename);
-            // 刷新参数内容
-            if (to.query.search === undefined) {
-                this.search = 0;
-            } else {
-                this.search = Number(to.query.search);
-            }
-            if (to.query.moviename === undefined) {
-                this.searchMovieName = '';
-            } else {
-                this.searchMovieName = to.query.moviename;
-            }
-            if (to.query.start === undefined) {
-                this.searchStart = 0;
-            } else {
-                this.searchStart = Number(to.query.start);
-            }
-            window.console.log(this.search,this.searchMovieName);
-            // 重新加载
-            if (this.search === 1) {
-                this.resetCntField();
-                this.load();
-            }
-            next();
-        },
+        // beforeRouteUpdate (to, from, next) {
+        //     window.console.log("route update", to, from);
+        //     window.console.log(to.query.moviename);
+        //     // 刷新参数内容
+        //     if (to.query.search === undefined) {
+        //         this.search = 0;
+        //     } else {
+        //         this.search = Number(to.query.search);
+        //     }
+        //     if (to.query.moviename === undefined) {
+        //         this.searchMovieName = '';
+        //     } else {
+        //         this.searchMovieName = to.query.moviename;
+        //     }
+        //     if (to.query.start === undefined) {
+        //         this.searchStart = 0;
+        //     } else {
+        //         this.searchStart = Number(to.query.start);
+        //     }
+        //     window.console.log(this.search,this.searchMovieName);
+        //     // 重新加载
+        //     if (this.search === 1) {
+        //         this.resetCntField();
+        //         this.load();
+        //     }
+        //     next();
+        // },
         created() {
             window.console.log("res1",this.$route.query.search,this.$route.query.moviename,this.$route.query.start)
             if (this.$route.query.search === undefined) {
