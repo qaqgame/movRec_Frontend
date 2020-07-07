@@ -21,7 +21,12 @@
                     <el-col  class="autowidth palleft extraColor"><p class="smallsize pointer" @click="openReplyTab()">回复</p></el-col>
                 </el-row>
                 <SingleChildrenComment v-for="item in getChildrenComs" v-bind:key="item.replyid"
-                                       v-bind:child-reply="item" v-on:tagglere="openReTabFC"></SingleChildrenComment>
+                                       v-bind:child-reply="item"
+                                       v-on:tagglere="openReTabFC"></SingleChildrenComment>
+                <el-row class="autowidth lefttxt extraColor" v-if="ifshowing">
+                    <p class="pointer" @click="showMore()">{{showFlag}}</p>
+                </el-row>
+
                 <el-row type="flex" justify="start" v-if="replytoreply">
                     <el-col :span="3">
                         <el-avatar :size="size" :src="circleUrl"></el-avatar>
@@ -58,6 +63,8 @@
                 textarea: '',
                 replytoreply:false,
                 targetReplyId: this.replyData.replyid,
+                showNum:"less",
+                showFlag:"查看更多"
             }
         },
         props:['replyData','headSize','moviename'],
@@ -74,8 +81,14 @@
             //获取一条评论下的子评论
             getChildrenComs() {
                 //window.console.log("this reply: ",this.replydata);
-                return this.getItemReplys(this.replydata);
-                //window.console.log("child: ",res);
+                if (this.showNum === "less") {
+                    return this.getItemReplys(this.replydata).slice(0,3)
+                } else {
+                    return this.getItemReplys(this.replydata);
+                }
+            },
+            ifshowing() {
+                return this.getItemReplys(this.replydata).length > 3
             }
         },
         methods: {
@@ -116,6 +129,15 @@
                 this.targetReplyId = data.rid;
                 this.replytoreply = data.status;
                 window.console.log("target: ",this.targetReplyId)
+            },
+            showMore() {
+                if (this.showNum === "less") {
+                    this.showNum = "more";
+                    this.showFlag = "显示更少"
+                } else {
+                    this.showNum = "less";
+                    this.showFlag = "查看更多"
+                }
             }
         }
     }
