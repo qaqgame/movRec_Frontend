@@ -17,11 +17,22 @@
                 <el-row class="comCnt"><p class="lefttxt">{{replydata.content}}</p></el-row>
                 <el-row class="comExtra" type="flex" justify="start" align="middle">
                     <el-col class="autowidth extraColor"><p class="lefttxt smallsize">{{getTime}}</p></el-col>
-                    <el-col class="autowidth palleft extraColor"><p class="smallsize"><i class="iconfont icon-dianzan1"></i>:{{replydata.agree}}</p></el-col>
+                    <el-col class="autowidth palleft extraColor pointer">
+                        <p class="smallsize" @click="agree()"><i class="iconfont"
+                                                v-bind:class="{'icon-dianzan1':!replydata.agreed,'icon-dianzan2':replydata.agreed}"
+                                                style="color: #00A1D6"></i> {{replydata.agree}}</p>
+                    </el-col>
                     <el-col  class="autowidth palleft extraColor"><p class="smallsize pointer" @click="openReplyTab()">回复</p></el-col>
                 </el-row>
                 <SingleChildrenComment v-for="item in getChildrenComs" v-bind:key="item.replyid"
-                                       v-bind:child-reply="item" v-on:tagglere="openReTabFC"></SingleChildrenComment>
+                                       v-bind:child-reply="item"
+                                       v-on:tagglere="openReTabFC"></SingleChildrenComment>
+                <el-row class="autowidth lefttxt extraColor smallsize" v-if="ifshowing">
+                    <el-col :span="21" :offset="1">
+                        <p class="pointer" @click="showMore()">{{showFlag}}</p>
+                    </el-col>
+                </el-row>
+
                 <el-row type="flex" justify="start" v-if="replytoreply">
                     <el-col :span="3">
                         <el-avatar :size="size" :src="circleUrl"></el-avatar>
@@ -58,6 +69,8 @@
                 textarea: '',
                 replytoreply:false,
                 targetReplyId: this.replyData.replyid,
+                showNum:"less",
+                showFlag:"查看更多"
             }
         },
         props:['replyData','headSize','moviename'],
@@ -74,8 +87,14 @@
             //获取一条评论下的子评论
             getChildrenComs() {
                 //window.console.log("this reply: ",this.replydata);
-                return this.getItemReplys(this.replydata);
-                //window.console.log("child: ",res);
+                if (this.showNum === "less") {
+                    return this.getItemReplys(this.replydata).slice(0,3)
+                } else {
+                    return this.getItemReplys(this.replydata);
+                }
+            },
+            ifshowing() {
+                return this.getItemReplys(this.replydata).length > 3
             }
         },
         methods: {
@@ -116,6 +135,36 @@
                 this.targetReplyId = data.rid;
                 this.replytoreply = data.status;
                 window.console.log("target: ",this.targetReplyId)
+            },
+            showMore() {
+                if (this.showNum === "less") {
+                    this.showNum = "more";
+                    this.showFlag = "显示更少"
+                } else {
+                    this.showNum = "less";
+                    this.showFlag = "查看更多"
+                }
+            },
+            agree() {
+                let url;
+                if (this.replydata.agreed) {
+                    url = "http://127.0.0.1:8000/cancelagree";
+                } else  {
+                    url = "http://127.0.0.1:8000/agree";
+                }
+                this.$axios.get(url,{
+                    params:{
+                        "movname":this.moviename,
+                        "type":"Reply",
+                        "target":this.targetReplyId
+                    }
+                }).then(res => {
+                    window.console.log(res);
+                    if (res.data.result === "success") {
+                        this.replydata.agreed = !this.replydata.agreed;
+                        this.replydata.agree = res.data.data.agreecount;
+                    }
+                })
             }
         }
     }

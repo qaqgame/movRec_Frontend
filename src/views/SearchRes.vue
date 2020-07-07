@@ -106,15 +106,11 @@
                 } else {
                     vm.searchStart = Number(vm.$route.query.start);
                 }
-
-                // vm.search = Number(vm.$route.query.search);
-                //
-                // vm.searchMovieName = vm.$route.query.moviename;
-                // vm.searchStart = vm.$route.query.start;
                 window.console.log(vm.search, vm.searchMovieName, vm.searchStart)
             })
         },
-        beforeRouteUpdate(to, from, next) {
+
+        beforeRouteUpdate (to, from, next) {
             window.console.log("route update", to, from);
             window.console.log(to.query.moviename);
             // 刷新参数内容
@@ -133,7 +129,7 @@
             } else {
                 this.searchStart = Number(to.query.start);
             }
-            window.console.log(this.search, this.searchMovieName);
+            window.console.log(this.search,this.searchMovieName);
             // 重新加载
             if (this.search === 1) {
                 this.resetCntField();
@@ -141,6 +137,7 @@
             }
             next();
         },
+
         created() {
             window.console.log("res1", this.$route.query.search, this.$route.query.moviename, this.$route.query.start)
             if (this.$route.query.search === undefined) {
@@ -312,9 +309,14 @@
                 })
             },
             handleScroll() {
-                let scrollT = this.$refs.Box.scrollTop
-                window.console.log(scrollT)
-                this.bgV = scrollT >= 200;
+                // this.$mount();
+                let scrollTop = this.$refs.Box.scrollTop
+                // window.console.log(scrollTop)
+                if (scrollTop >= 200) {
+                    this.bgV = true
+                } else {
+                    this.bgV = false
+                }
             }
         }
     }

@@ -10,11 +10,10 @@
                             @select="handleSelect"
                             text-color="#fff"
                             active-text-color="#ffd04b">
-                        <el-menu-item index="1">Logo</el-menu-item>
-                        <el-menu-item index="2"><a>片库</a></el-menu-item>
-                        <el-menu-item index="3"></el-menu-item>
-                        <el-menu-item data-menuanchor="index" class="MoveTypeTitle" index="4"><a href="#/index"
-                                                                                                 @click="toIndex(1,0)">全部电影推荐</a>
+                        <el-menu-item>Logo</el-menu-item>
+                        <el-menu-item index="2" @click="toHref('/showmovie')">片库</el-menu-item>
+                        <el-menu-item></el-menu-item>
+                        <el-menu-item data-menuanchor="index" class="MoveTypeTitle" index="4" @click="toIndex(1,0)">全部电影推荐
                         </el-menu-item>
                         <el-submenu data-menuanchor="index2" class="MoveTypeTitle" index="5" v-show="visible">
                             <template slot="title">各类型电影推荐</template>
@@ -28,10 +27,8 @@
                             <template slot="title">
                                 <el-avatar shape="square" :size="30" :src="squareUrl"></el-avatar>
                             </template>
-                            <el-menu-item v-bind:class="{scroll_bg:bgVisible}" index="2-1">等级</el-menu-item>
-                            <el-menu-item v-bind:class="{scroll_bg:bgVisible}" index="2-2">消息</el-menu-item>
-                            <el-menu-item v-bind:class="{scroll_bg:bgVisible}" index="2-3">收藏</el-menu-item>
-                            <el-menu-item v-bind:class="{scroll_bg:bgVisible}" index="2-4">时间线</el-menu-item>
+                            <el-menu-item v-bind:class="{scroll_bg:bgVisible}" index="2-1" @click="toHref(link)">{{username}}</el-menu-item>
+                            <el-menu-item v-bind:class="{scroll_bg:bgVisible}" index="2-2" @click="logout()">登出</el-menu-item>
                         </el-submenu>
                         <div style="clear: both"></div>
                     </el-menu>
@@ -54,21 +51,26 @@
                     background: "none !important"
                 },
                 movieTypes: movietypes,
+                username:'前往登录',
+                link:'/',
                 // bgVisible: false //顶栏背景设置（透明或特定颜色）
             };
+        },
+        created() {
+            this.getLoginInfo();
         },
         methods: {
             handleSelect(key, keyPath) {
                 window.console.log(key, keyPath);
             },
-            addEmptyLine: function (f) {
-                f.innerHTML = `<br/>` + f.innerHTML
-            },
-            alltype() {
-                return movietypes.flat()
-            },
-            heightInfo() {
-                return document.getElementsByClassName("PageHeader")[0].style.height.toString() + 'px';
+            getLoginInfo() {
+                this.$axios.get("http://127.0.0.1:8000/loginVerify/",{}).then(res => {
+                    window.console.log(res);
+                    if (res.data.result === "success") {
+                        this.username = res.data.data.user;
+                        this.link = res.data.data.link;
+                    }
+                })
             },
             toIndex(index1, index2) {
                 window.console.log(index1, index2);
@@ -77,6 +79,18 @@
                     "param2": index2
                 };
                 this.$emit('getpos', pos);
+                this.$router.push({path:"/index"})
+            },
+            toHref(path1){
+                this.$router.push({path:path1})
+            },
+            logout() {
+                this.$axios.get("http://127.0.0.1:8000/logout",{}).then(res => {
+                    window.console.log(res)
+                    if (res.data.result === "success") {
+                        this.$router.push({path:res.data.data.target});
+                    }
+                })
             }
         },
         props: ['visible','bgVisible']
@@ -110,12 +124,15 @@
 <style>
 
     a {
-        color: #409eff;
+        color: white;
         text-decoration: none;
     }
 
     .el-menu {
         background: none;
+        padding: 0;
+        min-width: 0;
+        margin-right: 20px;
     }
 
     .el-menu:hover {
@@ -126,10 +143,6 @@
         background: none !important;
         font-size: larger;
         display: inline-block;
-    }
-
-    .el-menu-item:hover {
-        /*background: none !important;*/
     }
 
     .el-menu-item:focus {

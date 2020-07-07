@@ -7,15 +7,19 @@
             <el-col>
                 <el-row class="replytrhead" type="flex" justify="start" align="middle">
                     <el-col style="width: auto">
-                        <p class="lefttxt">{{childReply.name}}：</p>
+                        <p class="lefttxt">{{childreply.name}}：</p>
                     </el-col>
                     <el-col>
-                        <p class="lefttxt">{{childReply.content}}</p>
+                        <p class="lefttxt">{{childreply.content}}</p>
                     </el-col>
                 </el-row>
                 <el-row class="replytrextra" type="flex" justify="start" align="middle">
                     <el-col class="autowidth extraColor"><p class="lefttxt smallsize">{{getTime}}</p></el-col>
-                    <el-col class="autowidth palleft extraColor"><p class="smallsize"><i class="iconfont icon-dianzan1"></i>:{{childReply.agree}}</p></el-col>
+                    <el-col class="autowidth palleft extraColor pointer">
+                        <p class="smallsize" @click="childAgree()"><i class="iconfont"
+                           v-bind:class="{'icon-dianzan1':!childreply.agreed,'icon-dianzan2':childreply.agreed}"
+                           style="color: #00A1D6"></i> {{childreply.agree}}</p>
+                    </el-col>
                     <el-col class="autowidth palleft extraColor"><p class="smallsize pointer" @click="raiseReplyTab()">回复</p></el-col>
                 </el-row>
             </el-col>
@@ -30,12 +34,13 @@
             return {
                 circleUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
                 size:"small",
+                childreply: this.childReply,
             }
         },
-        props:['childReply'],
+        props:['childReply','movieName'],
         computed: {
             getTime() {
-                let tmp = this.childReply.time;
+                let tmp = this.childreply.time;
                 let ts = tmp.split("T");
                 let res = "";
                 res += ts[0];
@@ -44,18 +49,34 @@
                 return res;
             }
         },
-        watch:{
-            childReply: function () {
-                window.console.log(this.childReply)
-            }
-        },
         methods: {
             raiseReplyTab() {
                 let re = {
-                    "rid" : this.childReply.replyid,
+                    "rid" : this.childreply.replyid,
                     "status": true
                 };
                 this.$emit("tagglere", re);
+            },
+            childAgree() {
+                let url;
+                if (this.childreply.agreed) {
+                    url = "http://127.0.0.1:8000/cancelagree";
+                } else  {
+                    url = "http://127.0.0.1:8000/agree";
+                }
+                this.$axios.get(url,{
+                    params:{
+                        "movname":this.movieName,
+                        "type":"Reply",
+                        "target":this.childreply.replyid
+                    }
+                }).then(res => {
+                    window.console.log(res);
+                    if (res.data.result === "success") {
+                        this.childreply.agreed = !this.childreply.agreed;
+                        this.childreply.agree = res.data.data.agreecount;
+                    }
+                })
             }
         }
     }

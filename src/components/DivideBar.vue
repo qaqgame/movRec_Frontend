@@ -1,11 +1,11 @@
 <template>
     <div class="DivideBar">
-        <el-row :gutter="5">
-            <el-col class="mywhite" :span="4" :offset="2">
+        <el-row :gutter="5" type="flex" align="middle" justify="center">
+            <el-col class="mywhite" :span="4">
                 <h3>{{PartTitle}}</h3>
             </el-col>
             <el-col :span="12">
-                <div class="grid-content bg-purple"></div>
+                <el-divider></el-divider>
             </el-col>
             <el-col class="mywhite" :span="4">
                 <div>

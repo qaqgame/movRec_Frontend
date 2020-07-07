@@ -3,7 +3,7 @@
         <div class="PageHeaderBar">
             <PageHeader ref="pageheaderref" v-on:getpos="toPos" v-bind:visible="true"></PageHeader>
         </div>
-        <el-row style="position: fixed!important;top: 15%;z-index: 10;width: 100%">
+        <el-row style="position: fixed!important;top: 14%;z-index: 10;width: 100%">
             <el-col :span="24">
                 <search-bar></search-bar>
             </el-col>
@@ -392,9 +392,9 @@
         z-index: 1;
     }
 
-    a {
-        color: #42b983;
-    }
+    /*a {*/
+        /*color: #42b983;*/
+    /*}*/
 
     .section {
         background-size: cover;
