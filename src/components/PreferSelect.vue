@@ -26,7 +26,7 @@
                 </el-col>
             </el-row>
             <span slot="footer" class="dialog-footer">
-                <el-button type="warning" round @click="dialogVisible=false">下一步
+                <el-button type="warning" round @click="sendTypes()">下一步
                 <i class="el-icon-right el-icon--right"></i>
             </el-button>
             </span>
@@ -43,10 +43,16 @@
                 fTypes: filmTypes,
                 selectedList: [],
                 btnStatus: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-                dialogVisible: true
+                dialogVisible: this.dialogVis,
             }
         },
-        computed: {},
+        props:['dialogVis'],
+        watch: {
+            dialogVis: function () {
+                window.console.log("vis ",this.dialogVis, this.dialogVisible);
+                this.dialogVisible = this.dialogVis;
+            }
+        },
         methods: {
             changeStatus: function (index) {
                 // 存在返回下标，不存在返回-1
@@ -63,6 +69,18 @@
                 this.selectedList.splice(num, 1)
                 this.fTypes.push(tps)
                 // console.log('Remove' + tps)
+            },
+            sendTypes() {
+                let url = "http://127.0.0.1:8000/liketype/";
+                let params = {
+                    "choosen":this.selectedList,
+                };
+                this.$axios.post(url,params).then(res => {
+                    window.console.log(res);
+                    if (res.data.result === "success") {
+                        this.dialogVisible = false;
+                    }
+                })
             }
         }
     }

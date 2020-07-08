@@ -4,22 +4,25 @@
         <PageHeader style="z-index: 10;" class="myHeader" v-bind:visible="false"></PageHeader>
         <UserSpaceMenuField style="z-index: 11;" pdtop="60px" v-bind:data="data" v-bind:user-id="uid"></UserSpaceMenuField>
         <el-row style="background-color: #f4f5f7;height: 80px"></el-row>
+        <PreferSelect v-bind:dialog-vis="defaultVis"></PreferSelect>
     </div>
 </template>
 
 <script>
     import UserSpaceMenuField from '../components/UserSpaceMenuField'
     import PageHeader from '../components/PageHeader.vue'
+    import PreferSelect from "../components/PreferSelect";
 
     export default {
         name: "Users",
         props: ['id'],
-        components:{UserSpaceMenuField,PageHeader},
+        components:{PreferSelect, UserSpaceMenuField,PageHeader},
         data() {
             return {
                 src1:require("../assets/Movie_Background1.png"),
                 uid:'',
-                data:''
+                data:'',
+                defaultVis: false,
             }
         },
 
@@ -42,6 +45,8 @@
                     window.console.log(res);
                     this.uid = res.data.data.userrelated.username;
                     this.data = res.data.data;
+                    this.defaultVis = this.data.userrelated.newuser;
+                    window.console.log("default: ",this.defaultVis);
                 })
             }
         }

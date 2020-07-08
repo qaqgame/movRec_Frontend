@@ -25,7 +25,7 @@
                         <el-row type="flex" justify="start" style="flex-wrap: wrap">
                             <h3 v-for="(item,index1) in FilterContent[index]" v-bind:key="vle+(index1-1)"
                                 class="targetitem"
-                                v-bind:class="{targetitem: isActive}" @click="chooseType(vle,index1-1)">{{item}}</h3>
+                                v-bind:class="{targetitem: isActive, HighLight:ifTarget(item, index1, vle)}" @click="chooseType(vle,index1-1)">{{item}}</h3>
                         </el-row>
                     </el-col>
                 </el-row>
@@ -77,7 +77,8 @@
                 search: 0,               // 判断是否是搜索电影的要求
                 searchMovieName: '',     // 搜索电影名
                 searchStart: 0,          // 搜索结果起始
-                bgV: false               //顶栏背景
+                bgV: false,               //顶栏背景,
+                targetFilter: [{"name":"全部","index":0, "type":"类型"},{"name":"全部","index":0, "type":"地区"}]
             }
         },
         mounted() {
@@ -169,6 +170,12 @@
                 tmp.push(this.filterType);
                 tmp.push(this.filterArea);
                 return tmp;
+            },
+            ifTarget() {
+                return function (name, index, type) {
+                    return this.targetFilter[0].type === type && this.targetFilter[0].index === index ||
+                        this.targetFilter[1].type === type && this.targetFilter[1].index === index;
+                }
             }
         },
         methods: {
@@ -203,10 +210,13 @@
             },
             chooseType(filter, index) {
                 if (filter === "类型") {
-                    this.modelv.type = index
+                    this.modelv.type = index;
+                    this.targetFilter[0].index = index+1;
                 } else if (filter === "地区") {
-                    this.modelv.field = index
+                    this.modelv.field = index;
+                    this.targetFilter[1].index = index+1;
                 }
+                window.console.log(this.targetFilter)
                 this.search = 0;
                 this.resetCntField();
                 //立即发请求
@@ -376,5 +386,9 @@
         margin-left: 30px;
         padding-bottom: 5px;
         cursor: pointer;
+    }
+
+    .HighLight {
+        color: #00A1D6;
     }
 </style>
