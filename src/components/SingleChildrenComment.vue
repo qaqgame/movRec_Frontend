@@ -37,7 +37,7 @@
                 childreply: this.childReply,
             }
         },
-        props:['childReply','movieName','checkLogin'],
+        props:['childReply','movieName','checkLogin','movId'],
         computed: {
             getTime() {
                 let tmp = this.childreply.time;
@@ -71,13 +71,13 @@
                 }
                 let url;
                 if (this.childreply.agreed) {
-                    url = "http://120.79.240.163:8000/cancelagree";
+                    url = "http://127.0.0.1:8000/cancelagree";
                 } else  {
-                    url = "http://120.79.240.163:8000/agree";
+                    url = "http://127.0.0.1:8000/agree";
                 }
                 this.$axios.get(url,{
                     params:{
-                        "movname":this.movieName,
+                        "movid":this.movId,
                         "type":"Reply",
                         "target":this.childreply.replyid
                     }

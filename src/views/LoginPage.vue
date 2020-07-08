@@ -31,7 +31,7 @@
                     v = this.$refs.LoginRegisterForm.RegisterFormValue();
                     urlTarget = "/sign-up/";
                 }
-                url = "http://120.79.240.163:8000"+urlTarget;
+                url = "http://127.0.0.1:8000"+urlTarget;
                 window.console.log(v);
                 // ajax请求
                 this.$axios.post(url, v).then((res) => {

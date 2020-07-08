@@ -40,7 +40,7 @@
         methods: {
             fetchData(un) {
                 window.console.log("get");
-                let url = "http://120.79.240.163:8000/user/"+un;
+                let url = "http://127.0.0.1:8000/user/"+un;
                 this.$axios.get(url,{}).then(res => {
                     window.console.log(res);
                     this.uid = res.data.data.userrelated.username;

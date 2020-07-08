@@ -6,7 +6,7 @@
         <el-row type="flex" justify="start" align="top">
             <el-col v-bind:span="6" :offset="0" v-bind:style="{height:hei}">
                 <el-row><br/></el-row>
-                <el-image class="movieImg" :src="initialMovieData.coverurl === '' ? src : 'http://120.79.240.163:8000'+initialMovieData.coverurl"></el-image>
+                <el-image class="movieImg" :src="initialMovieData.coverurl === '' ? src : 'http://127.0.0.1:8000'+initialMovieData.coverurl"></el-image>
             </el-col>
             <el-col :span="6" :offset="0" class="movieInfo">
                 <el-row><br></el-row>
@@ -69,7 +69,7 @@
         <el-dialog title="我来评论" :visible.sync="dialogFormVisible">
             <el-row style="display: flex; flex-direction: row;flex-wrap: nowrap">
                 <el-col >
-                    <el-image  class="movieImg" :src="initialMovieData.coverurl === '' ? defaultInfo.coverurl : 'http://120.79.240.163:8000'+initialMovieData.coverurl"></el-image>
+                    <el-image  class="movieImg" :src="initialMovieData.coverurl === '' ? defaultInfo.coverurl : 'http://127.0.0.1:8000'+initialMovieData.coverurl"></el-image>
                 </el-col>
                 <el-col style="display: flex; flex-direction: column; justify-content: space-around; height: 150px;margin-left: 30px">
                     <div>
@@ -128,7 +128,7 @@
             return {
                 hei: '300px',
                 src:'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-                value:4.1,
+                value:0,
                 defaultInfo: defaultInfo,
                 initialMovieData: defaultInfo,
                 dialogFormVisible: false,
@@ -137,9 +137,10 @@
                 value2: 0,
                 colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
                 logined:this.ifLogin,
+
             }
         },
-        props:['movieName','movieData','ifLogin'],
+        props:['movieName','movieData','ifLogin','movId'],
         computed: {
             getTypes: function () {
                 let strTypes = "";
@@ -170,6 +171,7 @@
         watch: {
             movieData: function () {
                 this.initialMovieData = this.movieData;
+                this.value = Number(this.movieData.rate.toFixed(1));
                 window.console.log("moviedetail: ",this.initialMovieData)
             },
             ifLogin: function () {
@@ -178,13 +180,13 @@
         },
         methods: {
             keepMovie() {
-                let url = "http://120.79.240.163:8000/keepMovie?moviename="+this.movieName;
+                let url = "http://127.0.0.1:8000/keepMovie?movieid="+this.movId;
                 window.console.log(url);
                 this.$axios.get(url,{}).then(res => {
                     window.console.log(res);
                     // todo:验证该接口的正确性
                     if (res.data.result === "success") {
-                        this.dis = true;
+                        this.initialMovieData.ifKeeped = true;
                     }
                     this.notifyKeepSuccess(res.data.result);
                 })
@@ -211,12 +213,12 @@
                     // todo: notify:请先登录
                     return;
                 }
-                let url = "http://120.79.240.163:8000/createreply/";
+                let url = "http://127.0.0.1:8000/createreply/";
                 let params = {
                     "type":"movie",
                     "content": this.textarea1,
                     "grade": Number(this.value2),
-                    "moviename": this.movieName
+                    "movieid": this.movId
                 };
                 window.console.log(url,params);
                 this.$axios.post(url,params).then(res => {

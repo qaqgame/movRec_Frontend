@@ -26,7 +26,9 @@
                 </el-row>
                 <SingleChildrenComment v-for="item in getChildrenComs" v-bind:key="item.replyid"
                                        v-bind:child-reply="item"
-                                       v-on:tagglere="openReTabFC" v-bind:check-login="haslogin"></SingleChildrenComment>
+                                       v-on:tagglere="openReTabFC"
+                                       v-bind:mov-id="movId"
+                                       v-bind:check-login="haslogin"></SingleChildrenComment>
                 <el-row class="autowidth lefttxt extraColor smallsize" v-if="ifshowing">
                     <el-col :span="21" :offset="1">
                         <p class="pointer" @click="showMore()">{{showFlag}}</p>
@@ -74,7 +76,7 @@
                 haslogin: this.hasLogin,
             }
         },
-        props:['replyData','headSize','moviename','hasLogin'],
+        props:['replyData','headSize','moviename','hasLogin','movId'],
         computed: {
             getTime() {
                 let tmp = this.replydata.time;
@@ -121,12 +123,12 @@
                     // todo: notify:请先登录
                     return;
                 }
-                let url = "http://120.79.240.163:8000/createreply/";
+                let url = "http://127.0.0.1:8000/createreply/";
                 let params = {
                     "type":"reply",
                     "content": this.textarea,
                     "replyid": this.targetReplyId,
-                    "moviename":this.moviename
+                    "movieid":this.movId
                 };
                 window.console.log(url,params);
                 this.$axios.post(url,params).then(res => {
@@ -161,13 +163,13 @@
                 }
                 let url;
                 if (this.replydata.agreed) {
-                    url = "http://120.79.240.163:8000/cancelagree";
+                    url = "http://127.0.0.1:8000/cancelagree";
                 } else  {
-                    url = "http://120.79.240.163:8000/agree";
+                    url = "http://127.0.0.1:8000/agree";
                 }
                 this.$axios.get(url,{
                     params:{
-                        "movname":this.moviename,
+                        "movid":this.movId,
                         "type":"Reply",
                         "target":this.targetReplyId
                     }

@@ -71,7 +71,7 @@
                 // console.log('Remove' + tps)
             },
             sendTypes() {
-                let url = "http://120.79.240.163:8000/liketype/";
+                let url = "http://127.0.0.1:8000/liketype/";
                 let params = {
                     "choosen":this.selectedList,
                 };

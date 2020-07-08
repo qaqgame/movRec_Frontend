@@ -3,7 +3,7 @@
         <div style="">
             <div style="display: flex; flex-wrap: wrap; width: 90%;margin: 10px auto;height: 480px;overflow: auto; overflow-scrolling: auto">
                 <SingleMovieCard style="margin-left: 20px;width: 165px;margin-top: 20px" v-for="item in historyRecord" v-bind:movie-name="item.moviename"
-                                 v-bind:movie-source="'http://120.79.240.163:8000'+item.movieimgurl"
+                                 v-bind:movie-source="'http://127.0.0.1:8000'+item.movieimgurl"
                                  v-bind:movie-time="item.extrainfo" v-bind:key="item.movieName"></SingleMovieCard>
             </div>
         </div>

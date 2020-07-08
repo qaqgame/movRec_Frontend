@@ -41,102 +41,102 @@
     import SearchBar from "../components/SearchBar"
 
     var testMovie = [{
-        moviename: "测试电影名1",
+        moviename: "加载中...",
         extrainfo: 1,
         movieId: "test1",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
-        moviename: "测试电影名2",
+        moviename: "加载中...",
         extrainfo: 1,
         movieId: "test2",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
-        moviename: "测试电影名3",
+        moviename: "加载中...",
         extrainfo: 1,
         movieId: "test3",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
-        moviename: "测试电影名4",
+        moviename: "加载中...",
         extrainfo: 1,
         movieId: "test4",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
-        moviename: "测试电影名5",
+        moviename: "加载中...",
         extrainfo: 1,
         movieId: "test5",
         movieimgurl: "/static/cover/default_cover.png"
     },{
-        moviename: "测试电影名6",
+        moviename: "加载中...",
         extrainfo: 1,
         movieId: "test6",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
-        moviename: "测试电影名7",
+        moviename: "加载中...",
         extrainfo: 1,
         movieId: "test7",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
-        moviename: "测试电影名8",
+        moviename: "加载中...",
         extrainfo: 1,
         movieId: "test8",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
-        moviename: "测试电影名9",
+        moviename: "加载中...",
         extrainfo: 1,
         movieId: "test9",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
-        moviename: "测试电影名10",
+        moviename: "加载中...",
         extrainfo: 1,
         movieId: "test10",
         movieimgurl: "/static/cover/default_cover.png"
     },{
-        moviename: "测试电影名11",
+        moviename: "加载中...",
         extrainfo: 1,
         movieId: "test11",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
-        moviename: "测试电影名12",
+        moviename: "加载中...",
         extrainfo: 1,
         movieId: "test12",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
-        moviename: "测试电影名13",
+        moviename: "加载中...",
         extrainfo: 1,
         movieId: "test13",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
-        moviename: "测试电影名14",
+        moviename: "加载中...",
         extrainfo: 1,
         movieId: "test14",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
-        moviename: "测试电影名15",
+        moviename: "加载中...",
         extrainfo: 1,
         movieId: "test15",
         movieimgurl: "/static/cover/default_cover.png"
     },{
-        moviename: "测试电影名16",
+        moviename: "加载中...",
         extrainfo: 1,
         movieId: "test16",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
-        moviename: "测试电影名17",
+        moviename: "加载中...",
         extrainfo: 1,
         movieId: "test17",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
-        moviename: "测试电影名18",
+        moviename: "加载中...",
         extrainfo: 1,
         movieId: "test18",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
-        moviename: "测试电影名19",
+        moviename: "加载中...",
         extrainfo: 1,
         movieId: "test19",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
-        moviename: "测试电影名20",
+        moviename: "加载中...",
         extrainfo: 1,
         movieId: "test20",
         movieimgurl: "/static/cover/default_cover.png"
@@ -202,7 +202,7 @@
                 this.$refs.fullpage.api.moveTo(pos.param1, pos.param2);
             },
             getRecomData: function () {
-                let url = "http://120.79.240.163:8000/recom/";
+                let url = "http://127.0.0.1:8000/recom/";
                 this.$axios.get(url,{}).then(res => {
                     window.console.log(res);
                     if (res.data.result === "success") {

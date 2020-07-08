@@ -3,9 +3,11 @@
         <img style="position: absolute;height: 360px;z-index: 0;width: 100%;left: 0" :src="src1"/>
         <PageHeader style="z-index: 10;" class="myHeader"
                     v-bind:visible="false" v-on:checklogined="listenLogin"></PageHeader>
-        <MovieDetailHeader v-bind:movie-name="name"
+        <MovieDetailHeader v-bind:movie-name="movName"
                            v-bind:movie-data="movieDetailInfo"
-                           v-on:commovie="listenCom" v-bind:if-login="logined"></MovieDetailHeader>
+                           v-on:commovie="listenCom"
+                           v-bind:mov-id="name"
+                           v-bind:if-login="logined"></MovieDetailHeader>
         <el-row class="devider">
             <el-col :span="24"><div class="grid-content bg-purple"></div></el-col>
         </el-row>
@@ -30,7 +32,9 @@
                 <SingleComment v-for="reply in replies" v-bind:reply-data="reply"
                                v-bind:key="reply.replyid"
                                v-bind:head-size="'medium'"
-                               v-bind:moviename="name" v-bind:has-login="logined"></SingleComment>
+                               v-bind:moviename="name"
+                               v-bind:mov-id="name"
+                               v-bind:has-login="logined"></SingleComment>
             </el-col>
         </el-row>
         <el-row style="margin: 20px">
@@ -80,6 +84,7 @@
                 counter:10,
                 total:0,
                 logined: false,
+                movName:'加载中...',
             }
         },
         created() {
@@ -90,11 +95,12 @@
         methods:{
             fetchData(mn) {
                 window.console.log("get");
-                let url = "http://120.79.240.163:8000/movie/"+mn;
+                let url = "http://127.0.0.1:8000/movie/"+mn;
                 window.console.log(url);
                 this.$axios.get(url,{}).then(res => {
                     window.console.log(res);
                     this.setData(res.data.data);
+                    this.movName = res.data.data.movieinfo.name;
                 })
             },
             setData(data) {
@@ -102,7 +108,7 @@
             },
             getAllComment(data, start, count) {
                 start = start * this.starter;
-                let url = "http://120.79.240.163:8000/getreply?movname="+data+"&start="+start+"&count="+count;
+                let url = "http://127.0.0.1:8000/getreply?movid="+data+"&start="+start+"&count="+count;
                 window.console.log(url);
                 this.$axios.get(url,{}).then(res => {
                     window.console.log(res);
