@@ -65,7 +65,7 @@
                 window.console.log(key, keyPath);
             },
             getLoginInfo() {
-                this.$axios.get("http://127.0.0.1:8000/loginVerify/",{}).then(res => {
+                this.$axios.get("http://localhost:8000/loginVerify/",{}).then(res => {
                     window.console.log(res);
                     let v = {
                         "logined":false
@@ -94,7 +94,7 @@
                 this.$router.push({path:path1})
             },
             logout() {
-                this.$axios.get("http://127.0.0.1:8000/logout",{}).then(res => {
+                this.$axios.get("http://localhost:8000/logout",{}).then(res => {
                     window.console.log(res);
                     if (res.data.result === "success") {
                         this.$router.push({path:res.data.data.target});

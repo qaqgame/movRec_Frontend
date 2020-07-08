@@ -71,9 +71,9 @@
                 }
                 let url;
                 if (this.childreply.agreed) {
-                    url = "http://127.0.0.1:8000/cancelagree";
+                    url = "http://localhost:8000/cancelagree";
                 } else  {
-                    url = "http://127.0.0.1:8000/agree";
+                    url = "http://localhost:8000/agree";
                 }
                 this.$axios.get(url,{
                     params:{
