@@ -4,7 +4,7 @@
             <div style="width: 90%; margin: 20px auto">
                 <el-timeline>
                     <el-timeline-item v-for="(item,index) in timeline"
-                                      v-bind:timestamp="item.actiontime" v-bind:key="index" placement="top">
+                                      v-bind:timestamp="getTime(item.actiontime)" v-bind:key="index" placement="top">
                         <el-card>
                             <h4>{{item.title}}</h4>
                             <p><span v-if="item.target" class="pointer tgt"
@@ -34,8 +34,18 @@
             }
         },
         props:['username','timeline'],
-        watch: {
-
+        computed: {
+            getTime() {
+                return function (data) {
+                    let tmp = data;
+                    let ts = tmp.split("T");
+                    let res = "";
+                    res += ts[0];
+                    res += " ";
+                    res += ts[1].split(".")[0];
+                    return res;
+                }
+            },
         },
         methods: {
             getDetail(data) {

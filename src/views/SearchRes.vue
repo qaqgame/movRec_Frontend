@@ -38,8 +38,8 @@
         </el-row>
         <el-row>
             <el-col v-bind:span="16" :offset="4">
-                <div style="overflow-y: auto;display: flex; flex-wrap: wrap;justify-content: space-between">
-                    <SingleMovieCard style=";width: 165px;margin-top: 20px" v-for="item in showingMovies"
+                <div style="display: flex; flex-wrap: wrap;justify-content: space-between">
+                    <SingleMovieCard style="margin: 10px;width: 165px" v-for="item in showingMovies"
                                      v-bind:movie-name="item.moviename"
                                      v-bind:movie-source="'http://127.0.0.1:8000'+item.movieimgurl"
                                      v-bind:movie-time="item.extroinfo"
