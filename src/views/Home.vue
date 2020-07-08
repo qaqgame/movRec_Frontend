@@ -175,6 +175,21 @@
             PageHeader,
             MovieCard
         },
+        beforeRouteEnter(to,form,next) {
+            next(vm => {
+                vm.$axios.get("http://120.79.240.163:8000/loginVerify/",{}).then(res => {
+                    window.console.log(res);
+                    if (res.data.result === "failed") {
+                        vm.$notify({
+                            title: '无法查看',
+                            message: '查看主页推荐前请先登陆',
+                            type: 'error'
+                        });
+                        vm.$router.push({path:"/"})
+                    }
+                })
+            })
+        },
         created: function () {
             window.console.log("!1");
             //todo: 向后台发请求
