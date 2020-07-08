@@ -48,7 +48,7 @@
                             <span slot="label">
                                 <i class="icon iconfont" v-bind:class="operations[3].iconclass"></i>
                                 {{operations[3].label}}</span>
-                            <Command></Command>
+                            <Command v-bind:coms="recoms"></Command>
                         </el-tab-pane>
                     </el-tabs>
                 </el-row>
@@ -88,6 +88,7 @@
                 timeLineRes: null,
                 historyRes:null,
                 keepMovieRes:null,
+                recoms:null,
             }
         },
         props:['userId','data'],
@@ -100,7 +101,7 @@
                 this.getTargetData(this.activeName)
             },
             getTargetData(target) {
-                let url = 'http://127.0.0.1:8000/user/'+this.userId+target;
+                let url = 'http://120.79.240.163:8000/user/'+this.userId+target;
                 this.$axios.get(url,{}).then(res => {
                     window.console.log(res,target);
                     if (target === "/keep") {
@@ -117,7 +118,9 @@
                         }
                     } else if (target === "/comment") {
                         //TODO:
-                        return
+                        if (res.data.result === "success") {
+                            this.recoms = res.data.data.coms;
+                        }
                     }
                 })
             },

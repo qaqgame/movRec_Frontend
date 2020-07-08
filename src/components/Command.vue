@@ -3,10 +3,10 @@
         <div class="block" style="height: 500px; overflow: auto; overflow-scrolling: auto">
             <div style="width: 90%; margin: 20px auto">
                 <el-timeline>
-                    <el-timeline-item v-for="item in timeLines"
+                    <el-timeline-item v-for="item in coms"
                                       v-bind:timestamp="item.actiontime" v-bind:key="item.actiontime" placement="top">
                         <el-card>
-                            <h4>{{item.title}}</h4>
+                            <!--<h4>{{item.title}}</h4>-->
                             <p>{{item.detail}}</p>
                         </el-card>
                     </el-timeline-item>
@@ -25,7 +25,8 @@
                     {actiontime:"0000/00/00", title:"加入错影时光", detail:"XXXXXXXXX"},
                 ]
             }
-        }
+        },
+        props:['username','coms']
     }
 </script>
 

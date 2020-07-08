@@ -24,8 +24,8 @@
                     <el-col>
                         <el-row type="flex" justify="start" style="flex-wrap: wrap">
                             <h3 v-for="(item,index1) in FilterContent[index]" v-bind:key="vle+(index1-1)"
-                                class="targetitem" style="color: chocolate"
-                                v-bind:class="{targetitem: isActive}" @click="chooseType(vle,index1-1)">{{item}}</h3>
+                                class="targetitem"
+                                v-bind:class="{targetitem: isActive, HighLight:ifTarget(item, index1, vle)}" @click="chooseType(vle,index1-1)">{{item}}</h3>
                         </el-row>
                     </el-col>
                 </el-row>
@@ -41,7 +41,7 @@
                 <div style="overflow-y: auto;display: flex; flex-wrap: wrap;justify-content: space-between">
                     <SingleMovieCard style=";width: 165px;margin-top: 20px" v-for="item in showingMovies"
                                      v-bind:movie-name="item.moviename"
-                                     v-bind:movie-source="'http://127.0.0.1:8000'+item.movieimgurl"
+                                     v-bind:movie-source="'http://120.79.240.163:8000'+item.movieimgurl"
                                      v-bind:movie-time="item.extroinfo"
                                      v-bind:key="item.movieId"></SingleMovieCard>
                 </div>
@@ -77,7 +77,8 @@
                 search: 0,               // 判断是否是搜索电影的要求
                 searchMovieName: '',     // 搜索电影名
                 searchStart: 0,          // 搜索结果起始
-                bgV: false               //顶栏背景
+                bgV: false,               //顶栏背景,
+                targetFilter: [{"name":"全部","index":0, "type":"类型"},{"name":"全部","index":0, "type":"地区"}]
             }
         },
         mounted() {
@@ -169,6 +170,12 @@
                 tmp.push(this.filterType);
                 tmp.push(this.filterArea);
                 return tmp;
+            },
+            ifTarget() {
+                return function (name, index, type) {
+                    return this.targetFilter[0].type === type && this.targetFilter[0].index === index ||
+                        this.targetFilter[1].type === type && this.targetFilter[1].index === index;
+                }
             }
         },
         methods: {
@@ -190,7 +197,7 @@
             },
             // 获取筛选的类型
             getFilters() {
-                let url = "http://127.0.0.1:8000/showmovie/";
+                let url = "http://120.79.240.163:8000/showmovie/";
                 this.$axios.get(url, {}).then(res => {
                     window.console.log(res);
                     if (res.data.result === "success") {
@@ -202,11 +209,17 @@
                 })
             },
             chooseType(filter, index) {
-                if (filter === "类型") {
-                    this.modelv.type = index
-                } else if (filter === "地区") {
-                    this.modelv.field = index
+                if (!this.loading) {
+                    this.loading = true;
                 }
+                if (filter === "类型") {
+                    this.modelv.type = index;
+                    this.targetFilter[0].index = index+1;
+                } else if (filter === "地区") {
+                    this.modelv.field = index;
+                    this.targetFilter[1].index = index+1;
+                }
+                window.console.log(this.targetFilter)
                 this.search = 0;
                 this.resetCntField();
                 //立即发请求
@@ -217,7 +230,7 @@
                 if (!this.loading) {
                     this.loading = true;
                 }
-                let url0 = "http://127.0.0.1:8000/showmovie/search?";
+                let url0 = "http://120.79.240.163:8000/showmovie/search?";
                 let tmp = [];
                 if (this.modelv.type !== -1) {
                     tmp.push("type=" + this.modelv.type);
@@ -254,7 +267,7 @@
             // 搜索电影的请求
             searchMovie() {
                 this.resetCntField();
-                let url = "http://127.0.0.1:8000/showmovie/search?moviename=" + this.searchMovieName + "&start=" + this.searchStart;
+                let url = "http://120.79.240.163:8000/showmovie/search?moviename=" + this.searchMovieName + "&start=" + this.searchStart;
                 window.console.log("serach url:", url);
                 this.$axios.get(url, {}).then(res => {
                     window.console.log("search movie: ", res);
@@ -283,7 +296,7 @@
             searchMov() {
                 //this.resetCntField();
                 let params = [];
-                let url0 = "http://127.0.0.1:8000/showmovie/search?";
+                let url0 = "http://120.79.240.163:8000/showmovie/search?";
                 params.push("type=" + this.modelv.type);
                 params.push("field=" + this.modelv.field);
                 if (this.searchMovieName !== '') {
@@ -295,14 +308,19 @@
                 window.console.log(url);
                 this.$axios.get(url, {}).then(res => {
                     window.console.log(res);
-                    if (res.data.data.allmovies.length < 20) {
+                    if (res.data.result === "success") {
+                        if (res.data.data.allmovies.length < 20) {
+                            this.nomore = true;
+                        }
+                        for (let t = 0; t < res.data.data.allmovies.length; t++) {
+                            this.showingMovies.push(res.data.data.allmovies[t]);
+                            this.num += 1;
+                            this.searchStart += 1;
+                        }
+                    } else {
                         this.nomore = true;
                     }
-                    for (let t = 0; t < res.data.data.allmovies.length; t++) {
-                        this.showingMovies.push(res.data.data.allmovies[t]);
-                        this.num += 1;
-                        this.searchStart += 1;
-                    }
+
                     if (this.loading) {
                         this.loading = false;
                     }
@@ -372,5 +390,9 @@
         margin-left: 30px;
         padding-bottom: 5px;
         cursor: pointer;
+    }
+
+    .HighLight {
+        color: #00A1D6;
     }
 </style>
