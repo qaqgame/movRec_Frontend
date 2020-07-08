@@ -154,10 +154,6 @@
         display: inline-block;
     }
 
-    /*.el-menu-item:hover {*/
-        /*background: none !important;*/
-    /*}*/
-
     .el-menu-item:focus {
         background: none !important;
     }

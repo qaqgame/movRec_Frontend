@@ -57,7 +57,6 @@
     import PageHeader from "../components/PageHeader";
     import SingleMovieCard from "../components/SingleMovieCard";
     import SearchBar from "../components/SearchBar";
-
     var types = ['类型', '地区'];
     var args = {"type": -1, "field": -1, "start": 0};
     export default {
@@ -83,6 +82,9 @@
         },
         mounted() {
             window.addEventListener("scroll", this.handleScroll, true)
+        },
+        beforeDestroy() {
+            window.removeEventListener('scroll', this.handleScroll)
         },
         beforeRouteEnter(to, from, next) {
             next(vm => {
@@ -316,9 +318,6 @@
                     this.bgV = false
                 }
             }
-        },
-        destroyed() {
-            window.removeEventListener('scroll', this.handleScroll)
         }
     }
 </script>
