@@ -37,7 +37,7 @@
                 childreply: this.childReply,
             }
         },
-        props:['childReply','movieName'],
+        props:['childReply','movieName','checkLogin'],
         computed: {
             getTime() {
                 let tmp = this.childreply.time;
@@ -49,6 +49,12 @@
                 return res;
             }
         },
+        watch: {
+            checkLogin: function () {
+                window.console.log("checkLogin: ",this.checkLogin);
+            }
+        }
+        ,
         methods: {
             raiseReplyTab() {
                 let re = {
@@ -58,6 +64,11 @@
                 this.$emit("tagglere", re);
             },
             childAgree() {
+                if (!this.checkLogin) {
+                    this.$router.push({path:'/'});
+                    // todo: notify:请先登录
+                    return;
+                }
                 let url;
                 if (this.childreply.agreed) {
                     url = "http://127.0.0.1:8000/cancelagree";
