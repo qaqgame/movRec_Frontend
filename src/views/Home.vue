@@ -140,10 +140,10 @@
         extrainfo: 1,
         movieId: "test20",
         movieimgurl: "/static/cover/default_cover.png"
-    }];
+    }, ];
 
-    var movietypes = [['动画类','犯罪类','恐怖类','科幻类'],['惊悚类','爱情类','动作类','西部类'],['音乐类','灾难类','喜剧类','剧情类']];
-    var allMovieKey = ['alltypemovie','动画','犯罪','恐怖','科幻','惊悚','爱情','动作','西部','音乐','灾难','喜剧','剧情'];
+    var movietypes = [['动画类','犯罪类','恐怖类','科幻类'],['惊悚类','爱情类','动作类','西部类'],['音乐类','灾难类','剧情类']];
+    var allMovieKey = ['alltypemovie','动画','犯罪','恐怖','科幻','惊悚','爱情','动作','西部','音乐','灾难','剧情'];
     //var allIndex = [0,0,0,0,0,0,0,0,0,0,0,0,0];
     export default {
         name: 'home',
@@ -165,8 +165,8 @@
                 testInfo: testMovie,
                 movieShow: 5,
                 movieTypes: movietypes,
-                allMovieData:[testMovie,testMovie,testMovie,testMovie,testMovie,testMovie,testMovie,testMovie,testMovie,testMovie,testMovie,testMovie,testMovie],
-                allIndex : [0,0,0,0,0,0,0,0,0,0,0,0,0],
+                allMovieData:[testMovie,testMovie,testMovie,testMovie,testMovie,testMovie,testMovie,testMovie,testMovie,testMovie,testMovie,testMovie],
+                allIndex : [0,0,0,0,0,0,0,0,0,0,0,0],
             }
         },
         components: {
