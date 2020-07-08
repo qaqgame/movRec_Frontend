@@ -26,7 +26,7 @@
                 </el-row>
                 <SingleChildrenComment v-for="item in getChildrenComs" v-bind:key="item.replyid"
                                        v-bind:child-reply="item"
-                                       v-on:tagglere="openReTabFC"></SingleChildrenComment>
+                                       v-on:tagglere="openReTabFC" v-bind:check-login="haslogin"></SingleChildrenComment>
                 <el-row class="autowidth lefttxt extraColor smallsize" v-if="ifshowing">
                     <el-col :span="21" :offset="1">
                         <p class="pointer" @click="showMore()">{{showFlag}}</p>
@@ -70,10 +70,11 @@
                 replytoreply:false,
                 targetReplyId: this.replyData.replyid,
                 showNum:"less",
-                showFlag:"查看更多"
+                showFlag:"查看更多",
+                haslogin: this.hasLogin,
             }
         },
-        props:['replyData','headSize','moviename'],
+        props:['replyData','headSize','moviename','hasLogin'],
         computed: {
             getTime() {
                 let tmp = this.replydata.time;
@@ -114,6 +115,12 @@
                 return res;
             },
             replyReply() {
+                window.console.log("logined?",this.haslogin);
+                if (!this.haslogin) {
+                    this.$router.push({path:'/'});
+                    // todo: notify:请先登录
+                    return;
+                }
                 let url = "http://127.0.0.1:8000/createreply/";
                 let params = {
                     "type":"reply",
@@ -146,6 +153,12 @@
                 }
             },
             agree() {
+                window.console.log("logined?",this.haslogin);
+                if (!this.haslogin) {
+                    this.$router.push({path:'/'});
+                    // todo: notify:请先登录
+                    return;
+                }
                 let url;
                 if (this.replydata.agreed) {
                     url = "http://127.0.0.1:8000/cancelagree";

@@ -279,9 +279,10 @@
                 formLabelWidth: '120px',
                 value2: 0,
                 colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
+                logined:this.ifLogin,
             }
         },
-        props:['movieName','movieData'],
+        props:['movieName','movieData','ifLogin'],
         computed: {
             getTypes: function () {
                 let strTypes = "";
@@ -313,6 +314,9 @@
             movieData: function () {
                 this.initialMovieData = this.movieData;
                 window.console.log("moviedetail: ",this.initialMovieData)
+            },
+            ifLogin: function () {
+                this.logined = this.ifLogin;
             }
         },
         methods: {
@@ -344,6 +348,12 @@
                 }
             },
             sendMovieCom() {
+                window.console.log("logined in movie?",this.logined);
+                if (!this.logined) {
+                    this.$router.push({path:'/'});
+                    // todo: notify:请先登录
+                    return;
+                }
                 let url = "http://127.0.0.1:8000/createreply/";
                 let params = {
                     "type":"movie",

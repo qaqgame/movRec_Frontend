@@ -53,6 +53,7 @@
                 movieTypes: movietypes,
                 username:'前往登录',
                 link:'/',
+                logined:false,
                 // bgVisible: false //顶栏背景设置（透明或特定颜色）
             };
         },
@@ -66,10 +67,18 @@
             getLoginInfo() {
                 this.$axios.get("http://127.0.0.1:8000/loginVerify/",{}).then(res => {
                     window.console.log(res);
+                    let v = {
+                        "logined":false
+                    };
                     if (res.data.result === "success") {
                         this.username = res.data.data.user;
                         this.link = res.data.data.link;
+                        v.logined = true;
+                        this.logined = true;
+                    } else {
+                        this.logined = false;
                     }
+                    this.$emit("checklogined",v)
                 })
             },
             toIndex(index1, index2) {
@@ -86,7 +95,7 @@
             },
             logout() {
                 this.$axios.get("http://127.0.0.1:8000/logout",{}).then(res => {
-                    window.console.log(res)
+                    window.console.log(res);
                     if (res.data.result === "success") {
                         this.$router.push({path:res.data.data.target});
                     }

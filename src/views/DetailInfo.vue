@@ -1,10 +1,11 @@
 <template>
     <div class="DetailInfo">
         <img style="position: absolute;height: 360px;z-index: 0;width: 100%;left: 0" :src="src1"/>
-        <PageHeader style="z-index: 10;" class="myHeader" v-bind:visible="false"></PageHeader>
+        <PageHeader style="z-index: 10;" class="myHeader"
+                    v-bind:visible="false" v-on:checklogined="listenLogin"></PageHeader>
         <MovieDetailHeader v-bind:movie-name="name"
                            v-bind:movie-data="movieDetailInfo"
-                           v-on:commovie="listenCom"></MovieDetailHeader>
+                           v-on:commovie="listenCom" v-bind:if-login="logined"></MovieDetailHeader>
         <el-row class="devider">
             <el-col :span="24"><div class="grid-content bg-purple"></div></el-col>
         </el-row>
@@ -27,7 +28,9 @@
                     <h2>评论：</h2>
                 </el-row>
                 <SingleComment v-for="reply in replies" v-bind:reply-data="reply"
-                               v-bind:key="reply.replyid" v-bind:head-size="'medium'" v-bind:moviename="name"></SingleComment>
+                               v-bind:key="reply.replyid"
+                               v-bind:head-size="'medium'"
+                               v-bind:moviename="name" v-bind:has-login="logined"></SingleComment>
             </el-col>
         </el-row>
         <el-row style="margin: 20px">
@@ -75,7 +78,8 @@
                 currentPage1:1,
                 starter:10,
                 counter:10,
-                total:0
+                total:0,
+                logined: false,
             }
         },
         created() {
@@ -102,7 +106,6 @@
                 window.console.log(url);
                 this.$axios.get(url,{}).then(res => {
                     window.console.log(res);
-                    window.console.log(res.data.data.replylist[0].time)
                     if (res.data.result === "success") {
                         this.replies = res.data.data.replylist;
                         this.total = Math.ceil(res.data.data.count/this.counter)*10;
@@ -118,6 +121,10 @@
             handleCurrentChange() {
                 window.console.log("current page: ",this.currentPage1);
                 this.getAllComment(this.name, this.currentPage1-1,this.counter);
+            },
+            listenLogin:function (data) {
+                this.logined = data.logined;
+                window.console.log("if logined: ",this.logined)
             }
         }
     }
