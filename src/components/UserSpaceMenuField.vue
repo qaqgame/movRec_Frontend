@@ -101,7 +101,7 @@
                 this.getTargetData(this.activeName)
             },
             getTargetData(target) {
-                let url = 'http://127.0.0.1:8000/user/'+this.userId+target;
+                let url = 'http://120.79.240.163:8000/user/'+this.userId+target;
                 this.$axios.get(url,{}).then(res => {
                     window.console.log(res,target);
                     if (target === "/keep") {

@@ -1,7 +1,7 @@
 <template>
     <div class="SingleMovieCard">
         <el-card :body-style="{ padding: '0px' }" class="cardWidth">
-            <img v-bind:src="movieSource" onerror="javascript:this.src = 'http://127.0.0.1:8000/static/cover/default_cover.png'" class="image cardHeight">
+            <img v-bind:src="movieSource" onerror="javascript:this.src = 'http://120.79.240.163:8000/static/cover/default_cover.png'" class="image cardHeight">
             <div style="padding: 14px;">
                 <span class="movTitle">{{movieName}}</span>
                 <div class="bottom clearfix">
@@ -20,13 +20,13 @@
             return {
                 currentDate: new Date(),
                 src1:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                errorsource:"http://127.0.0.1:8000/static/cover/default_cover.png"
+                errorsource:"http://120.79.240.163:8000/static/cover/default_cover.png"
             };
         },
         props:['movieSource','movieName','movieTime','movieId'],
         methods: {
             toDetailInfo(name) {
-                // let url = "http://127.0.0.1:8000/movie/"+name;
+                // let url = "http://120.79.240.163:8000/movie/"+name;
                 window.console.log("p",name);
                 this.$router.push({name:'moviedetail', params:{name}})
             }
