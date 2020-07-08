@@ -7,9 +7,10 @@
             <el-col>
                 <el-row class="replytrhead" type="flex" justify="start" align="middle">
                     <el-col style="width: auto">
-                        <p class="lefttxt">{{childreply.name}}：</p>
+                        <p class="lefttxt">{{childreply.name}}<span v-if="childreply.target" class="tgt">回复@<span
+                                @click="toUser(childreply.target)" class="pointer">{{childreply.target}}</span></span>：</p>
                     </el-col>
-                    <el-col>
+                    <el-col style="width: auto">
                         <p class="lefttxt">{{childreply.content}}</p>
                     </el-col>
                 </el-row>
@@ -88,6 +89,9 @@
                         this.childreply.agree = res.data.data.agreecount;
                     }
                 })
+            },
+            toUser(t) {
+                this.$router.push({"path":'/user/'+t})
             }
         }
     }
@@ -124,5 +128,10 @@
 
     .replytrextra {
         margin: 5px;
+    }
+
+    .tgt {
+        font-weight: bold;
+        color: #00A1D6
     }
 </style>

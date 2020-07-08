@@ -25,16 +25,33 @@
                 defaultVis: false,
             }
         },
-
+        beforeRouteEnter(to,form,next) {
+            next(vm => {
+                vm.$axios.get("http://127.0.0.1:8000/loginVerify/",{}).then(res => {
+                    window.console.log(res);
+                    if (res.data.result === "failed") {
+                        vm.$notify({
+                            title: '无法查看',
+                            message: '查看个人空间前请先登陆',
+                            type: 'error'
+                        });
+                        vm.$router.push({path:"/"})
+                    }
+                })
+            })
+        },
         created() {
             // 获取用户数据
             this.fetchData(this.id)
         },
         watch: {
-            // todo:监听路由变化
-            // $route(to,from) {
-            //
-            // }
+            //todo:监听路由变化
+            $route(to,from) {
+                window.console.log(to, from)
+                if (to.name === from.name) {
+                    this.$router.go(0);
+                }
+            }
         },
 
         methods: {

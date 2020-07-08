@@ -68,12 +68,14 @@
                 this.$axios.get("http://127.0.0.1:8000/loginVerify/",{}).then(res => {
                     window.console.log(res);
                     let v = {
-                        "logined":false
+                        "logined":false,
+                        "level":1,
                     };
                     if (res.data.result === "success") {
                         this.username = res.data.data.user;
                         this.link = res.data.data.link;
                         v.logined = true;
+                        v.level = res.data.data.level;
                         this.logined = true;
                     } else {
                         this.logined = false;

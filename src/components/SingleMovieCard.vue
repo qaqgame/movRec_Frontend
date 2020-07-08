@@ -1,7 +1,7 @@
 <template>
     <div class="SingleMovieCard">
         <el-card :body-style="{ padding: '0px' }" class="cardWidth">
-            <img v-bind:src="movieSource" v-bind:onerror="this.src = errorsource" class="image cardHeight">
+            <img v-bind:src="movieSource" onerror="javascript:this.src = 'http://127.0.0.1:8000/static/cover/default_cover.png'" class="image cardHeight">
             <div style="padding: 14px;">
                 <span class="movTitle">{{movieName}}</span>
                 <div class="bottom clearfix">

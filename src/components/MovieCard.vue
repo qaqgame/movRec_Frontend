@@ -3,7 +3,7 @@
         <el-row>
             <el-col :span="4" v-for="(o,index) in showNum" :key="movieItems[index].movieId" :offset="index > 0 ? 1 : 0">
                 <el-card :body-style="{ padding: '0px' }" class="cardWidth">
-                    <img v-bind:src="'http://127.0.0.1:8000'+movieItems[index].movieimgurl" class="image cardHeight">
+                    <img v-bind:src="'http://127.0.0.1:8000'+movieItems[index].movieimgurl" onerror="javascript:this.src = 'http://127.0.0.1:8000/static/cover/default_cover.png'" class="image cardHeight">
                     <div style="padding: 14px;">
                         <span class="movTitle">{{movieItems[index].moviename}}</span>
                         <div class="bottom clearfix">
