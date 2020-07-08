@@ -123,7 +123,7 @@
                     // todo: notify:请先登录
                     return;
                 }
-                let url = "http://127.0.0.1:8000/createreply/";
+                let url = "http://120.79.240.163:8000/createreply/";
                 let params = {
                     "type":"reply",
                     "content": this.textarea,
@@ -163,9 +163,9 @@
                 }
                 let url;
                 if (this.replydata.agreed) {
-                    url = "http://127.0.0.1:8000/cancelagree";
+                    url = "http://120.79.240.163:8000/cancelagree";
                 } else  {
-                    url = "http://127.0.0.1:8000/agree";
+                    url = "http://120.79.240.163:8000/agree";
                 }
                 this.$axios.get(url,{
                     params:{

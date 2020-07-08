@@ -6,7 +6,7 @@
         <el-row type="flex" justify="start" align="top">
             <el-col v-bind:span="6" :offset="0" v-bind:style="{height:hei}">
                 <el-row><br/></el-row>
-                <el-image class="movieImg" :src="initialMovieData.coverurl === '' ? src : 'http://127.0.0.1:8000'+initialMovieData.coverurl"></el-image>
+                <el-image class="movieImg" :src="initialMovieData.coverurl === '' ? src : 'http://120.79.240.163:8000'+initialMovieData.coverurl"></el-image>
             </el-col>
             <el-col :span="6" :offset="0" class="movieInfo">
                 <el-row><br></el-row>
@@ -69,7 +69,7 @@
         <el-dialog title="我来评论" :visible.sync="dialogFormVisible">
             <el-row style="display: flex; flex-direction: row;flex-wrap: nowrap">
                 <el-col >
-                    <el-image  class="movieImg" :src="initialMovieData.coverurl === '' ? defaultInfo.coverurl : 'http://127.0.0.1:8000'+initialMovieData.coverurl"></el-image>
+                    <el-image  class="movieImg" :src="initialMovieData.coverurl === '' ? defaultInfo.coverurl : 'http://120.79.240.163:8000'+initialMovieData.coverurl"></el-image>
                 </el-col>
                 <el-col style="display: flex; flex-direction: column; justify-content: space-around; height: 150px;margin-left: 30px">
                     <div>
@@ -180,7 +180,7 @@
         },
         methods: {
             keepMovie() {
-                let url = "http://127.0.0.1:8000/keepMovie?movieid="+this.movId;
+                let url = "http://120.79.240.163:8000/keepMovie?movieid="+this.movId;
                 window.console.log(url);
                 this.$axios.get(url,{}).then(res => {
                     window.console.log(res);
@@ -213,7 +213,7 @@
                     // todo: notify:请先登录
                     return;
                 }
-                let url = "http://127.0.0.1:8000/createreply/";
+                let url = "http://120.79.240.163:8000/createreply/";
                 let params = {
                     "type":"movie",
                     "content": this.textarea1,

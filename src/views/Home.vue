@@ -202,19 +202,20 @@
                 this.$refs.fullpage.api.moveTo(pos.param1, pos.param2);
             },
             getRecomData: function () {
-                let url = "http://127.0.0.1:8000/recom/";
+                let url = "http://120.79.240.163:8000/recom/";
                 this.$axios.get(url,{}).then(res => {
                     window.console.log(res);
                     if (res.data.result === "success") {
                         for (let i = 0; i < allMovieKey.length ; i++) {
-                            //this.allMovieData[i-1] = res.data.data[allMovieKey[i-1]];
                             if (res.data.data[allMovieKey[i]].length !== 0) {
-                                this.$set(this.allMovieData, i, res.data.data[allMovieKey[i]])
+                                // this.$set(this.allMovieData, i, res.data.data[allMovieKey[i]])
+                                this.allMovieData[i] = res.data.data[allMovieKey[i]]
                             } else {
                                 window.console.log(i,"null")
                             }
                             //this.allMovieData.push(res.data.data[allMovieKey[i-1]])
                         }
+                        this.$forceUpdate()
                     }
                 })
             },

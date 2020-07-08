@@ -142,7 +142,7 @@
         methods:{
             fetchData(mn) {
                 window.console.log("get");
-                let url = "http://127.0.0.1:8000/movie/"+mn;
+                let url = "http://120.79.240.163:8000/movie/"+mn;
                 window.console.log(url);
                 this.$axios.get(url,{}).then(res => {
                     window.console.log(res);
@@ -155,7 +155,7 @@
             },
             getAllComment(data, start, count) {
                 start = start * this.starter;
-                let url = "http://127.0.0.1:8000/getreply?movid="+data+"&start="+start+"&count="+count;
+                let url = "http://120.79.240.163:8000/getreply?movid="+data+"&start="+start+"&count="+count;
                 window.console.log(url);
                 this.$axios.get(url,{}).then(res => {
                     window.console.log(res);
@@ -214,7 +214,7 @@
                 }
                 let inputValue = this.inputValue;
                 if (inputValue) {
-                    let url = "http://127.0.0.1:8000/addtag/";
+                    let url = "http://120.79.240.163:8000/addtag/";
                     let params = {
                         "movid":this.name,
                         "content":inputValue
@@ -244,9 +244,9 @@
                 }
                 let url;
                 if (data.agreed) {
-                    url = "http://127.0.0.1:8000/cancelagree";
+                    url = "http://120.79.240.163:8000/cancelagree";
                 } else  {
-                    url = "http://127.0.0.1:8000/agree";
+                    url = "http://120.79.240.163:8000/agree";
                 }
                 let param = {
                     "movid":this.name,
