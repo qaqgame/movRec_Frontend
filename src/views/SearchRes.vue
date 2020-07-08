@@ -312,11 +312,7 @@
                 // this.$mount();
                 let scrollTop = this.$refs.Box.scrollTop
                 // window.console.log(scrollTop)
-                if (scrollTop >= 200) {
-                    this.bgV = true
-                } else {
-                    this.bgV = false
-                }
+                this.bgV = scrollTop >= 200;
             }
         }
     }
