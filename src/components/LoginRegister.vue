@@ -62,6 +62,7 @@
         <div class="BtnGroup">
             <el-button v-show="!LoginActive" @click="reverseCard()" type="primary"><i class="el-icon-arrow-left el-icon--left"></i>前往登录</el-button>
             <el-button v-show="!RegisterActive" @click="reverseCard()" type="primary">前往注册<i class="el-icon-arrow-right el-icon--right"></i></el-button>
+            <el-button type="primary" style="margin-left: 20px!important;" @click="toShowMovie()">预览片库<i class="el-icon-arrow-right el-icon--right"></i></el-button>
         </div>
     </div>
 
@@ -121,6 +122,9 @@
                     pwd: this.RegisterForm.pwd,
                     email: this.RegisterForm.email
                 }
+            },
+            toShowMovie() {
+                this.$router.push({path:'/showmovie'})
             }
         }
     }
