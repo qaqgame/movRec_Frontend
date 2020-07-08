@@ -209,6 +209,9 @@
                 })
             },
             chooseType(filter, index) {
+                if (!this.loading) {
+                    this.loading = true;
+                }
                 if (filter === "类型") {
                     this.modelv.type = index;
                     this.targetFilter[0].index = index+1;
@@ -305,14 +308,19 @@
                 window.console.log(url);
                 this.$axios.get(url, {}).then(res => {
                     window.console.log(res);
-                    if (res.data.data.allmovies.length < 20) {
+                    if (res.data.result === "success") {
+                        if (res.data.data.allmovies.length < 20) {
+                            this.nomore = true;
+                        }
+                        for (let t = 0; t < res.data.data.allmovies.length; t++) {
+                            this.showingMovies.push(res.data.data.allmovies[t]);
+                            this.num += 1;
+                            this.searchStart += 1;
+                        }
+                    } else {
                         this.nomore = true;
                     }
-                    for (let t = 0; t < res.data.data.allmovies.length; t++) {
-                        this.showingMovies.push(res.data.data.allmovies[t]);
-                        this.num += 1;
-                        this.searchStart += 1;
-                    }
+
                     if (this.loading) {
                         this.loading = false;
                     }

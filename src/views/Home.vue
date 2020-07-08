@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <div class="home" style="min-width: 1340px">
         <div class="PageHeaderBar">
             <PageHeader ref="pageheaderref" v-on:getpos="toPos" v-bind:visible="true"></PageHeader>
         </div>
@@ -42,102 +42,102 @@
 
     var testMovie = [{
         moviename: "测试电影名1",
-        extrainfo: "测试日期",
+        extrainfo: 1,
         movieId: "test1",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
         moviename: "测试电影名2",
-        extrainfo: "测试日期",
+        extrainfo: 1,
         movieId: "test2",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
         moviename: "测试电影名3",
-        extrainfo: "测试日期",
+        extrainfo: 1,
         movieId: "test3",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
         moviename: "测试电影名4",
-        extrainfo: "测试日期",
+        extrainfo: 1,
         movieId: "test4",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
         moviename: "测试电影名5",
-        extrainfo: "测试日期",
+        extrainfo: 1,
         movieId: "test5",
         movieimgurl: "/static/cover/default_cover.png"
     },{
         moviename: "测试电影名6",
-        extrainfo: "测试日期",
+        extrainfo: 1,
         movieId: "test6",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
         moviename: "测试电影名7",
-        extrainfo: "测试日期",
+        extrainfo: 1,
         movieId: "test7",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
         moviename: "测试电影名8",
-        extrainfo: "测试日期",
+        extrainfo: 1,
         movieId: "test8",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
         moviename: "测试电影名9",
-        extrainfo: "测试日期",
+        extrainfo: 1,
         movieId: "test9",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
         moviename: "测试电影名10",
-        extrainfo: "测试日期",
+        extrainfo: 1,
         movieId: "test10",
         movieimgurl: "/static/cover/default_cover.png"
     },{
         moviename: "测试电影名11",
-        extrainfo: "测试日期",
+        extrainfo: 1,
         movieId: "test11",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
         moviename: "测试电影名12",
-        extrainfo: "测试日期",
+        extrainfo: 1,
         movieId: "test12",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
         moviename: "测试电影名13",
-        extrainfo: "测试日期",
+        extrainfo: 1,
         movieId: "test13",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
         moviename: "测试电影名14",
-        extrainfo: "测试日期",
+        extrainfo: 1,
         movieId: "test14",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
         moviename: "测试电影名15",
-        extrainfo: "测试日期",
+        extrainfo: 1,
         movieId: "test15",
         movieimgurl: "/static/cover/default_cover.png"
     },{
         moviename: "测试电影名16",
-        extrainfo: "测试日期",
+        extrainfo: 1,
         movieId: "test16",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
         moviename: "测试电影名17",
-        extrainfo: "测试日期",
+        extrainfo: 1,
         movieId: "test17",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
         moviename: "测试电影名18",
-        extrainfo: "测试日期",
+        extrainfo: 1,
         movieId: "test18",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
         moviename: "测试电影名19",
-        extrainfo: "测试日期",
+        extrainfo: 1,
         movieId: "test19",
         movieimgurl: "/static/cover/default_cover.png"
     }, {
         moviename: "测试电影名20",
-        extrainfo: "测试日期",
+        extrainfo: 1,
         movieId: "test20",
         movieimgurl: "/static/cover/default_cover.png"
     }];
@@ -204,7 +204,7 @@
             getRecomData: function () {
                 let url = "http://127.0.0.1:8000/recom/";
                 this.$axios.get(url,{}).then(res => {
-                    // window.console.log(res);
+                    window.console.log(res);
                     if (res.data.result === "success") {
                         for (let i = 0; i < allMovieKey.length ; i++) {
                             //this.allMovieData[i-1] = res.data.data[allMovieKey[i-1]];

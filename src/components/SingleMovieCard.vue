@@ -1,9 +1,9 @@
 <template>
     <div class="SingleMovieCard">
-        <el-card :body-style="{ padding: '0px' }">
-            <img v-bind:src="movieSource.toString()===''?src1 : movieSource" class="image">
+        <el-card :body-style="{ padding: '0px' }" class="cardWidth">
+            <img v-bind:src="movieSource" v-bind:onerror="this.src = errorsource" class="image cardHeight">
             <div style="padding: 14px;">
-                <span>{{movieName}}</span>
+                <span class="movTitle">{{movieName}}</span>
                 <div class="bottom clearfix">
                     <time class="time">{{ movieTime }}</time>
                     <el-button type="text" class="button" @click="toDetailInfo(movieName)">详细信息>>></el-button>
@@ -19,7 +19,8 @@
         data() {
             return {
                 currentDate: new Date(),
-                src1:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                src1:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
+                errorsource:"http://127.0.0.1:8000/static/cover/default_cover.png"
             };
         },
         props:['movieSource','movieName','movieTime'],
@@ -61,5 +62,23 @@
 
     .clearfix:after {
         clear: both
+    }
+
+    .cardWidth {
+        width: 170px;
+    }
+
+    .cardHeight {
+        height: 240px
+    }
+
+    .movTitle {
+        height: 17px;
+        line-height: 17px;
+        display: inline-block;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 142px;
+        white-space: nowrap;
     }
 </style>
