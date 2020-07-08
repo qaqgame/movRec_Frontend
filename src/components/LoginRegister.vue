@@ -15,7 +15,7 @@
                         <el-form-item prop="pwd" label="密码" size="small" align="left" :rules="[
                 {required: true, message:'请输入密码', trigger: 'blur'},
                 ]">
-                            <el-input v-model="RegisterForm.pwd"></el-input>
+                            <el-input v-model="RegisterForm.pwd" show-password></el-input>
                         </el-form-item>
 
                         <el-form-item prop="email" label="邮箱" size="small" align="left" :rules="[
@@ -48,7 +48,7 @@
                                     <el-form-item prop="pwd" label="密码" size="small" align="left" :rules="[
                         {required: true, message:'请输入密码', trigger: 'blur'},
                         ]">
-                            <el-input v-model="LoginForm.pwd"></el-input>
+                            <el-input v-model="LoginForm.pwd" show-password></el-input>
                         </el-form-item>
 
                         <el-form-item>
