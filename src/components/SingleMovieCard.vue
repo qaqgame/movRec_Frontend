@@ -20,13 +20,13 @@
             return {
                 currentDate: new Date(),
                 src1:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                errorsource:"http://localhost:8000/static/cover/default_cover.png"
+                errorsource:"http://120.79.240.163:8000/static/cover/default_cover.png"
             };
         },
         props:['movieSource','movieName','movieTime'],
         methods: {
             toDetailInfo(name) {
-                // let url = "http://localhost:8000/movie/"+name;
+                // let url = "http://120.79.240.163:8000/movie/"+name;
                 this.$router.push({name:'moviedetail', params:{name}})
             }
         }

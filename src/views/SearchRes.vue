@@ -41,7 +41,7 @@
                 <div style="overflow-y: auto;display: flex; flex-wrap: wrap;justify-content: space-between">
                     <SingleMovieCard style=";width: 165px;margin-top: 20px" v-for="item in showingMovies"
                                      v-bind:movie-name="item.moviename"
-                                     v-bind:movie-source="'http://localhost:8000'+item.movieimgurl"
+                                     v-bind:movie-source="'http://120.79.240.163:8000'+item.movieimgurl"
                                      v-bind:movie-time="item.extroinfo"
                                      v-bind:key="item.movieId"></SingleMovieCard>
                 </div>
@@ -197,7 +197,7 @@
             },
             // 获取筛选的类型
             getFilters() {
-                let url = "http://localhost:8000/showmovie/";
+                let url = "http://120.79.240.163:8000/showmovie/";
                 this.$axios.get(url, {}).then(res => {
                     window.console.log(res);
                     if (res.data.result === "success") {
@@ -230,7 +230,7 @@
                 if (!this.loading) {
                     this.loading = true;
                 }
-                let url0 = "http://localhost:8000/showmovie/search?";
+                let url0 = "http://120.79.240.163:8000/showmovie/search?";
                 let tmp = [];
                 if (this.modelv.type !== -1) {
                     tmp.push("type=" + this.modelv.type);
@@ -267,7 +267,7 @@
             // 搜索电影的请求
             searchMovie() {
                 this.resetCntField();
-                let url = "http://localhost:8000/showmovie/search?moviename=" + this.searchMovieName + "&start=" + this.searchStart;
+                let url = "http://120.79.240.163:8000/showmovie/search?moviename=" + this.searchMovieName + "&start=" + this.searchStart;
                 window.console.log("serach url:", url);
                 this.$axios.get(url, {}).then(res => {
                     window.console.log("search movie: ", res);
@@ -296,7 +296,7 @@
             searchMov() {
                 //this.resetCntField();
                 let params = [];
-                let url0 = "http://localhost:8000/showmovie/search?";
+                let url0 = "http://120.79.240.163:8000/showmovie/search?";
                 params.push("type=" + this.modelv.type);
                 params.push("field=" + this.modelv.field);
                 if (this.searchMovieName !== '') {

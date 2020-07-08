@@ -202,7 +202,7 @@
                 this.$refs.fullpage.api.moveTo(pos.param1, pos.param2);
             },
             getRecomData: function () {
-                let url = "http://localhost:8000/recom/";
+                let url = "http://120.79.240.163:8000/recom/";
                 this.$axios.get(url,{}).then(res => {
                     window.console.log(res);
                     if (res.data.result === "success") {

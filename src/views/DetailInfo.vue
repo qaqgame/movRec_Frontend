@@ -90,7 +90,7 @@
         methods:{
             fetchData(mn) {
                 window.console.log("get");
-                let url = "http://localhost:8000/movie/"+mn;
+                let url = "http://120.79.240.163:8000/movie/"+mn;
                 window.console.log(url);
                 this.$axios.get(url,{}).then(res => {
                     window.console.log(res);
@@ -102,7 +102,7 @@
             },
             getAllComment(data, start, count) {
                 start = start * this.starter;
-                let url = "http://localhost:8000/getreply?movname="+data+"&start="+start+"&count="+count;
+                let url = "http://120.79.240.163:8000/getreply?movname="+data+"&start="+start+"&count="+count;
                 window.console.log(url);
                 this.$axios.get(url,{}).then(res => {
                     window.console.log(res);

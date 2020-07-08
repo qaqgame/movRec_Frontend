@@ -3,7 +3,7 @@
         <el-row>
             <el-col :span="4" v-for="(o,index) in showNum" :key="movieItems[index].movieId" :offset="index > 0 ? 1 : 0">
                 <el-card :body-style="{ padding: '0px' }" class="cardWidth">
-                    <img v-bind:src="'http://localhost:8000'+movieItems[index].movieimgurl" class="image cardHeight">
+                    <img v-bind:src="'http://120.79.240.163:8000'+movieItems[index].movieimgurl" class="image cardHeight">
                     <div style="padding: 14px;">
                         <span class="movTitle">{{movieItems[index].moviename}}</span>
                         <div class="bottom clearfix">
@@ -28,7 +28,7 @@
         props:['movieItems','showNum'],
         methods: {
             toDetailInfo(name) {
-                // let url = "http://localhost:8000/movie/"+name;
+                // let url = "http://120.79.240.163:8000/movie/"+name;
                 this.$router.push({name:'moviedetail', params:{name}})
             }
         }
