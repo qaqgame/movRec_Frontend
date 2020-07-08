@@ -1,7 +1,7 @@
 <template>
     <div class="MovieCard">
         <el-row>
-            <el-col :span="4" v-for="(o,index) in showNum" :key="movieItems[index].movieId" :offset="index > 0 ? 1 : 0">
+            <el-col :span="4" v-for="(o,index) in showNum" :key="cardType+movieItems[index].movieId" :offset="index > 0 ? 1 : 0">
                 <el-card :body-style="{ padding: '0px' }" class="cardWidth">
                     <img v-bind:src="'http://120.79.240.163:8000'+movieItems[index].movieimgurl" onerror="javascript:this.src = 'http://120.79.240.163:8000/static/cover/default_cover.png'" class="image cardHeight">
                     <div style="padding: 14px;">
@@ -25,7 +25,7 @@
                 currentDate: new Date()
             };
         },
-        props:['movieItems','showNum'],
+        props:['movieItems','showNum','cardType'],
         methods: {
             toDetailInfo(name) {
                 // let url = "http://120.79.240.163:8000/movie/"+id;

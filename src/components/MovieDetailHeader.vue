@@ -171,7 +171,7 @@
         watch: {
             movieData: function () {
                 this.initialMovieData = this.movieData;
-                this.value = Number(this.movieData.rate.toFixed(1));
+                this.value = Number((this.movieData.rate/2).toFixed(1));
                 window.console.log("moviedetail: ",this.initialMovieData)
             },
             ifLogin: function () {
@@ -217,7 +217,7 @@
                 let params = {
                     "type":"movie",
                     "content": this.textarea1,
-                    "grade": Number(this.value2),
+                    "grade": Number(this.value2*2),
                     "movieid": this.movId
                 };
                 window.console.log(url,params);

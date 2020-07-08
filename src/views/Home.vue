@@ -15,7 +15,7 @@
                 <DivideBar v-bind:part-title="'全部电影推荐'" v-bind:index-of-part="0" v-on:partindex="getindex"></DivideBar>
                 <el-row>
                     <el-col :span="16" :offset="4">
-                        <MovieCard v-bind:show-num="movieShow" v-bind:movie-items="getMovies(0)"></MovieCard>
+                        <MovieCard v-bind:card-type="'alltype'" v-bind:show-num="movieShow" v-bind:movie-items="getMovies(0)"></MovieCard>
                     </el-col>
                 </el-row>
             </div>
@@ -24,7 +24,7 @@
                     <DivideBar v-bind:part-title="item+'电影推荐'" v-bind:index-of-part="index+1"  v-on:partindex="getindex"></DivideBar>
                     <el-row>
                         <el-col :span="16" :offset="4">
-                            <MovieCard v-bind:show-num="movieShow" v-bind:movie-items="getMovies(index+1)"></MovieCard>
+                            <MovieCard v-bind:card-type="item" v-bind:show-num="movieShow" v-bind:movie-items="getMovies(index+1)"></MovieCard>
                         </el-col>
                     </el-row>
                 </div>
