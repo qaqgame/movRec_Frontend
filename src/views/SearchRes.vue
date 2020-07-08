@@ -24,7 +24,7 @@
                     <el-col>
                         <el-row type="flex" justify="start" style="flex-wrap: wrap">
                             <h3 v-for="(item,index1) in FilterContent[index]" v-bind:key="vle+(index1-1)"
-                                class="targetitem"
+                                class="targetitem" style="color: chocolate"
                                 v-bind:class="{targetitem: isActive}" @click="chooseType(vle,index1-1)">{{item}}</h3>
                         </el-row>
                     </el-col>
