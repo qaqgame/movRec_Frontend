@@ -7,7 +7,7 @@
             <el-col>
                 <el-row class="replytrhead" type="flex" justify="start" align="middle">
                     <el-col style="width: auto">
-                        <p class="lefttxt">{{childreply.name}}<span v-if="childreply.target" class="tgt">回复@<span
+                        <p class="lefttxt pointer"><span @click="toUser(childreply.name)">{{childreply.name}}</span><span v-if="childreply.target" class="tgt">回复@<span
                                 @click="toUser(childreply.target)" class="pointer">{{childreply.target}}</span></span>：</p>
                     </el-col>
                     <el-col style="width: auto">

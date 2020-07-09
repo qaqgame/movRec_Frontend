@@ -6,7 +6,7 @@
             </el-col>
             <el-col :span="16">
                 <el-divider class="slimLine"></el-divider>
-                <el-row class="comUser"><h3 class="lefttxt">{{replydata.name}}</h3></el-row>
+                <el-row class="comUser"><h3 class="lefttxt pointer" @click="toUser(replydata.name)">{{replydata.name}}</h3></el-row>
                 <el-row class="comRate"><el-rate class="lefttxt"
                         v-model="value"
                         disabled
@@ -188,6 +188,9 @@
                         this.replydata.agree = res.data.data.agreecount;
                     }
                 })
+            },
+            toUser(tar) {
+                this.$router.push({path:'/user/'+tar})
             }
         }
     }
