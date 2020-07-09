@@ -180,6 +180,16 @@
         },
         methods: {
             keepMovie() {
+                window.console.log("logined in movie?",this.logined);
+                if (!this.logined) {
+                    this.$router.push({path:'/'});
+                    this.$notify({
+                        title: '请先登录',
+                        message: '请先登陆，再收藏',
+                        type: 'error'
+                    });
+                    return;
+                }
                 let url = "http://120.79.240.163:8000/keepMovie?movieid="+this.movId;
                 window.console.log(url);
                 this.$axios.get(url,{}).then(res => {
@@ -211,6 +221,11 @@
                 if (!this.logined) {
                     this.$router.push({path:'/'});
                     // todo: notify:请先登录
+                    this.$notify({
+                        title: '请先登录',
+                        message: '请先登陆，再评论',
+                        type: 'error'
+                    });
                     return;
                 }
                 let url = "http://120.79.240.163:8000/createreply/";

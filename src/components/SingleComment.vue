@@ -120,7 +120,11 @@
                 window.console.log("logined?",this.haslogin);
                 if (!this.haslogin) {
                     this.$router.push({path:'/'});
-                    // todo: notify:请先登录
+                    this.$notify({
+                        title: '请先登录',
+                        message: '请先登陆，再回复',
+                        type: 'error'
+                    });
                     return;
                 }
                 let url = "http://120.79.240.163:8000/createreply/";
@@ -158,7 +162,11 @@
                 window.console.log("logined?",this.haslogin);
                 if (!this.haslogin) {
                     this.$router.push({path:'/'});
-                    // todo: notify:请先登录
+                    this.$notify({
+                        title: '请先登录',
+                        message: '请先登陆，再点赞',
+                        type: 'error'
+                    });
                     return;
                 }
                 let url;
